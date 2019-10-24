@@ -1,0 +1,544 @@
+{
+  "jblaasch0": [
+    "services",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "mtrowl1": [
+    "services",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "saspell2": ["sales", "introductions", "random", "announcements", "standup"],
+  "fboult3": [
+    "engineering",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "bespinay4": [
+    "accounting",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "asiflet5": [
+    "training",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "fmartignoni6": [
+    "human-resources",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "aferronet7": [
+    "research",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "pferries8": [
+    "support",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "fkelwick9": ["sales", "introductions", "random", "announcements", "standup"],
+  "ahinchshawa": [
+    "marketing",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "rbrahamb": [
+    "business",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "bvollethc": [
+    "product",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "jkurtend": [
+    "business",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "ewanleye": [
+    "business",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "amckagf": ["product", "introductions", "random", "announcements", "standup"],
+  "glampartg": [
+    "product",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "dgronaverh": [
+    "marketing",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "dwillacoti": [
+    "sales",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "ebiffinj": [
+    "services",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "tkerrigank": [
+    "human-resources",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "bganningl": [
+    "services",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "fbolinom": [
+    "accounting",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "regann": ["services", "introductions", "random", "announcements", "standup"],
+  "cclydeo": [
+    "business",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "ndymokep": [
+    "services",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "skikeq": ["support", "introductions", "random", "announcements", "standup"],
+  "pansteyr": [
+    "research",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "mpettefords": [
+    "accounting",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "kgeramt": [
+    "training",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "mflecknellu": [
+    "business",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "rmeekev": ["legal", "introductions", "random", "announcements", "standup"],
+  "lgawnew": [
+    "services",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "aboundex": [
+    "services",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "hgilffillany": [
+    "business",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "wbohdenz": [
+    "training",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "mroon10": [
+    "marketing",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "bwardrop11": [
+    "legal",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "cfattore12": [
+    "services",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "draubenheimers13": [
+    "accounting",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "wsimenot14": [
+    "business",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "gtyrone15": [
+    "accounting",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "cmclenahan16": [
+    "accounting",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "szavattiero17": [
+    "human-resources",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "dadami18": [
+    "support",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "bjay19": [
+    "accounting",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "gnolleth1a": [
+    "engineering",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "gpasse1b": [
+    "support",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "ngascard1c": [
+    "engineering",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "ezucker1d": [
+    "human-resources",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "bduffit1e": [
+    "engineering",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "blockitt1f": [
+    "support",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "dcready1g": [
+    "business",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "mmacaree1h": [
+    "marketing",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "rdorken1i": [
+    "research",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "jcolchett1j": [
+    "product",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "cbennion1k": [
+    "engineering",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "gbohey1l": ["sales", "introductions", "random", "announcements", "standup"],
+  "mreeves1m": [
+    "business",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "atear1n": ["product", "introductions", "random", "announcements", "standup"],
+  "vharby1o": ["sales", "introductions", "random", "announcements", "standup"],
+  "lveighey1p": [
+    "marketing",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "ccookman1q": [
+    "support",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "aghione1r": [
+    "services",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "cstalman1s": [
+    "human-resources",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "ngrint1t": ["sales", "introductions", "random", "announcements", "standup"],
+  "aosgood1u": [
+    "marketing",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "sbehnecken1v": [
+    "research",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "gsausman1w": [
+    "support",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "jbridgeman1x": [
+    "engineering",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "jeddowes1y": [
+    "legal",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "dcasier1z": [
+    "engineering",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "lheisler20": [
+    "research",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "nwaleworke21": [
+    "business",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "ehearthfield22": [
+    "engineering",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "hpiniur23": [
+    "business",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "wmcbride24": [
+    "sales",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "cmcrobert25": [
+    "human-resources",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "igorelli26": [
+    "research",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "jfourman27": [
+    "product",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "kpietrowicz28": [
+    "marketing",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "ytonnesen29": [
+    "business",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "hwhimp2a": [
+    "marketing",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "edanelut2b": [
+    "training",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "frozenzweig2c": [
+    "engineering",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ],
+  "crossander2d": [
+    "human-resources",
+    "introductions",
+    "random",
+    "announcements",
+    "standup"
+  ]
+}

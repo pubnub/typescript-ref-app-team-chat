@@ -1,0 +1,83 @@
+{
+  "services": {
+    "id": "services",
+    "name": "services",
+    "description": "internal discussion for the services team"
+  },
+  "sales": {
+    "id": "sales",
+    "name": "sales",
+    "description": "internal discussion for the sales team",
+    "present": ["gbohey1l", "vharby1o", "ngrint1t"]
+  },
+  "engineering": {
+    "id": "engineering",
+    "name": "engineering",
+    "description": "internal discussion for the engineering team"
+  },
+  "accounting": {
+    "id": "accounting",
+    "name": "accounting",
+    "description": "internal discussion for the accounting team"
+  },
+  "training": {
+    "id": "training",
+    "name": "training",
+    "description": "internal discussion for the training team"
+  },
+  "human-resources": {
+    "id": "human-resources",
+    "name": "human-resources",
+    "description": "internal discussion for the human-resources team"
+  },
+  "research": {
+    "id": "research",
+    "name": "research",
+    "description": "internal discussion for the research team"
+  },
+  "support": {
+    "id": "support",
+    "name": "support",
+    "description": "internal discussion for the support team"
+  },
+  "marketing": {
+    "id": "marketing",
+    "name": "marketing",
+    "description": "internal discussion for the marketing team"
+  },
+  "business": {
+    "id": "business",
+    "name": "business",
+    "description": "internal discussion for the business team"
+  },
+  "product": {
+    "id": "product",
+    "name": "product",
+    "description": "internal discussion for the product team"
+  },
+  "legal": {
+    "id": "legal",
+    "name": "legal",
+    "description": "internal discussion for the legal team"
+  },
+  "introductions": {
+    "id": "introductions",
+    "name": "introductions",
+    "description": "welcome new members to the team"
+  },
+  "random": {
+    "id": "random",
+    "name": "random",
+    "description": "offtopic discussion"
+  },
+  "announcements": {
+    "id": "announcements",
+    "name": "announcements",
+    "description": "important company wide announcements"
+  },
+  "standup": {
+    "id": "standup",
+    "name": "standup",
+    "description": "share anything you're progress with other teams"
+  }
+}
