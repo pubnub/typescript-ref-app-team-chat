@@ -1,4 +1,4 @@
-import { AppActions } from "app/AppActions";
+import { AppActions } from "main/AppActions";
 
 export enum Breakpoint {
   Small,
@@ -64,4 +64,4 @@ const LayoutStateReducer = (
   return state;
 };
 
-export default LayoutStateReducer;
+export { LayoutStateReducer };

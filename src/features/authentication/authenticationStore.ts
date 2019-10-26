@@ -1,6 +1,6 @@
-import { RootState } from "app/store";
+import { RootState } from "main/store";
 import { createSelector } from "reselect";
-import { AppActions } from "app/AppActions";
+import { AppActions } from "main/AppActions";
 export const LOGGING_IN = "LOGGIN_IN";
 export const LOGIN_SUCCEEDED = "LOGIN_SUCCEEDED";
 
@@ -83,4 +83,4 @@ export const isLoggingIn = createSelector(
   }
 );
 
-export default AuthenticationStateReducer;
+export { AuthenticationStateReducer };

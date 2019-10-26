@@ -1,5 +1,5 @@
-import { RootState } from "app/store";
-import { AppActions } from "app/AppActions";
+import { RootState } from "main/store";
+import { AppActions } from "main/AppActions";
 import { createSelector } from "reselect";
 
 export const DEFAULT_CONVERSATION = "introductions";
@@ -39,7 +39,7 @@ const currentConversationStateReducer = (
   return state;
 };
 
-export default currentConversationStateReducer;
+export { currentConversationStateReducer };
 
 const getCurrentConversationSlice = (state: RootState) =>
   state.currentConversation;

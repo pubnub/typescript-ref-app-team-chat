@@ -1,4 +1,4 @@
-import { RootState } from "app/store";
+import { RootState } from "main/store";
 import { createSelector } from "reselect";
 import { createMessageReducer, Message as PubNubMessage } from "pubnub-redux";
 
@@ -27,4 +27,5 @@ export const getMessagesById = createSelector(
   }
 );
 
-export default createMessageReducer<Message>();
+const MessageStateReducer = createMessageReducer<Message>();
+export { MessageStateReducer };

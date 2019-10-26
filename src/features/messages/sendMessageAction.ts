@@ -1,4 +1,4 @@
-import { ActionThunk } from "app/store";
+import { ActionThunk } from "main/store";
 import { getCurrentConversationId } from "features/currentConversation/currentConversationStore";
 import { MessageContent } from "./messageStore";
 import { sendMessage } from "pubnub-redux";

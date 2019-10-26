@@ -1,6 +1,6 @@
 import { createSelector } from "reselect";
-import { RootState } from "app/store";
-import { Breakpoint, Layout } from "features/layout/store";
+import { RootState } from "main/store";
+import { Breakpoint, Layout } from "./store";
 
 const getLayoutSlice = (state: RootState) => state.layout;
 

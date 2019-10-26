@@ -1,6 +1,6 @@
-import { RootState } from "app/store";
+import { RootState } from "main/store";
 import { createSelector } from "reselect";
-import { createMembersReducer } from 'pubnub-redux';
+import { createMembersReducer } from "pubnub-redux";
 
 export type MembershipHash = { [id: string]: { id: string }[] };
 
@@ -18,4 +18,6 @@ export const getUsersByConversationId = createSelector(
   }
 );
 
-export default createMembersReducer();
+const ConversationMembersStateReducer = createMembersReducer();
+
+export { ConversationMembersStateReducer };

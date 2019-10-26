@@ -1,4 +1,4 @@
-import { ActionThunk } from "app/store";
+import { ActionThunk } from "main/store";
 import { navigate } from "@reach/router";
 import { loggingIn, loginSucceeded } from "./authenticationStore";
 

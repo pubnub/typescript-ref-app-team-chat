@@ -1,4 +1,4 @@
-import { RootState } from "app/store";
+import { RootState } from "main/store";
 import { createSelector } from "reselect";
 import { combineReducers } from "redux";
 import {
@@ -25,9 +25,9 @@ export type ConversationsIndexedById = { [id: string]: Conversation };
  */
 const conversationStateReducer = combineReducers({
   conversations: createSpaceReducer<Conversation>(),
-  allConversations: createSpaceListReducer(),
+  allConversations: createSpaceListReducer()
 });
-export default conversationStateReducer;
+export { conversationStateReducer };
 
 /**
  * Slice selectors are used internally to access the state of the reducer

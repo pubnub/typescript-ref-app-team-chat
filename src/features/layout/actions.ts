@@ -1,12 +1,7 @@
-import {
-  Breakpoint,
-  Layout,
-  setLayout,
-  setBreakpoint
-} from "features/layout/store";
-import { getBreakpoint, getLayout } from "features/layout/selectors";
+import { Breakpoint, Layout, setLayout, setBreakpoint } from "./store";
+import { getBreakpoint, getLayout } from "./selectors";
 
-import { ActionThunk } from "app/store";
+import { ActionThunk } from "main/store";
 
 export function setLayoutDefault() {
   return setLayout(Layout.Default);

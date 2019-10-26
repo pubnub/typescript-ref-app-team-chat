@@ -1,4 +1,4 @@
-import { RootState } from "app/store";
+import { RootState } from "main/store";
 import { createSelector } from "reselect";
 import { createMembershipReducer } from "pubnub-redux";
 
@@ -17,4 +17,5 @@ export const getConversationsByUserId = createSelector(
   }
 );
 
-export default createMembershipReducer();
+const JoinedConversationsStateReducer = createMembershipReducer();
+export { JoinedConversationsStateReducer };

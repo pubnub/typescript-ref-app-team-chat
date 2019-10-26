@@ -1,4 +1,4 @@
-import { RootState } from "app/store";
+import { RootState } from "main/store";
 import { createSelector } from "reselect";
 import { createUserReducer, User as PubNubUser } from "pubnub-redux";
 
@@ -29,7 +29,7 @@ export type UsersIndexedById = { [id: string]: User };
  * create a reducer which holds all known user objects in a normalized form
  */
 const UsersReducer = createUserReducer<User>();
-export default UsersReducer;
+export { UsersReducer };
 
 /**
  * Slice selector is used internally to access the state of the reducer

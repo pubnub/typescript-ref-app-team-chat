@@ -1,13 +1,13 @@
 import React from "react";
-import Menu from "features/menu/Menu";
-import CurrentConversation from "features/currentConversation/CurrentConversation";
-import ConversationMembers from "features/conversationMembers/ConversationMembers";
-import JoinConversationOverlay from "features/joinedConversations/JoinConversationOverlay";
+import { Menu } from "features/menu/Menu/Menu";
+import { CurrentConversation } from "features/currentConversation/CurrentConversation/CurrentConversation";
+import { ConversationMembers } from "features/conversationMembers/ConversationMembers/ConversationMembers";
+import { JoinConversationOverlay } from "features/joinedConversations/JoinConversationOverlay/JoinConversationOverlay";
 import { Redirect, RouteComponentProps } from "@reach/router";
 import { isUserLoggedIn } from "features/authentication/authenticationStore";
 import { useSelector } from "react-redux";
 
-const Chat = (props: RouteComponentProps) => {
+export const ChatRoute = (props: RouteComponentProps) => {
   const loggedIn = useSelector(isUserLoggedIn);
   return loggedIn ? (
     <>
@@ -20,5 +20,3 @@ const Chat = (props: RouteComponentProps) => {
     <Redirect from="/" to="/login" noThrow />
   );
 };
-
-export default Chat;
