@@ -23,13 +23,13 @@ If you don't already have an account, you can create one for free [here](https:/
 
 ## Building the project
 
-1. Clone the repo
+1. Clone the Github repository.
 
 ```bash
 git clone git@github.com:pubnub/typescript-ref-app-team-chat.git
 ```
 
-1. Navigate to the react project directory:
+2. Install the project.
 
 ```bash
 npm install
@@ -41,10 +41,10 @@ npm install
 npm run setup
 ```
 
-3. Run the app in development mode:
+3. Run the project in your local environment.
 
 ```bash
-npm run start
+npm start
 ```
 
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
