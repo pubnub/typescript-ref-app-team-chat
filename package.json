@@ -1,0 +1,83 @@
+{
+  "name": "team-chat",
+  "version": "0.2.0",
+  "description": "Team Chat - A Reference Application for PubNub with Typescript, React and Redux",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@reach/router": "^1.2.1",
+    "@types/reach__router": "^1.2.6",
+    "@types/emoji-mart": "^2.11.0",
+    "@types/pubnub": "^4.0.7",
+    "@types/react": "^16.9.4",
+    "@types/react-dom": "^16.9.1",
+    "@types/react-redux": "^7.1.2",
+    "@types/styled-components": "^4.1.19",
+    "emoji-mart": "^2.11.1",
+    "polished": "^3.4.1",
+    "pubnub": "^4.27.0",
+    "pubnub-react": "^2.0.0-beta.4",
+    "pubnub-redux": "^0.1.16-alpha",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-pose": "^4.0.8",
+    "react-redux": "^7.1.0",
+    "redux": "^4.0.4",
+    "redux-thunk": "^2.3.0",
+    "reselect": "^4.0.0",
+    "styled-components": "^4.4.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "setup": "cd setup && node populate.js",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "babelMacros": {
+    "styledComponents": {}
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^4.0.0",
+    "@testing-library/react": "^9.1.4",
+    "@types/jest": "24.0.18",
+    "@types/node": "^12.7.5",
+    "cli-progress": "^3.3.1",
+    "eslint-plugin-react-hooks": "^2.1.1",
+    "file-system": "^2.2.2",
+    "husky": "^3.0.8",
+    "lint-staged": "^9.4.1",
+    "node": "^12.12.0",
+    "prettier": "^1.18.2",
+    "react-scripts": "3.2.0",
+    "readline": "^1.3.0",
+    "requirejs": "^2.3.6",
+    "typescript": "3.6.3"
+  }
+}
