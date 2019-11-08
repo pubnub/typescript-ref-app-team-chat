@@ -4,25 +4,15 @@ export const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
+  height: 100%;
   flex-direction: column;
   background-color: #f0f3f7;
-  justify-content: space-between;
+  justify-content: center;
 `;
 
 export const Body = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 200px;
-`;
-
-export const Title = styled.div`
-  color: #3f3f3f;
-  font-family: "Roboto", sans-serif;
-  font-weight: 400;
-  font-size: 32px;
-  padding: 50px;
-  margin-bottom: 30px;
-  align-self: center;
 `;
 
 export const Button = styled.button`
@@ -37,6 +27,7 @@ export const Button = styled.button`
   border-radius: 32px;
   padding: 16px 0;
   background: #5baefc;
+  border: none;
   &:focus {
     outline: none;
   }
@@ -51,14 +42,10 @@ export const PoweredBy = styled.div`
   letter-spacing: 3px;
   justify-content: center;
   text-transform: uppercase;
-  margin-bottom: -25px;
 `;
 
 export const PoweredByPubNub = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
   width: 180px;
   align-self: center;
-  margin-bottom: 50px;
+  margin-top: 80px;
 `;

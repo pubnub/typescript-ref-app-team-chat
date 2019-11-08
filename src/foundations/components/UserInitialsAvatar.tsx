@@ -9,6 +9,7 @@ export const Wrapper = styled.div<{ color: string; size: number }>`
   border-radius: 50%;
   text-align: center;
   color: white;
+  text-transform: uppercase;
   vertical-align: middle;
   background-color: ${props => props.color};
   width: ${props => props.size}px;

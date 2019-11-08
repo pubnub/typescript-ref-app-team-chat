@@ -1,4 +1,4 @@
-import { RootState } from "main/store";
+import { AppState } from "main/storeTypes";
 import { createSelector } from "reselect";
 import { createUserReducer, User as PubNubUser } from "pubnub-redux";
 
@@ -34,7 +34,7 @@ export { UsersReducer };
 /**
  * Slice selector is used internally to access the state of the reducer
  */
-const getUsersSlice = (state: RootState) => state.users;
+const getUsersSlice = (state: AppState) => state.users;
 
 /**
  * Returns an index which can be used to find user objects

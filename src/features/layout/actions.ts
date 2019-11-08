@@ -1,7 +1,7 @@
 import { Breakpoint, Layout, setLayout, setBreakpoint } from "./store";
 import { getBreakpoint, getLayout } from "./selectors";
 
-import { ActionThunk } from "main/store";
+import { ThunkAction } from "main/storeTypes";
 
 export function setLayoutDefault() {
   return setLayout(Layout.Default);
@@ -19,7 +19,7 @@ export function setLayoutRight() {
   return setLayout(Layout.Right);
 }
 
-export const resize = (width: number): ActionThunk => {
+export const resize = (width: number): ThunkAction => {
   let targetBreakpoint = Breakpoint.Small;
   if (width > 1200) {
     targetBreakpoint = Breakpoint.Large;

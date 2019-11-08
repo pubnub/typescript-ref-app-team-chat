@@ -1,15 +1,29 @@
 import React from "react";
 
-import { Router } from "@reach/router";
-import { LoginRoute } from "routes/login";
-import { ChatRoute } from "routes/chat";
 import { Wrapper } from "./style";
+import { Login } from "features/authentication/Login/Login";
+import { ChatUI } from "features/chat/Chat";
+import { isUserLoggedIn } from "features/authentication/authenticationStore";
+import { useSelector } from "react-redux";
+import keyConfiguration from "config/pubnub-keys.json";
+import isPubNubConfigured from "foundations/utilities/isPubNubConfigured";
+import { ErrorBanner } from "features/errorUI/ErrorUI.style";
 
-export const ApplicationRouter: React.FC = () => {
+const ErrorBannerComponent = (
+  <ErrorBanner>
+    <div>
+      Please run <pre>npm setup</pre>
+    </div>
+  </ErrorBanner>
+);
+
+export const ApplicationRouter = () => {
+  const loggedIn = useSelector(isUserLoggedIn);
+  const view = loggedIn ? <ChatUI /> : <Login />;
   return (
-    <Router component={Wrapper}>
-      <LoginRoute path="/login" />
-      <ChatRoute path="/" />
-    </Router>
+    <Wrapper>
+      {!isPubNubConfigured(keyConfiguration) && ErrorBannerComponent}
+      {view}
+    </Wrapper>
   );
 };

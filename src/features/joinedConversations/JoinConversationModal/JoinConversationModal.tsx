@@ -3,21 +3,22 @@ import { getPanelStates } from "features/layout/selectors";
 import { useSelector, useDispatch } from "react-redux";
 import { setLayoutDefault } from "features/layout/actions";
 import { getLoggedInUserId } from "features/authentication/authenticationStore";
-import { focusOnConversation } from "features/currentConversation/currentConversationStore";
 import {
   ConversationDescription,
   ConversationDescriptionFragment
 } from "../ConversationDescription";
+import {
+  getConversationsByUserId,
+  MembershipHash
+} from "../joinedConversationStore";
 import { Cross as CrossIcon } from "foundations/components/icons/Cross";
 import {
-  Overlay,
-  Wrapper,
-  AnimatedWrapper,
   ScrollView,
   CloseButton,
   Title,
   Header
 } from "./JoinConversationModal.style";
+import { Overlay, Modal, AnimatedModal } from "foundations/components/Modal";
 import { createSelector } from "reselect";
 import {
   getAllConversations,
@@ -25,19 +26,25 @@ import {
 } from "features/conversations/conversationStore";
 import { Breakpoint } from "features/layout/store";
 import { getBreakpoint } from "features/layout/selectors";
-import { joinSpaces } from "pubnub-redux";
-import { usePubNub } from "pubnub-react";
+import { joinConversation } from "../joinConversationCommand";
 
 // Fetch all conversations and remove the ones we're already a member of
 const getJoinableConversations = createSelector(
-  [getAllConversations],
-  (conversations: Conversation[]): ConversationDescriptionFragment[] => {
-    return conversations;
+  [getAllConversations, getLoggedInUserId, getConversationsByUserId],
+  (
+    conversations: Conversation[],
+    userId: string,
+    joinedConversations: MembershipHash
+  ): ConversationDescriptionFragment[] => {
+    return conversations.filter(conversation => {
+      return !joinedConversations[userId]
+        .map(conv => conv.id)
+        .includes(conversation.id);
+    });
   }
 );
 
 const JoinConversationModal = () => {
-  const pubnub = usePubNub();
   const conversations: ConversationDescriptionFragment[] = useSelector(
     getJoinableConversations
   );
@@ -45,7 +52,7 @@ const JoinConversationModal = () => {
   const currentUserId = useSelector(getLoggedInUserId);
   const dispatch = useDispatch();
   const breakpoint = useSelector(getBreakpoint);
-  const Panel = breakpoint === Breakpoint.Small ? Wrapper : AnimatedWrapper;
+  const Panel = breakpoint === Breakpoint.Small ? Modal : AnimatedModal;
 
   return (
     <Overlay displayed={panels.Overlay}>
@@ -63,16 +70,10 @@ const JoinConversationModal = () => {
         <ScrollView>
           {conversations.map(conversation => (
             <ConversationDescription
-              key={`conversationDescription-${conversation.name}`}
+              key={`conversationDescription-${conversation.id}`}
               onClick={() => {
-                const conversationId = conversation.name;
-                dispatch(
-                  joinSpaces(pubnub, {
-                    userId: currentUserId,
-                    spaces: [{ id: conversationId }]
-                  })
-                );
-                dispatch(focusOnConversation(conversationId));
+                const conversationId = conversation.id;
+                dispatch(joinConversation(currentUserId, conversationId));
                 dispatch(setLayoutDefault());
               }}
               conversation={conversation}

@@ -1,4 +1,4 @@
-import { RootState } from "main/store";
+import { AppState } from "main/storeTypes";
 import { createSelector } from "reselect";
 import { AppActions } from "main/AppActions";
 export const LOGGING_IN = "LOGGIN_IN";
@@ -57,7 +57,7 @@ const AuthenticationStateReducer = (
   }
 };
 
-const getAuthenticationStateSlice = (state: RootState) => state.authentication;
+const getAuthenticationStateSlice = (state: AppState) => state.authentication;
 
 export const getLoggedInUserId = createSelector(
   [getAuthenticationStateSlice],

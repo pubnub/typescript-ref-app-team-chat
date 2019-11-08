@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import { UserInitialsAvatar } from "foundations/components/UserInitialsAvatar";
 import { getLoggedInUserId } from "features/authentication/authenticationStore";
 import { getUsersById } from "features/users/userStore";
@@ -11,8 +11,6 @@ import {
   UserName,
   UserTitle
 } from "./MyUserDetails.style";
-import { usePubNub } from "pubnub-react";
-import { fetchUserById } from "pubnub-redux";
 
 export interface MyUserDetailsFragment {
   name: string;
@@ -21,23 +19,13 @@ export interface MyUserDetailsFragment {
     title: string;
   };
 }
+
 const MyUserDetails = () => {
-  const pubnub = usePubNub();
-  const dispatch = useDispatch();
   const userId = useSelector(getLoggedInUserId);
   const usersById = useSelector(getUsersById);
   const user = usersById[userId];
 
-  useEffect(() => {
-    if (user === undefined) {
-      dispatch(fetchUserById(pubnub, userId));
-    }
-
-    pubnub.subscribe({
-      channels: [userId]
-    });
-  }, [userId, user, pubnub, dispatch]);
-
+  // We must always have a user; change this to a development time error check
   if (user === undefined) {
     return <div>Loading...</div>;
   }

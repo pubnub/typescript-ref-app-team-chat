@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { createSelector } from "reselect";
 import { getCurrentConversationId } from "features/currentConversation/currentConversationStore";
@@ -19,17 +19,13 @@ import {
   AddButton,
   ConversationList
 } from "./MyConversations.style";
-import {
-  fetchSpaces,
-  leaveSpaces,
-  fetchMembers,
-  fetchMemberships
-} from "pubnub-redux";
-import { usePubNub } from "pubnub-react";
+import { fetchSpaces, fetchMembers } from "pubnub-redux";
 import { getCurrentConversationMembers } from "features/conversationMembers/ConversationMembers/ConversationMembers";
 import { UserFragment } from "features/conversationMembers/MemberDescription/MemberDescription";
+import { leaveConversation } from "../leaveConversationCommand";
 
 export interface ConversationFragment {
+  id: string;
   name: string;
 }
 
@@ -42,7 +38,10 @@ export const getJoinedConversations = createSelector(
   ): ConversationFragment[] => {
     return userConversations[userId]
       ? userConversations[userId].map(conversation => {
-          return { name: conversations[conversation.id].name };
+          return {
+            id: conversation.id,
+            name: conversations[conversation.id].name
+          };
         })
       : [];
   }
@@ -51,7 +50,6 @@ export const getJoinedConversations = createSelector(
 const MyConversations = () => {
   const currentUserId = useSelector(getLoggedInUserId);
   const conversationsById = useSelector(getConversationsById);
-  const hasConversations = !!conversationsById[currentUserId];
   const conversations: ConversationFragment[] = useSelector(
     getJoinedConversations
   );
@@ -59,43 +57,10 @@ const MyConversations = () => {
   const members: UserFragment[] = useSelector(getCurrentConversationMembers);
 
   const dispatch = useDispatch();
-  const pubnub = usePubNub();
-
   const openOverlay = () => {
-    dispatch(fetchSpaces(pubnub));
+    dispatch(fetchSpaces());
     dispatch(setLayoutOverlay());
   };
-
-  useEffect(() => {
-    if (!hasConversations) {
-      dispatch(
-        fetchMemberships(pubnub, currentUserId, {
-          include: {
-            spaceFields: true,
-            customSpaceFields: false
-          }
-        })
-      );
-    }
-  }, [hasConversations, currentUserId, pubnub, dispatch]);
-
-  useEffect(() => {
-    let subscribedChannels = pubnub.getSubscribedChannels();
-    // let unsubscribeChannels = subscribedChannels.filter((value: string) =>
-    //   conversations.find(c => c.name !== value)
-    // );
-    let subscribeChannels = conversations.filter(
-      (c: ConversationFragment) => subscribedChannels.indexOf(c.name) === -1
-    );
-
-    // pubnub.unsubscribe({
-    //   channels: unsubscribeChannels.map((c: string) => c)
-    // });
-
-    pubnub.subscribe({
-      channels: subscribeChannels.map(c => c.name)
-    });
-  }, [conversations, pubnub]);
 
   if (conversationsById === undefined) {
     return <div>Loading...</div>;
@@ -112,25 +77,22 @@ const MyConversations = () => {
       <ConversationList>
         {conversations.map(conversation => (
           <ConversationItem
+            id={conversation.id}
             name={conversation.name}
             onLeave={() => {
-              dispatch(
-                leaveSpaces(pubnub, {
-                  userId: currentUserId,
-                  spaces: [{ id: conversation.name }]
-                })
-              );
+              dispatch(leaveConversation(currentUserId, conversation.id));
             }}
-            selected={conversation.name === currentConversationId}
-            key={conversation.name}
+            selected={conversation.id === currentConversationId}
+            key={conversation.id}
             unreadMessageCount={0}
             onClick={() => {
-              dispatch(focusOnConversation(conversation.name));
+              dispatch(focusOnConversation(conversation.id));
               dispatch(setLayoutDefault());
 
               if (members.length === 0) {
                 dispatch(
-                  fetchMembers(pubnub, conversation.name, {
+                  fetchMembers({
+                    spaceId: conversation.id,
                     include: {
                       userFields: true,
                       customUserFields: true,

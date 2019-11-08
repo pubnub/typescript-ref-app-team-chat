@@ -1,13 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "main/store";
+import { AppState } from "main/storeTypes";
 import { PresenceIndicator as PresenceIndicatorIcon } from "foundations/components/icons/PresenceIndicator";
 import { Wrapper } from "./NetworkStatus.style";
 
 const NetworkStatus = () => {
-  // Unexpectedly receiving a Boolean here, using !! to convert Boolean to boolean
-  let isConnected: boolean = !!useSelector(
-    (state: RootState) => state.networkStatus.isConnected
+  let isConnected: boolean = useSelector(
+    (state: AppState) => state.networkStatus.isConnected
   );
   return (
     <Wrapper>

@@ -1,11 +1,10 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState, useCallback } from "react";
 import { useSelector } from "react-redux";
 import { createSelector } from "reselect";
 import { Message, MessageFragment } from "../Message";
 import { getCurrentConversationId } from "../currentConversationStore";
 import { getUsersById } from "features/users/userStore";
 import { getMessagesById } from "features/messages/messageStore";
-
 import { Wrapper } from "./MessageList.style";
 
 /**
@@ -38,6 +37,7 @@ export const getCurrentConversationMessages = createSelector(
           .map(message => {
             return {
               ...message,
+              timetoken: String(message.timetoken),
               sender: users[message.message.sender]
             };
           })
@@ -45,24 +45,68 @@ export const getCurrentConversationMessages = createSelector(
   }
 );
 
-const MessageList: React.FC = props => {
+const MessageList = () => {
+  type ConversationScrollPositionsType = { [conversationId: string]: number };
+  const conversationId: string = useSelector(getCurrentConversationId);
+  const [
+    conversationsScrollPositions,
+    setConversationsScrollPositions
+  ] = useState<ConversationScrollPositionsType>({});
+
+  const updateCurrentConversationScrollPosition = (scrollPosition: number) => {
+    setConversationsScrollPositions({
+      ...conversationsScrollPositions,
+      [conversationId]: scrollPosition
+    });
+  };
+
+  const handleScroll = (e: any) => {
+    const scrollPosition = e.target.scrollTop;
+    if (scrollPosition !== 0) {
+      updateCurrentConversationScrollPosition(scrollPosition);
+    }
+  };
+
+  const restoreConversationScrollPosition = (conversationId: string) => {
+    const conversationScrollPosition: number =
+      conversationsScrollPositions[conversationId];
+    if (conversationScrollPosition) {
+      wrapper.current.scrollTo(0, conversationScrollPosition);
+    }
+  };
+
+  const memoizedRestoreConversationScrollPositionCallback = useCallback(
+    restoreConversationScrollPosition,
+    [conversationId]
+  );
+
   const messages: MessageFragment[] = useSelector(
     getCurrentConversationMessages
   );
-  const bottom = useRef<HTMLDivElement>(null);
+  const wrapper = useRef<HTMLDivElement>(document.createElement("div"));
+  const el = wrapper.current;
+
+  const scrollToBottom = useCallback(() => {
+    return (el.scrollTop = el.scrollHeight - el.clientHeight);
+  }, [el]);
+
+  const hasReachedBottom = el.scrollHeight - el.clientHeight === el.scrollTop;
 
   useEffect(() => {
-    bottom.current &&
-      typeof bottom.current.scrollIntoView === "function" &&
-      bottom.current.scrollIntoView();
-  }, [messages.length]);
+    if (hasReachedBottom) {
+      scrollToBottom();
+    }
+  }, [messages.length, hasReachedBottom, scrollToBottom]);
+
+  useEffect(() => {
+    memoizedRestoreConversationScrollPositionCallback(conversationId);
+  }, [memoizedRestoreConversationScrollPositionCallback, conversationId]);
 
   return (
-    <Wrapper>
+    <Wrapper ref={wrapper} onScroll={handleScroll}>
       {messages.map(message => (
         <Message message={message} key={message.timetoken} />
       ))}
-      <span ref={bottom} />
     </Wrapper>
   );
 };

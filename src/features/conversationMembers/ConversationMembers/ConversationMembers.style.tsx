@@ -5,7 +5,6 @@ export const Wrapper = styled.section<{ pose: string }>`
   height: 100%;
   display: ${props => (props.pose === "closed" ? "none" : "flex")};
   flex-direction: column;
-  margin-left: -24px;
   max-width: 290px;
   width: 100%;
   @media (max-width: 480px) {
@@ -34,10 +33,7 @@ export const Header = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin: 48px 24px 24px 24px;
-  @media (max-width: 480px) {
-    margin: 24px 24px 24px 24px;
-  }
+  margin: 24px 24px 24px 24px;
 `;
 
 export const CloseIcon = styled.span`

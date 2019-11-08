@@ -23,3 +23,8 @@ const rootReducer = combineReducers({
 });
 
 export default rootReducer;
+
+/**
+ * RootState describes the shape of the global Redux store in this application
+ */
+export type RootState = Readonly<ReturnType<typeof rootReducer>>;

@@ -32,6 +32,7 @@ export const About = styled.div`
 
 export const UserName = styled.div<{ muted: boolean }>`
   font-size: 15px;
+  text-transform: capitalize;
   color: ${props => (props.muted ? "#DDDDDD" : "#585858")};
   font-family: "Roboto", sans-serif;
   font-weight: 500;

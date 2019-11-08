@@ -22,3 +22,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 yarn.lock
+
+# Ensure our pubnub keys do not get checked in to github
+pubnub-keys.json

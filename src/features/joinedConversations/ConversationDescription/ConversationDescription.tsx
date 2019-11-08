@@ -9,6 +9,7 @@ import {
 } from "./ConversationDescription.style";
 
 export interface ConversationDescriptionFragment {
+  id: string;
   name: string;
   description: string;
 }

@@ -1,6 +1,5 @@
 const PubNub = require('pubnub');
 const data = require('./input_data.json'); 
-const keys = require('../src/config/pubnub-keys.json');
 const _cliProgress = require('cli-progress');
 const readline = require("readline");
 const fs = require('file-system');
@@ -13,29 +12,52 @@ let userCreationErrors;
 let createdSpaces = [];
 let spacesCreationErrors;
 let createdMemberships = [];
-let membershipsCreationErrors;
+let membershipsCreationErrors = [''];
+let keys;
 
-if(keys.publishKey.length && keys.subscribeKey.length) {
-    console.log('Keys detected in `src/config/pubnub-keys.json`.');
-    scriptStart(keys.publishKey, keys.subscribeKey);
-} else {
-    console.log('*** A PubNub account is required. ***');
-    console.log('');
-    console.log('Visit the PubNub dashboard to create an account or login.');
-    console.log('     https://dashboard.pubnub.com/');
-    console.log('');
-    console.log('Go to your Apps > Keys Settings page.');
-    console.log('Copy and paste your publish and then your subscribe keys below.');
+const CONFIG_FILE = 'src/config/pubnub-keys.json';
+
+try {
+    const rawdata = fs.readFileSync(CONFIG_FILE);
+    keys = JSON.parse(rawdata);
+    if(keys && keys.publishKey.length && keys.subscribeKey.length) {
+        console.log(`Keys detected in ${CONFIG_FILE}.`);
+        if (process.argv[2] === '--quick-test') {
+            process.exit(0);
+        }
+        scriptStart(keys.publishKey, keys.subscribeKey);
+    }
+    else addKeysAndStartScript(); //in case of empty pub&sub values
+} catch (e) {
+    addKeysAndStartScript(); //in case of non-xisting keys file
+}
+
+function addKeysAndStartScript() {
+    console.log('\n*** A PubNub account is required. ***');
+    console.log('\nVisit the PubNub dashboard to create an account or login.');
+    console.log('\n     https://dashboard.pubnub.com/');
+    console.log('\nCreate a new chat app or locate your chat app in the dashboard.');
+    console.log('\nCopy and paste your publish key and then your subscribe key below.');
     rl.question("\nEnter your publish key: ", publishKey => {
-        rl.question("Enter your subscribe key: ", subscribeKey => { 
-            const updateKeys = {
-                "publishKey": publishKey,
-                "subscribeKey": subscribeKey
+        rl.question("Enter your subscribe key: ", subscribeKey => {
+            if (publishKey.startsWith('pub') && subscribeKey.startsWith('sub')) {
+                const updateKeys = {
+                    "publishKey": publishKey,
+                    "subscribeKey": subscribeKey
+                }
+                if(!keys) {
+                    fs.openSync(CONFIG_FILE, 'a'); 
+                    console.log(`\n${CONFIG_FILE} file for storing your publish and subscribe key is created.`)
+                }
+                fs.writeFile(CONFIG_FILE, JSON.stringify(updateKeys), (err) => {
+                    if (!err) console.log( `\nYour keys have been saved to ${CONFIG_FILE} file.`);
+                    scriptStart(publishKey, subscribeKey);
+                });
+            } 
+            else {
+                console.log('\nYou entered invalid keys format!');
+                process.exit(0);
             }
-            fs.writeFile('../src/config/pubnub-keys.json', JSON.stringify(updateKeys), (err) => {
-                if (!err) console.log('\nYour keys have been saved to `src/config/pubnub-keys.json` file.');
-                scriptStart(publishKey, subscribeKey);
-            });
         })
     })
 }
@@ -44,7 +66,7 @@ async function scriptStart (publishKey, subscribeKey) {
     let pubnub = new PubNub({
         subscribeKey: `${subscribeKey}`,
         publishKey: `${publishKey}`
-    });
+    });     
     let numberOfUsers = data.users.length;
     let numberOfSpaces = data.spaces.length;
     const usersCreatedBar = new _cliProgress.SingleBar({}, _cliProgress.Presets.shades_classic);
@@ -60,7 +82,9 @@ async function scriptStart (publishKey, subscribeKey) {
                     usersCreatedBar.increment();
                     pubnub.createUser({
                         id: item.id,
-                        name: item.name
+                        name: item.name,
+                        profileUrl: item.profileUrl,
+                        custom: item.custom
                     },  status => { 
                         if (!status.error) {
                             resolve()  
@@ -69,8 +93,19 @@ async function scriptStart (publishKey, subscribeKey) {
                             if (status.statusCode === 409) { //skip duplicate users ie that already exists
                                 resolve();
                             } 
+                            else if (status.statusCode === 403) { //objects are not enabled for the subscribe key
+                                console.log(`\n${status.errorData.error.message}`);
+                                console.log('Please enable objects in your PubNub dashboard to proceed.');
+                                process.exit(0);
+                            }
                             else {
-                                console.log(`\ncreateUser ${item.id} error:`, status.errorData ? status.errorData : status.message);
+                                console.log(`\ncreateUser ${item.id} error:`, status.errorData ? (
+                                    console.log('\nSubscribe key that you entered is invalid!'), 
+                                    //reset keys in case of invalid format
+                                    fs.writeFile(CONFIG_FILE, JSON.stringify({"publishKey": "", "subscribeKey": ""}), () => {  
+                                        process.exit(0)  //Early exit
+                                    })
+                                ) : status.message);
                                 reject()
                             }
                         }
@@ -89,7 +124,8 @@ async function scriptStart (publishKey, subscribeKey) {
                     spacesCreatedBar.increment()
                     pubnub.createSpace({
                         id: item.id,
-                        name: item.name
+                        name: item.name,
+                        description: item.description
                     },  status => {
                         if (!status.error) {
                             resolve();
@@ -112,47 +148,73 @@ async function scriptStart (publishKey, subscribeKey) {
     const createMemberships = () => {
         console.log('\nCreating memberships:');
         membershipsCreatedBar.start(numberOfSpaces, 0);
-        data.spaces.forEach((item, index) => {
+        data.members.forEach((item, index) => {
             createdMemberships.push(new Promise((resolve, reject) => {
                 setTimeout(() => {
                     membershipsCreatedBar.increment();
-                    pubnub.addMembers({
-                        spaceId: item.id,
-                        users: data.spaces[index].members.map(member => ({ id: member }))
-                    },  status => {
-                        if(!status.error) {
-                            resolve()  
+                    if(data.members[index].members.length > 25) {
+                        let leftMembersToAdd = data.members[index].members.length;
+                        let devideMembersArray = [];
+                        while (leftMembersToAdd > 1) {
+                            leftMembersToAdd = leftMembersToAdd - 25;
+                            devideMembersArray.push(data.members[index].members.splice(leftMembersToAdd - 25, leftMembersToAdd))
                         }
-                        else if (status.statusCode === 400){
-                            if(status.errorData.error.details[0].message === 'User with specified id is already a member.')
-                                resolve();
-                            else {
-                                console.log('\naddMembers error:', status.errorData.error.details[0].message);
-                                reject();
-                            }
+                        for (let members of devideMembersArray) {
+                            addMembers(item, members, resolve, reject);
                         }
-                        else {
-                            console.log('\naddMembers error:', status.errorData.error.message);
-                            reject();
-                        }
-                    })
+                    }
+                    else addMembers(item, data.members[index].members, resolve, reject);
                 }, 100*(index + 1));
             }));
         });
+
+        function addMembers (item, membersToAdd, resolve, reject) {
+            pubnub.addMembers({
+                spaceId: item.space,
+                users: membersToAdd.map(member => ({ id: member }))
+            },  status => {
+                if(!status.error) {
+                    resolve()  
+                }
+                else if (status.statusCode === 400){
+                    if(status.errorData.error.details[0].message === 'User with specified id is already a member.')
+                        resolve();
+                    else {
+                        console.log('\naddMembers error:', status.errorData.error.details[0].message);
+                        reject();
+                    }
+                }
+                else {
+                    console.log('\naddMembers error:', status.errorData);
+                    reject();
+                }
+            })
+        }
     }
 
     createUsers();
-    let values = await Promise.allSettled(createdUsers);
+    let values = await Promise.all(createdUsers.map(p => p.then(
+        () => ({status: "fulfilled" }),
+        () => ({status: "rejected" })
+    )));
     createdUsers = values.filter(value => value.status === 'fulfilled');
     userCreationErrors = values.filter(value => value.status === 'rejected');
     createSpaces();
-    values = await Promise.allSettled(createdSpaces);
+    values = await Promise.all(createdSpaces.map(p => p.then(
+        () => ({status: "fulfilled" }),
+        () => ({status: "rejected" })
+    )));
     createdSpaces = values.filter(value => value.status === 'fulfilled');
     spacesCreationErrors = values.filter(value => value.status === 'rejected');
-    createMemberships();
-    values = await Promise.allSettled(createdMemberships);
-    createdMemberships = values.filter(value => value.status === 'fulfilled');
-    membershipsCreationErrors = values.filter(value => value.status === 'rejected');
+    if (createdUsers.length > 0 && createdSpaces.length > 0) { //Do not make memberships calls if there are no users or spaces
+        createMemberships();
+        values = await Promise.all(createdMemberships.map(p => p.then(
+            () => ({status: "fulfilled" }),
+            () => ({status: "rejected" })
+        )));
+        createdMemberships = values.filter(value => value.status === 'fulfilled');
+        membershipsCreationErrors = values.filter(value => value.status === 'rejected');
+    }
     rl.close(); 
 }
 
@@ -166,8 +228,6 @@ rl.on("close", () => {
     membershipsCreationErrors.length ? 
         console.log(`${createdMemberships.length} out of ${data.spaces.length} memberships created.`) :
         console.log(`${createdMemberships.length} new memberships created.`);
-        console.log(``);
-        console.log(`Your data has been loaded successfully!`);
-        console.log(`Try 'npm start' next to run the application.`);
+        console.log(`\nYour data has been loaded successfully!`);
         process.exit(0);
 });

@@ -60,7 +60,8 @@ const ConversationMembers = () => {
   useEffect(() => {
     if (members.length === 0) {
       dispatch(
-        fetchMembers(pubnub, currentConversationId, {
+        fetchMembers({
+          spaceId: currentConversationId,
           include: {
             userFields: true,
             customUserFields: true,
@@ -94,7 +95,7 @@ const ConversationMembers = () => {
       </Header>
       <ScrollableView>
         {orderByPresence(members).map(user => (
-          <MemberDescription user={user} key={user.name} />
+          <MemberDescription user={user} key={user.id} />
         ))}
       </ScrollableView>
     </Panel>

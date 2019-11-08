@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { EmojiInput } from "features/emoji/EmojiInput/EmojiInput";
 import { EmojiSuggestion } from "features/emoji/EmojiSuggestion/EmojiSuggestion";
 import { Wrapper, Container, TextArea } from "./MessageInput.style";
-import { usePubNub } from "pubnub-react";
 import { sendMessageAction } from "features/messages/sendMessageCommand";
+import {
+  getCurrentConversationId,
+  getConversationMessageInputValue
+} from "../currentConversationStore";
+import { updateConversationMessageInputValueAction } from "features/currentConversation/currentConversationStore";
 
 const emptyMessage = "";
 
@@ -15,50 +19,54 @@ const autoExpand = (el: HTMLTextAreaElement) => {
   }, 0);
 };
 
+const cleanMessage = (message: string) => message.trim();
+
 type MessageFragment<message = string> = [message, (setTo: message) => void];
 
 const MessageInput = () => {
-  const pubnub = usePubNub();
   const [message, setMessage]: MessageFragment = useState(emptyMessage);
+  const conversationId: string = useSelector(getCurrentConversationId);
+  const textareaRef = useRef<HTMLTextAreaElement>(
+    document.createElement("textarea")
+  );
+  const conversationMessageInputValue: string = useSelector(
+    getConversationMessageInputValue
+  );
+
   const dispatch = useDispatch();
-  useEffect(() => {
-    document.addEventListener(
-      "input",
-      function(event) {
-        const target = event.target as HTMLElement;
-        if (
-          target &&
-          target.tagName &&
-          target.tagName.toLowerCase() !== "textarea"
-        )
-          return;
-        autoExpand(event.target as HTMLTextAreaElement);
-      },
-      false
-    );
-  }, []);
 
   const changed = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setMessage(e.target.value);
+    dispatch(
+      updateConversationMessageInputValueAction(conversationId, e.target.value)
+    );
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === "Enter" && !e.shiftKey && message !== "") {
+    if (e.key === "Enter" && !e.shiftKey && cleanMessage(message) !== "") {
       send();
       e.preventDefault();
-      autoExpand(e.target as HTMLTextAreaElement);
     }
+    autoExpand(e.target as HTMLTextAreaElement);
   };
 
   const send = () => {
     dispatch(
-      sendMessageAction(pubnub, {
+      sendMessageAction({
         type: "text",
-        body: message.trim()
+        body: cleanMessage(message)
       })
+    );
+    dispatch(
+      updateConversationMessageInputValueAction(conversationId, emptyMessage)
     );
     setMessage(emptyMessage);
   };
+
+  useEffect(() => {
+    setMessage(conversationMessageInputValue);
+    autoExpand(textareaRef.current);
+  }, [conversationId, conversationMessageInputValue]);
 
   return (
     <Wrapper>
@@ -70,6 +78,7 @@ const MessageInput = () => {
       />
       <Container>
         <TextArea
+          ref={textareaRef}
           rows={1}
           value={message}
           onChange={changed}

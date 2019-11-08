@@ -1,20 +1,16 @@
-import { ActionThunk } from "main/store";
+import { ThunkAction } from "main/storeTypes";
 import { getCurrentConversationId } from "features/currentConversation/currentConversationStore";
 import { MessageContent } from "./messageStore";
 import { sendMessage } from "pubnub-redux";
-import Pubnub from "pubnub";
 import { getLoggedInUserId } from "features/authentication/authenticationStore";
 
 // the promise should be a PubNub response to the publish
-export const sendMessageAction = (
-  pubnub: Pubnub,
-  message: MessageContent
-): ActionThunk => {
+export const sendMessageAction = (message: MessageContent): ThunkAction => {
   return (dispatch, getState) => {
     return new Promise(() => {
       const state = getState();
       dispatch(
-        sendMessage(pubnub, {
+        sendMessage({
           channel: getCurrentConversationId(state),
           message: {
             content: message,

@@ -29,7 +29,7 @@ export const getCurrentConversationOccupancy = createSelector(
     const members = conversationMemberships[currentConversationId];
     return {
       joinedCount: members ? members.length : 0,
-      presentCount: 0
+      presentCount: 5
     };
   }
 );

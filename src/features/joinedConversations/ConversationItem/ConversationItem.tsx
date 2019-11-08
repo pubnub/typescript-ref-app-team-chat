@@ -13,6 +13,7 @@ import { DEFAULT_CONVERSATION } from "features/currentConversation/currentConver
 
 interface ConversationItemProps {
   selected: boolean;
+  id: string;
   name: string;
   unreadMessageCount: number;
   onClick: () => void;
@@ -21,13 +22,14 @@ interface ConversationItemProps {
 
 const ConversationItem = ({
   selected,
+  id,
   name,
   onClick,
   onLeave,
   unreadMessageCount
 }: ConversationItemProps) => {
   const [isHovering, hoverProps] = useHover({ mouseEnterDelayMS: 0 });
-  const canLeave: boolean = name !== DEFAULT_CONVERSATION;
+  const canLeave: boolean = id !== DEFAULT_CONVERSATION;
   return (
     <Wrapper
       {...hoverProps}
@@ -40,7 +42,12 @@ const ConversationItem = ({
         <Name>{name}</Name>
       </Body>
       {isHovering && canLeave ? (
-        <IconWrapper onClick={onLeave}>
+        <IconWrapper
+          onClick={e => {
+            e.stopPropagation();
+            onLeave();
+          }}
+        >
           <Leave fill={selected ? "white" : "#979797"} />
         </IconWrapper>
       ) : (

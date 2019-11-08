@@ -3,7 +3,6 @@ import posed from "react-pose";
 
 export const Wrapper = styled.section<{ pose: string }>`
   display: ${props => (props.pose === "closed" ? "none" : "flex")};
-  margin-right: -24px;
   flex-direction: column;
   background-color: #ffffff;
   max-width: 290px;

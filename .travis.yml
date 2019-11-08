@@ -10,6 +10,12 @@ jobs:
   include:
     - stage: "application test & build"
       name: "Team Chat Reference Application"
+      before_install:
+        - |
+          echo '{
+            "publishKey": "${PROD_PUBLISH_KEY}",
+            "subscribeKey": "${PROD_SUBSCRIBE_KEY}"
+          }' >> ./src/config/pubnub-keys.json
       install:
         - npm install
       script:

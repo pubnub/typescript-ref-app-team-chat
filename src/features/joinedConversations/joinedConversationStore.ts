@@ -1,4 +1,4 @@
-import { RootState } from "main/store";
+import { AppState } from "main/storeTypes";
 import { createSelector } from "reselect";
 import { createMembershipReducer } from "pubnub-redux";
 
@@ -8,7 +8,7 @@ export interface MemberConversations {
   [userId: string]: string[];
 }
 
-const getByUserIdSlice = (state: RootState) => state.joinedConversations;
+const getByUserIdSlice = (state: AppState) => state.joinedConversations;
 
 export const getConversationsByUserId = createSelector(
   [getByUserIdSlice],

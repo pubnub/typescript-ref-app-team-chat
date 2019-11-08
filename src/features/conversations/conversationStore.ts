@@ -1,4 +1,4 @@
-import { RootState } from "main/store";
+import { AppState } from "main/storeTypes";
 import { createSelector } from "reselect";
 import { combineReducers } from "redux";
 import {
@@ -25,16 +25,16 @@ export type ConversationsIndexedById = { [id: string]: Conversation };
  */
 const conversationStateReducer = combineReducers({
   conversations: createSpaceReducer<Conversation>(),
-  allConversations: createSpaceListReducer()
+  allConversations: createSpaceListReducer<Conversation>()
 });
 export { conversationStateReducer };
 
 /**
  * Slice selectors are used internally to access the state of the reducer
  */
-const getConversationsSlice = (state: RootState) => state.conversations;
-const getSpacesSlice = (state: RootState) => state.conversations.conversations;
-const getAllSpacesSlice = (state: RootState) =>
+const getConversationsSlice = (state: AppState) => state.conversations;
+const getSpacesSlice = (state: AppState) => state.conversations.conversations;
+const getAllSpacesSlice = (state: AppState) =>
   state.conversations.allConversations;
 
 /**
@@ -53,6 +53,6 @@ export const getConversationsById = createSelector(
 export const getAllConversations = createSelector(
   [getSpacesSlice, getAllSpacesSlice],
   (spaces, allSpaces) => {
-    return allSpaces.data.map(id => spaces.byId[id]);
+    return allSpaces.spaceIds.map(id => spaces.byId[id]);
   }
 );

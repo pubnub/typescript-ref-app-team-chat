@@ -1,4 +1,4 @@
-import { RootState } from "main/store";
+import { AppState } from "main/storeTypes";
 import { createSelector } from "reselect";
 import { createMessageReducer, Message as PubNubMessage } from "pubnub-redux";
 
@@ -18,7 +18,7 @@ export type Message = Required<
   message: MessageBody;
 };
 
-const getMessagesSlice = (state: RootState) => state.messages;
+const getMessagesSlice = (state: AppState) => state.messages;
 
 export const getMessagesById = createSelector(
   [getMessagesSlice],

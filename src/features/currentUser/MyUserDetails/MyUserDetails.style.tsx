@@ -2,10 +2,8 @@ import styled from "styled-components/macro";
 
 export const Wrapper = styled.div`
   display: flex;
-  margin: 48px 24px 24px 10px;
-  @media (max-width: 480px) {
-    margin: 24px 24px 24px 10px;
-  }
+  text-transform: capitalize;
+  margin: 14px 24px 24px 10px;
 `;
 
 export const Avatar = styled.div`

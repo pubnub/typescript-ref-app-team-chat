@@ -11,7 +11,7 @@ This repository contains code from the Team Chat Reference App hosted on [PubNub
 
 ## Prerequisites
 
-### Sign Up for a PubNub Account
+### PubNub Account
 
 If you don't already have an account, you can create one for free [here](https://dashboard.pubnub.com/).
 
@@ -23,29 +23,24 @@ If you don't already have an account, you can create one for free [here](https:/
 
 ## Building the project
 
-1. Clone the Github repository.
+1. Clone the GitHub repository.
 
-```bash
-git clone git@github.com:pubnub/typescript-ref-app-team-chat.git
-```
+    ```bash
+    git clone git@github.com:pubnub/typescript-ref-app-team-chat.git
+    ```
 
-2. Install the project.
+1. Install the project.
 
-```bash
-npm install
-```
+    ```bash
+    cd typescript-ref-app-team-chat
+    npm install
+    ```
 
-2. Setup the project to load sample data related to users and spaces. Note that this step can be skipped if you have already loaded data into the application.
+1. Run the project in your local environment. You may be asked to input your PubNub keys and populate sample data if you are running the app for the first time.
 
-```bash
-npm run setup
-```
-
-3. Run the project in your local environment.
-
-```bash
-npm start
-```
+    ```bash
+    npm start
+    ```
 
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 

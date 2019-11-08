@@ -20,6 +20,7 @@ import {
 import { Back as BackIcon } from "foundations/components/icons/Back";
 
 export interface ConversationDescriptionFragment {
+  id: string;
   name: string;
   description: string;
 }
@@ -36,7 +37,7 @@ export const getCurrentConversationDescription = createSelector(
   }
 );
 
-const Header: React.FC = () => {
+const Header = () => {
   const conversation: ConversationDescriptionFragment = useSelector(
     getCurrentConversationDescription
   );

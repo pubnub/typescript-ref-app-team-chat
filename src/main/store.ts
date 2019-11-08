@@ -1,58 +1,29 @@
-import { createStore, applyMiddleware, compose, Store } from "redux";
-import ReduxThunk, { ThunkAction, ThunkDispatch } from "redux-thunk";
-import rootReducer from "main/rootReducer";
-import { AppActions } from "main/AppActions";
-import preloadedState from "main/preloadedData";
+import { createStore, applyMiddleware, compose } from "redux";
+import ReduxThunk from "redux-thunk";
+import rootReducer from "./rootReducer";
+import { AppStore, AppThunkContext } from "./storeTypes";
+import preloadedState from "./preloadedState";
 
-// TODO: add createStore function
-
-/**
- * The shape of the global store
- */
-export type RootState = Readonly<ReturnType<typeof rootReducer>>;
-
-/**
- * Describe thunk configuraiton
- */
-type extaArgumentFromThunkMiddlewareConfig = void;
-
-/**
- * Describe a dispatch function that only allows application specific types
- */
-type Dispatch = ThunkDispatch<
-  RootState,
-  extaArgumentFromThunkMiddlewareConfig,
-  AppActions
->;
-
-/**
- * Describe a Thunk with application specific types
- */
-type ThunkReturnType = void;
-export type ActionThunk = ThunkAction<
-  ThunkReturnType,
-  RootState,
-  extaArgumentFromThunkMiddlewareConfig,
-  AppActions
->;
-
-/**
- * Describe the store
- */
-type AppStore = Store<RootState, AppActions> & {
-  dispatch: Dispatch;
-};
-
+// Setup Redux Dev Tools
 export const composeEnhancers =
   (process.env.NODE_ENV === "development" &&
     window &&
     (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
   compose;
 
-// configure middlewares
-const middlewares = [ReduxThunk];
-// compose enhancers
-const storeEnhancer = composeEnhancers(applyMiddleware(...middlewares));
+// Note: we do not attempt to make the proper types by passing
+// types to the parameters of createStore.  The type definitions there are tricky
+// to work with and possibly buggy as of Redux 4.0.4.
+// Instead, we create a definition of the final store we want and declare the
+// CreateAppStore to return that type of store.
 
-const store: AppStore = createStore(rootReducer, preloadedState, storeEnhancer);
-export default store;
+/**
+ * Create a redux store configured for this application
+ */
+export const createAppStore = (thunkContext: AppThunkContext): AppStore => {
+  const storeEnhancer = composeEnhancers(
+    applyMiddleware(ReduxThunk.withExtraArgument(thunkContext))
+  );
+
+  return createStore(rootReducer, preloadedState, storeEnhancer);
+};
