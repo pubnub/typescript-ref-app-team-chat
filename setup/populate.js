@@ -14,6 +14,7 @@ let spacesCreationErrors;
 let createdMemberships = [];
 let membershipsCreationErrors = [''];
 let keys;
+let membersPerRequest = 20;
 
 const CONFIG_FILE = 'src/config/pubnub-keys.json';
 
@@ -110,7 +111,7 @@ async function scriptStart (publishKey, subscribeKey) {
                             }
                         }
                     })
-                }, 100*(index + 1));
+                }, 150*(index + 1));
             }));
         });
     }
@@ -152,12 +153,13 @@ async function scriptStart (publishKey, subscribeKey) {
             createdMemberships.push(new Promise((resolve, reject) => {
                 setTimeout(() => {
                     membershipsCreatedBar.increment();
-                    if(data.members[index].members.length > 25) {
+                    if(data.members[index].members.length > membersPerRequest) {
                         let leftMembersToAdd = data.members[index].members.length;
                         let devideMembersArray = [];
-                        while (leftMembersToAdd > 1) {
-                            leftMembersToAdd = leftMembersToAdd - 25;
-                            devideMembersArray.push(data.members[index].members.splice(leftMembersToAdd - 25, leftMembersToAdd))
+                        while (leftMembersToAdd > 0) {
+                            let sliceMembersStart = leftMembersToAdd - membersPerRequest > 0 ? leftMembersToAdd - membersPerRequest : 0;
+                            devideMembersArray.push(data.members[index].members.slice(sliceMembersStart, leftMembersToAdd))
+                            leftMembersToAdd = leftMembersToAdd - membersPerRequest;
                         }
                         for (let members of devideMembersArray) {
                             addMembers(item, members, resolve, reject);
