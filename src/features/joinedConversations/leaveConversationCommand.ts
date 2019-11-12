@@ -10,13 +10,18 @@ export const leaveConversation = (
   conversationId: string
 ): ThunkAction<Promise<void>> => {
   return (dispatch, getState, context) => {
+    if (conversationId === DEFAULT_CONVERSATION) {
+      return Promise.resolve();
+    }
     const done = dispatch(
       leaveSpaces({
         userId: userId,
         spaces: [{ id: conversationId }]
       })
     ).then(() => {
-      context.pubnub.api.unsubscribe(conversationId);
+      context.pubnub.api.unsubscribe({
+        channels: [conversationId]
+      });
       dispatch(focusOnConversation(DEFAULT_CONVERSATION));
     });
 
