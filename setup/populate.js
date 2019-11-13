@@ -57,7 +57,7 @@ function addKeysAndStartScript() {
             } 
             else {
                 console.log('\nYou entered invalid keys format!');
-                process.exit(0);
+                process.exit(1);
             }
         })
     })
@@ -97,14 +97,14 @@ async function scriptStart (publishKey, subscribeKey) {
                             else if (status.statusCode === 403) { //objects are not enabled for the subscribe key
                                 console.log(`\n${status.errorData.error.message}`);
                                 console.log('Please enable objects in your PubNub dashboard to proceed.');
-                                process.exit(0);
+                                process.exit(1);
                             }
                             else {
                                 console.log(`\ncreateUser ${item.id} error:`, status.errorData ? (
                                     console.log('\nSubscribe key that you entered is invalid!'), 
                                     //reset keys in case of invalid format
                                     fs.writeFile(CONFIG_FILE, JSON.stringify({"publishKey": "", "subscribeKey": ""}), () => {  
-                                        process.exit(0)  //Early exit
+                                        process.exit(1)  //Early exit
                                     })
                                 ) : status.message);
                                 reject()

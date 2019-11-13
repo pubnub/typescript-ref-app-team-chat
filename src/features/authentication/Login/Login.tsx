@@ -35,7 +35,7 @@ const Login = () => {
     <Wrapper>
       <Body>
         <Button onClick={loginWithRandomlyPickedUser}>
-          {loggingIn ? "Logging In" : "Log in"}
+          {loggingIn ? "Connecting" : "Connect"}
         </Button>
         <PoweredByPubNub>
           <PoweredBy>Powered By</PoweredBy>

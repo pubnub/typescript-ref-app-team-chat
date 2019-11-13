@@ -47,10 +47,11 @@ export const getCurrentConversationMembers = createSelector(
       ? conversationMemberships[conversationId].map(user => {
           return {
             ...users[user.id],
-            presence:
-              presence.occupants.filter(occupant => {
-                return occupant.uuid === user.id;
-              }).length > 0
+            presence: presence
+              ? presence.occupants.filter(occupant => {
+                  return occupant.uuid === user.id;
+                }).length > 0
+              : false
           };
         })
       : [];
