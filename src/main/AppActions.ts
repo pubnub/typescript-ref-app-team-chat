@@ -1,12 +1,15 @@
 import {
   focusOnConversationAction,
   updateConversationMessageInputValueAction
-} from "features/currentConversation/currentConversationStore";
-import { setLayoutAction, setBreakpointAction } from "features/layout/store";
+} from "features/currentConversation/currentConversationModel";
+import {
+  setLayoutAction,
+  setBreakpointAction
+} from "features/layout/layoutModel";
 import {
   logingInAction,
   loginSucceededAction
-} from "features/authentication/authenticationStore";
+} from "features/authentication/authenticationModel";
 
 /**
  * AppActions is the union of all basic actions in this application.

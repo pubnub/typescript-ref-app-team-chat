@@ -7,8 +7,8 @@ import { sendMessageAction } from "features/messages/sendMessageCommand";
 import {
   getCurrentConversationId,
   getConversationMessageInputValue
-} from "../currentConversationStore";
-import { updateConversationMessageInputValueAction } from "features/currentConversation/currentConversationStore";
+} from "../currentConversationModel";
+import { updateConversationMessageInputValueAction } from "features/currentConversation/currentConversationModel";
 
 const emptyMessage = "";
 

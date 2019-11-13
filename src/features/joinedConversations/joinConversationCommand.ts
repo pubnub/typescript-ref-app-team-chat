@@ -1,6 +1,6 @@
 import { ThunkAction } from "main/storeTypes";
 import { joinSpaces } from "pubnub-redux";
-import { focusOnConversation } from "features/currentConversation/currentConversationStore";
+import { focusOnConversation } from "features/currentConversation/currentConversationModel";
 
 export const joinConversation = (
   userId: string,

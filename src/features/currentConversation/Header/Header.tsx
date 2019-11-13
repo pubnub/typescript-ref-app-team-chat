@@ -6,8 +6,8 @@ import { setLayoutLeft } from "features/layout/actions";
 import {
   ConversationsIndexedById,
   getConversationsById
-} from "features/conversations/conversationStore";
-import { getCurrentConversationId } from "../currentConversationStore";
+} from "features/conversations/conversationModel";
+import { getCurrentConversationId } from "../currentConversationModel";
 import {
   Wrapper,
   Body,

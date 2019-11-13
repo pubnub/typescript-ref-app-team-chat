@@ -2,7 +2,7 @@ import React from "react";
 import { getPanelStates } from "features/layout/selectors";
 import { useSelector, useDispatch } from "react-redux";
 import { setLayoutDefault } from "features/layout/actions";
-import { getLoggedInUserId } from "features/authentication/authenticationStore";
+import { getLoggedInUserId } from "features/authentication/authenticationModel";
 import {
   ConversationDescription,
   ConversationDescriptionFragment
@@ -10,7 +10,7 @@ import {
 import {
   getConversationsByUserId,
   MembershipHash
-} from "../joinedConversationStore";
+} from "../joinedConversationModel";
 import { Cross as CrossIcon } from "foundations/components/icons/Cross";
 import {
   ScrollView,
@@ -23,8 +23,8 @@ import { createSelector } from "reselect";
 import {
   getAllConversations,
   Conversation
-} from "features/conversations/conversationStore";
-import { Breakpoint } from "features/layout/store";
+} from "features/conversations/conversationModel";
+import { Breakpoint } from "features/layout/layoutModel";
 import { getBreakpoint } from "features/layout/selectors";
 import { joinConversation } from "../joinConversationCommand";
 

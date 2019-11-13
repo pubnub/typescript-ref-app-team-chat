@@ -2,9 +2,9 @@ import React, { useRef, useEffect, useState, useCallback } from "react";
 import { useSelector } from "react-redux";
 import { createSelector } from "reselect";
 import { Message, MessageFragment } from "../Message";
-import { getCurrentConversationId } from "../currentConversationStore";
-import { getUsersById } from "features/users/userStore";
-import { getMessagesById } from "features/messages/messageStore";
+import { getCurrentConversationId } from "../currentConversationModel";
+import { getUsersById } from "features/users/userModel";
+import { getMessagesById } from "features/messages/messageModel";
 import { Wrapper } from "./MessageList.style";
 import WelcomeMessage from "./WelcomeMessage";
 

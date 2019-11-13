@@ -1,4 +1,4 @@
-import { Breakpoint, Layout, setLayout, setBreakpoint } from "./store";
+import { Breakpoint, Layout, setLayout, setBreakpoint } from "./layoutModel";
 import { getBreakpoint, getLayout } from "./selectors";
 
 import { ThunkAction } from "main/storeTypes";

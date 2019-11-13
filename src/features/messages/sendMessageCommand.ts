@@ -1,8 +1,8 @@
 import { ThunkAction } from "main/storeTypes";
-import { getCurrentConversationId } from "features/currentConversation/currentConversationStore";
-import { MessageContent } from "./messageStore";
+import { getCurrentConversationId } from "features/currentConversation/currentConversationModel";
+import { MessageContent } from "./messageModel";
 import { sendMessage } from "pubnub-redux";
-import { getLoggedInUserId } from "features/authentication/authenticationStore";
+import { getLoggedInUserId } from "features/authentication/authenticationModel";
 
 export const sendMessageAction = (message: MessageContent): ThunkAction => {
   return (dispatch, getState) => {

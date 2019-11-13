@@ -2,18 +2,18 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { createSelector } from "reselect";
 import { getPanelStates, getBreakpoint } from "features/layout/selectors";
-import { Breakpoint } from "features/layout/store";
-import { UsersIndexedById, getUsersById } from "features/users/userStore";
+import { Breakpoint } from "features/layout/layoutModel";
+import { UsersIndexedById, getUsersById } from "features/users/userModel";
 import {
   getUsersByConversationId,
   MembershipHash
-} from "../conversationMemberStore";
+} from "../conversationMemberModel";
 import {
   getPresenceByConversationId,
   ConversationPresence
-} from "features/memberPresence/memberPresenceStore";
+} from "features/memberPresence/memberPresenceModel";
 import { MemberDescription, UserFragment } from "../MemberDescription";
-import { getCurrentConversationId } from "features/currentConversation/currentConversationStore";
+import { getCurrentConversationId } from "features/currentConversation/currentConversationModel";
 import { setLayoutDefault } from "features/layout/actions";
 import { Cross as CrossIcon } from "foundations/components/icons/Cross";
 import { Back as BackIcon } from "foundations/components/icons/Back";

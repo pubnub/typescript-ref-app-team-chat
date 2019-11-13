@@ -31,13 +31,17 @@ const onResize = () => {
   store.dispatch(resize(window.innerWidth));
 };
 
+const leaveApplication = () => {
+  // This is required to show the current user leave immediately rather than
+  // wating for the timeout period
+  pubnub.unsubscribeAll();
+};
+
 const App = () => {
   useEffect(() => {
     // Start listening for messages and events from PubNub
     pubnub.addListener(createPubNubListener(store.dispatch));
-    return () => {
-      pubnub.stop(); // This should be `destroy` but that's not defined in TS
-    };
+    return leaveApplication;
   }, []);
 
   useEffect(() => {
@@ -48,6 +52,10 @@ const App = () => {
       window.removeEventListener("load", onResize);
     };
   });
+
+  useEffect(() => {
+    window.addEventListener("beforeunload", leaveApplication);
+  }, []);
 
   return (
     <Provider store={store}>

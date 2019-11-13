@@ -1,15 +1,15 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { createSelector } from "reselect";
-import { getCurrentConversationId } from "../currentConversationStore";
+import { getCurrentConversationId } from "../currentConversationModel";
 import {
   getUsersByConversationId,
   MembershipHash
-} from "features/conversationMembers/conversationMemberStore";
+} from "features/conversationMembers/conversationMemberModel";
 import {
   getPresenceByConversationId,
   ConversationPresence
-} from "features/memberPresence/memberPresenceStore";
+} from "features/memberPresence/memberPresenceModel";
 import { getPanelStates } from "features/layout/selectors";
 import { setLayoutRight } from "features/layout/actions";
 import { PeopleGroup as PeopleGroupIcon } from "foundations/components/icons/PeopleGroup";

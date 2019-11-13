@@ -1,7 +1,7 @@
 import { ThunkAction } from "main/storeTypes";
-import { loggingIn, loginSucceeded } from "./authenticationStore";
+import { loggingIn, loginSucceeded } from "./authenticationModel";
 import { fetchUserById, fetchMemberships } from "pubnub-redux";
-import { getConversationsByUserId } from "features/joinedConversations/joinedConversationStore";
+import { getConversationsByUserId } from "features/joinedConversations/joinedConversationModel";
 
 export const login = (userId: string): ThunkAction<Promise<void>> => {
   return (dispatch, getState, context) => {

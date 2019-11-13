@@ -3,7 +3,7 @@ import { leaveSpaces } from "pubnub-redux";
 import {
   focusOnConversation,
   DEFAULT_CONVERSATION
-} from "features/currentConversation/currentConversationStore";
+} from "features/currentConversation/currentConversationModel";
 
 export const leaveConversation = (
   userId: string,

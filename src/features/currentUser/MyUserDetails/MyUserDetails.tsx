@@ -1,8 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { UserInitialsAvatar } from "foundations/components/UserInitialsAvatar";
-import { getLoggedInUserId } from "features/authentication/authenticationStore";
-import { getUsersById } from "features/users/userStore";
+import { getLoggedInUserId } from "features/authentication/authenticationModel";
+import { getUsersById } from "features/users/userModel";
 import { NetworkStatus } from "../NetworkStatus";
 import {
   Wrapper,

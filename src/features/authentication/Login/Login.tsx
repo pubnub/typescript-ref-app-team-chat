@@ -9,8 +9,8 @@ import {
 } from "./Login.style";
 import PubNubLogo from "./PubNub_Logo.svg";
 import { login } from "../loginCommand";
-import { isLoggingIn } from "../authenticationStore";
-import { isUserLoggedIn } from "features/authentication/authenticationStore";
+import { isLoggingIn } from "../authenticationModel";
+import { isUserLoggedIn } from "features/authentication/authenticationModel";
 import { useSelector } from "react-redux";
 import KnownIds from "./knownUserIds.json";
 

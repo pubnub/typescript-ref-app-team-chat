@@ -9,7 +9,7 @@ import {
 } from "./ConversationItem.style";
 import { Leave } from "foundations/components/icons/Leave";
 import useHover from "foundations/hooks/useHover";
-import { DEFAULT_CONVERSATION } from "features/currentConversation/currentConversationStore";
+import { DEFAULT_CONVERSATION } from "features/currentConversation/currentConversationModel";
 
 interface ConversationItemProps {
   selected: boolean;

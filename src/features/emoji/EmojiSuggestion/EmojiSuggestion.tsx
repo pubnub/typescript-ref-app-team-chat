@@ -1,7 +1,7 @@
 import "emoji-mart/css/emoji-mart.css";
 import { getBreakpoint } from "features/layout/selectors";
 import { useSelector } from "react-redux";
-import { Breakpoint } from "features/layout/store";
+import { Breakpoint } from "features/layout/layoutModel";
 import React, { useRef } from "react";
 import useClickOutside from "foundations/hooks/useClickOutside";
 import { emojiIndex, EmojiData } from "emoji-mart";

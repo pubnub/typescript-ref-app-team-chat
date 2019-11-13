@@ -1,15 +1,15 @@
 import { combineReducers } from "redux";
 
-import { currentConversationStateReducer } from "features/currentConversation/currentConversationStore";
-import { LayoutStateReducer } from "features/layout/store";
-import { UsersReducer } from "features/users/userStore";
-import { AuthenticationStateReducer } from "features/authentication/authenticationStore";
-import { MessageStateReducer } from "features/messages/messageStore";
-import { conversationStateReducer } from "features/conversations/conversationStore";
-import { JoinedConversationsStateReducer } from "features/joinedConversations/joinedConversationStore";
-import { ConversationMembersStateReducer } from "features/conversationMembers/conversationMemberStore";
-import { NetworkStatusReducer } from "features/currentUser/networkStatusStore";
-import { MemberPresenceReducer } from "features/memberPresence/memberPresenceStore";
+import { currentConversationStateReducer } from "features/currentConversation/currentConversationModel";
+import { LayoutStateReducer } from "features/layout/layoutModel";
+import { UsersReducer } from "features/users/userModel";
+import { AuthenticationStateReducer } from "features/authentication/authenticationModel";
+import { MessageStateReducer } from "features/messages/messageModel";
+import { conversationStateReducer } from "features/conversations/conversationModel";
+import { JoinedConversationsStateReducer } from "features/joinedConversations/joinedConversationModel";
+import { ConversationMembersStateReducer } from "features/conversationMembers/conversationMemberModel";
+import { NetworkStatusReducer } from "features/currentUser/networkStatusModel";
+import { MemberPresenceReducer } from "features/memberPresence/memberPresenceModel";
 
 /**
  * Combine all of the reducers in this application
