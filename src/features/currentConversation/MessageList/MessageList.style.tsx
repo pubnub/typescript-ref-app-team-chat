@@ -5,13 +5,4 @@ export const Wrapper = styled.div`
   flex-direction: column;
   overflow-y: scroll;
   height: 100%;
-
-  > div {
-    &:first-child {
-      margin-top: 16px;
-    }
-    &:last-child {
-      margin-bottom: 16px;
-    }
-  }
 `;

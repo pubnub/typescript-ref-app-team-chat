@@ -7,18 +7,17 @@ export const joinConversation = (
   conversationId: string
 ): ThunkAction<Promise<void>> => {
   return (dispatch, getState, context) => {
-    const done = dispatch(
+    return dispatch(
       joinSpaces({
         userId: userId,
         spaces: [{ id: conversationId }]
       })
     ).then(() => {
       context.pubnub.api.subscribe({
-        channels: [conversationId]
+        channels: [conversationId],
+        withPresence: true
       });
       dispatch(focusOnConversation(conversationId));
     });
-
-    return done;
   };
 };

@@ -6,17 +6,22 @@ import { UsersReducer } from "features/users/userStore";
 import { AuthenticationStateReducer } from "features/authentication/authenticationStore";
 import { MessageStateReducer } from "features/messages/messageStore";
 import { conversationStateReducer } from "features/conversations/conversationStore";
-import { createNetworkStatusReducer } from "pubnub-redux";
 import { JoinedConversationsStateReducer } from "features/joinedConversations/joinedConversationStore";
 import { ConversationMembersStateReducer } from "features/conversationMembers/conversationMemberStore";
+import { NetworkStatusReducer } from "features/currentUser/networkStatusStore";
+import { MemberPresenceReducer } from "features/memberPresence/memberPresenceStore";
 
+/**
+ * Combine all of the reducers in this application
+ */
 const rootReducer = combineReducers({
   layout: LayoutStateReducer,
-  networkStatus: createNetworkStatusReducer(false), // TODO: move elsewhere
+  networkStatus: NetworkStatusReducer,
   users: UsersReducer,
   conversations: conversationStateReducer,
   joinedConversations: JoinedConversationsStateReducer,
   conversationMembers: ConversationMembersStateReducer,
+  memberPresence: MemberPresenceReducer,
   messages: MessageStateReducer,
   authentication: AuthenticationStateReducer,
   currentConversation: currentConversationStateReducer

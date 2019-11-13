@@ -6,6 +6,7 @@ import { getCurrentConversationId } from "../currentConversationStore";
 import { getUsersById } from "features/users/userStore";
 import { getMessagesById } from "features/messages/messageStore";
 import { Wrapper } from "./MessageList.style";
+import WelcomeMessage from "./WelcomeMessage";
 
 /**
  * Create a selector that that returns the list of messages in the currentConversation joined
@@ -44,7 +45,6 @@ export const getCurrentConversationMessages = createSelector(
       : [];
   }
 );
-
 const MessageList = () => {
   type ConversationScrollPositionsType = { [conversationId: string]: number };
   const conversationId: string = useSelector(getCurrentConversationId);
@@ -104,6 +104,7 @@ const MessageList = () => {
 
   return (
     <Wrapper ref={wrapper} onScroll={handleScroll}>
+      <WelcomeMessage />
       {messages.map(message => (
         <Message message={message} key={message.timetoken} />
       ))}

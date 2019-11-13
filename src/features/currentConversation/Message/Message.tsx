@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { UserInitialsAvatar } from "foundations/components/UserInitialsAvatar";
 import convertTimestampToTime from "foundations/utilities/convertTimestampToTime";
 import {
@@ -26,9 +26,10 @@ export interface MessageFragment {
 
 interface MessageProps {
   message: MessageFragment;
+  avatar?: ReactNode;
 }
 
-const Message = ({ message }: MessageProps) => {
+const Message = ({ message, avatar }: MessageProps) => {
   /*
     TODO: THere is a bug here.  The message sender may not be loaded here due to errors in timing.
     But, usually, it does get loaded when the members in the conversation get loaded.
@@ -40,11 +41,15 @@ const Message = ({ message }: MessageProps) => {
   return (
     <Wrapper>
       <Avatar>
-        <UserInitialsAvatar
-          size={36}
-          name={message.sender.name}
-          uuid={message.sender.id}
-        />
+        {avatar ? (
+          avatar
+        ) : (
+          <UserInitialsAvatar
+            size={36}
+            name={message.sender.name}
+            uuid={message.sender.id}
+          />
+        )}
       </Avatar>
       <Body>
         <Header>

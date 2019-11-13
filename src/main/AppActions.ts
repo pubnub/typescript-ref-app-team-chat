@@ -11,7 +11,7 @@ import {
 /**
  * AppActions is the union of all basic actions in this application.
  *
- * It is used to decribe the actions that can be received by a reducer
+ * It is used to describe the actions that can be received by a reducer
  * and is helpful for type inference of action payload types when writing
  * switch style reducers.
  *

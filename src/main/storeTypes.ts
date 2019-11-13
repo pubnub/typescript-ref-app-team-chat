@@ -1,4 +1,5 @@
 import { Store } from "redux";
+import { PubnubThunkContext } from "pubnub-redux";
 import { RootState } from "./rootReducer";
 import { AppActions } from "./AppActions";
 
@@ -8,8 +9,10 @@ import { AppActions } from "./AppActions";
 export type AppState = RootState;
 
 /**
- * Describes a function that describes what we are able to dispatch to the
- * store in this application.
+ * Describes what we are able to dispatch to the store in this application.
+ *
+ * This can be different that the actions which can be received by reducers
+ * in the application.
  */
 export interface AppDispatch {
   <T extends AppActions>(action: T): T;
@@ -17,18 +20,9 @@ export interface AppDispatch {
 }
 
 /**
- * This should be defined by the Redux SDK
- */
-interface PubNubThunkContext {
-  api: any;
-}
-
-/**
  * Describe thunk middleware context
  */
-export interface AppThunkContext {
-  pubnub: PubNubThunkContext;
-}
+export type AppThunkContext = PubnubThunkContext;
 
 /**
  * Describe a Thunk with application specific types.
@@ -37,10 +31,6 @@ export interface AppThunkContext {
  * creator function.  By declaring return values of this type, the types
  * of the dispatch, getState and extra argument parameters to the thunk can
  * be inferred and typechecked by TypeScript.
- *
- * This type is determining which types of actions (including thunks) which
- * can be dispatched from within a thunk declared with this type, which is
- * different that the set of actions which can be received by a reducer.
  */
 export type ThunkAction<ThunkReturn = void> = (
   dispatch: AppDispatch,

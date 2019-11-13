@@ -6,6 +6,10 @@ import {
   getUsersByConversationId,
   MembershipHash
 } from "features/conversationMembers/conversationMemberStore";
+import {
+  getPresenceByConversationId,
+  ConversationPresence
+} from "features/memberPresence/memberPresenceStore";
 import { getPanelStates } from "features/layout/selectors";
 import { setLayoutRight } from "features/layout/actions";
 import { PeopleGroup as PeopleGroupIcon } from "foundations/components/icons/PeopleGroup";
@@ -21,15 +25,21 @@ export interface ConversationOccupancyFragment {
 }
 
 export const getCurrentConversationOccupancy = createSelector(
-  [getCurrentConversationId, getUsersByConversationId],
+  [
+    getCurrentConversationId,
+    getUsersByConversationId,
+    getPresenceByConversationId
+  ],
   (
     currentConversationId: string,
-    conversationMemberships: MembershipHash
+    conversationMemberships: MembershipHash,
+    conversationPresence: ConversationPresence
   ): ConversationOccupancyFragment => {
     const members = conversationMemberships[currentConversationId];
+    const presence = conversationPresence[currentConversationId];
     return {
       joinedCount: members ? members.length : 0,
-      presentCount: 5
+      presentCount: presence ? presence.occupancy : 0
     };
   }
 );

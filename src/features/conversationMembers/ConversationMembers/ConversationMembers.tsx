@@ -8,6 +8,10 @@ import {
   getUsersByConversationId,
   MembershipHash
 } from "../conversationMemberStore";
+import {
+  getPresenceByConversationId,
+  ConversationPresence
+} from "features/memberPresence/memberPresenceStore";
 import { MemberDescription, UserFragment } from "../MemberDescription";
 import { getCurrentConversationId } from "features/currentConversation/currentConversationStore";
 import { setLayoutDefault } from "features/layout/actions";
@@ -22,21 +26,31 @@ import {
   BackIconWrapper,
   Title
 } from "./ConversationMembers.style";
-import { fetchMembers } from "pubnub-redux";
+import { fetchMembers, fetchHereNow } from "pubnub-redux";
 import { usePubNub } from "pubnub-react";
 
 export const getCurrentConversationMembers = createSelector(
-  [getUsersById, getCurrentConversationId, getUsersByConversationId],
+  [
+    getUsersById,
+    getCurrentConversationId,
+    getUsersByConversationId,
+    getPresenceByConversationId
+  ],
   (
     users: UsersIndexedById,
     conversationId: string,
-    conversationMemberships: MembershipHash
+    conversationMemberships: MembershipHash,
+    conversationPresence: ConversationPresence
   ): UserFragment[] => {
+    let presence = conversationPresence[conversationId];
     return conversationMemberships[conversationId]
       ? conversationMemberships[conversationId].map(user => {
           return {
             ...users[user.id],
-            presence: true
+            presence:
+              presence.occupants.filter(occupant => {
+                return occupant.uuid === user.id;
+              }).length > 0
           };
         })
       : [];
@@ -67,6 +81,12 @@ const ConversationMembers = () => {
             customUserFields: true,
             totalCount: false
           }
+        })
+      );
+
+      dispatch(
+        fetchHereNow({
+          channels: [currentConversationId]
         })
       );
     }

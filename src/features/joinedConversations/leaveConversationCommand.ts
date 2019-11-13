@@ -13,7 +13,7 @@ export const leaveConversation = (
     if (conversationId === DEFAULT_CONVERSATION) {
       return Promise.resolve();
     }
-    const done = dispatch(
+    return dispatch(
       leaveSpaces({
         userId: userId,
         spaces: [{ id: conversationId }]
@@ -24,7 +24,5 @@ export const leaveConversation = (
       });
       dispatch(focusOnConversation(DEFAULT_CONVERSATION));
     });
-
-    return done;
   };
 };
