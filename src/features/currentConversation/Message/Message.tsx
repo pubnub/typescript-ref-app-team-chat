@@ -30,13 +30,8 @@ interface MessageProps {
 }
 
 const Message = ({ message, avatar }: MessageProps) => {
-  /*
-    TODO: THere is a bug here.  The message sender may not be loaded here due to errors in timing.
-    But, usually, it does get loaded when the members in the conversation get loaded.
-  if (message.message.sender === undefined) {
-    return null;
-  }
-  */
+  // show unknown sender when sender is missing
+  let sender = message.sender || { id: "unknown", name: "Unknown" };
 
   return (
     <Wrapper>
@@ -44,16 +39,12 @@ const Message = ({ message, avatar }: MessageProps) => {
         {avatar ? (
           avatar
         ) : (
-          <UserInitialsAvatar
-            size={36}
-            name={message.sender.name}
-            uuid={message.sender.id}
-          />
+          <UserInitialsAvatar size={36} name={sender.name} uuid={sender.id} />
         )}
       </Avatar>
       <Body>
         <Header>
-          <SenderName>{message.sender.name}</SenderName>
+          <SenderName>{sender.name}</SenderName>
           <TimeSent>{convertTimestampToTime(message.timetoken)}</TimeSent>
         </Header>
         <Content>{message.message.content.body}</Content>

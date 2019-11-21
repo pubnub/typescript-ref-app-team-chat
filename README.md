@@ -2,32 +2,41 @@
 
 [![Build Status](https://travis-ci.com/pubnub/typescript-ref-app-team-chat.svg?token=ey6rVJnpqsBKpxXy2fYF&branch=master)](https://travis-ci.com/pubnub/typescript-ref-app-team-chat)
 
-This repository contains the code for the Team Chat Reference Application hosted on [PubNub Chat Docs Page](https://www.pubnub.com/docs/chat/quickstart#quickstart).
+This repository contains the code for the Team Chat web reference application hosted on the [PubNub Chat Docs Page](https://www.pubnub.com/docs/chat/quickstart#quickstart). You can download the project to run on your local machine, and explore the code to see how we built it.
+
+![alt text](team-chat-preview.png "Reference App")
 
 The application demonstrates how to build a chat application using:
+
 - PubNub
 - TypeScript
 - React
 - Redux
 
-![alt text](team-chat-preview.png "Reference App")
-
 ## Requirements
 
-* [Node.js](https://nodejs.org/en/)
-* PubNub Account (Free)
+- [Node.js](https://nodejs.org/en/)
+- [PubNub Account](#pubnub-account) (*Free*)
 
-### PubNub Account
+## PubNub Account
 
-If you don't already have an account, you can [create one for free](https://dashboard.pubnub.com/).
+To run this application you must obtain publish and subscribe keys from your PubNub Account. If you don't already have an account, you can [create one for free](https://dashboard.pubnub.com/).
 
-1. Sign in to your PubNub [Admin Dashboard](https://dashboard.pubnub.com/), click Create New App for PubNub Chat and give your app a name.
+1. Sign in to your [PubNub Dashboard](https://dashboard.pubnub.com/).
 
-1. Select your new app, then click its keyset.
+1. Click **Create New App**.
 
-1. Locate the Publish and Subscribe keys. You'll need these keys to include in this project.
+1. Give your app a name, and select **Chat App** as the app type.
 
-## Building the project
+1. Select a region to store your user data (e.g. *Portland*).
+
+1. Click **Create**.
+
+1. Click your new app to open its settings, then click its keyset.
+
+1. Locate the *Publish* and *Subscribe* keys. You'll need these keys to include in this project.
+
+## Running the project
 
 1. Clone the GitHub repository.
 
@@ -42,16 +51,16 @@ If you don't already have an account, you can [create one for free](https://dash
     npm install
     ```
 
-1. Run the project in your local environment. You may be asked to input your PubNub keys and populate sample data if you are running the app for the first time.
+1. Run the project in your local environment. If you are running the app for the first time, enter your PubNub keys to begin populating sample data.
 
     ```bash
     npm start
     ```
 
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+    A web browser should automatically open [http://localhost:3000](http://localhost:3000), and you can explore your very own Team Chat app!
 
 ## Further Information
 
-Visit the [PubNub Chat Docs](https://www.pubnub.com/docs/chat) page for more information on how to use the React and Redux SDKs to add in-app chat to your applications.
+Visit the [PubNub Chat Docs](https://www.pubnub.com/docs/chat) page for more information about how to use the React and Redux SDKs to add in-app chat to your applications.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).  Special thanks to Elvis Wolcott and Mark Erikson.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). Special thanks to Martin Lagrange, Elvis Wolcott, and Mark Erikson.

@@ -15,7 +15,7 @@
     "polished": "^3.4.1",
     "pubnub": "^4.27.0",
     "pubnub-react": "^2.0.0-beta.4",
-    "pubnub-redux": "^0.1.31-alpha",
+    "pubnub-redux": "^0.0.2-beta",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-pose": "^4.0.8",
