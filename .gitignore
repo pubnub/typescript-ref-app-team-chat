@@ -25,3 +25,9 @@ yarn.lock
 
 # Ensure our pubnub keys do not get checked in to github
 pubnub-keys.json
+
+# IDE
+.idea
+
+deployment_keys
+deployment_keys.pub
