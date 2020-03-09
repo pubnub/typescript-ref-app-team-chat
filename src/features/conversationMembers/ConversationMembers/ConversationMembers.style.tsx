@@ -1,22 +1,20 @@
 import styled from "styled-components/macro";
-import posed from "react-pose";
+import { motion } from "framer-motion";
 
-export const Wrapper = styled.section<{ pose: string }>`
+export const Wrapper = styled(motion.section)`
   height: 100%;
-  display: ${props => (props.pose === "closed" ? "none" : "flex")};
+  display: none;
   flex-direction: column;
   max-width: 290px;
   width: 100%;
-  @media (max-width: 480px) {
+  @media ${props => props.theme.breakpoint.mediaQuery.small} {
     margin-left: 0;
     max-width: none;
+    position: fixed;
+    z-index: 300;
+    background-color: #ffffff;
   }
 `;
-
-export const AnimatedWrapper = posed(Wrapper)({
-  open: { width: "100%", applyAtStart: { display: "flex" } },
-  closed: { width: "24px", applyAtEnd: { display: "none" } }
-});
 
 export const Title = styled.div`
   display: flex;
@@ -38,7 +36,7 @@ export const Header = styled.div`
 
 export const CloseIcon = styled.span`
   cursor: pointer;
-  @media (max-width: 480px) {
+  @media ${props => props.theme.breakpoint.mediaQuery.small} {
     display: none;
   }
 `;
@@ -50,8 +48,21 @@ export const ScrollableView = styled.span`
 export const BackIconWrapper = styled.div`
   cursor: pointer;
   display: none;
-  @media (max-width: 480px) {
+  @media ${props => props.theme.breakpoint.mediaQuery.small} {
     display: flex;
     margin-right: 25px;
   }
 `;
+
+export const getAnimatedWrapperVariants = (isSmall: boolean) => ({
+  open: {
+    width: "100%",
+    display: "flex"
+  },
+  closed: {
+    width: isSmall ? "100%" : "24px",
+    transitionEnd: {
+      display: "none"
+    }
+  }
+});

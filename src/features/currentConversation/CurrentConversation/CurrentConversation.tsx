@@ -1,19 +1,22 @@
 import React from "react";
-import { AnimatedWrapper } from "./CurrentConversation.style";
+import { Wrapper, animatedWrapperVariants } from "./CurrentConversation.style";
 import { Header } from "../Header";
 import { MessageList } from "../MessageList";
 import { MessageInput } from "../MessageInput";
 import { useSelector } from "react-redux";
-import { getPanelStates } from "features/layout/selectors";
+import { getViewStates } from "features/layout/Selectors";
 
 const CurrentConversation = () => {
-  const panels = useSelector(getPanelStates);
+  const views = useSelector(getViewStates);
   return (
-    <AnimatedWrapper pose={panels.Content ? "open" : "closed"}>
+    <Wrapper
+      animate={views.CurrentConversation ? "open" : "closed"}
+      variants={animatedWrapperVariants}
+    >
       <Header />
       <MessageList />
       <MessageInput />
-    </AnimatedWrapper>
+    </Wrapper>
   );
 };
 

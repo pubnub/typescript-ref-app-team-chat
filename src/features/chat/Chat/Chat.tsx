@@ -3,7 +3,7 @@ import { Wrapper } from "./ChatUI.style";
 import { Menu } from "features/chat/Menu/Menu";
 import { CurrentConversation } from "features/currentConversation/CurrentConversation/CurrentConversation";
 import { ConversationMembers } from "features/conversationMembers/ConversationMembers/ConversationMembers";
-import { JoinConversationModal } from "features/joinedConversations/JoinConversationModal/JoinConversationModal";
+import { JoinConversationDialog } from "features/joinedConversations/JoinConversationDialog/JoinConversationDialog";
 
 const ChatUI = () => {
   return (
@@ -11,7 +11,7 @@ const ChatUI = () => {
       <Menu />
       <CurrentConversation />
       <ConversationMembers />
-      <JoinConversationModal />
+      <JoinConversationDialog />
     </Wrapper>
   );
 };

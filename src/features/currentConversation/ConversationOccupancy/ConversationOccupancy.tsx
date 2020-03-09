@@ -10,14 +10,17 @@ import {
   getPresenceByConversationId,
   ConversationPresence
 } from "features/memberPresence/memberPresenceModel";
-import { getPanelStates } from "features/layout/selectors";
-import { setLayoutRight } from "features/layout/actions";
-import { PeopleGroup as PeopleGroupIcon } from "foundations/components/icons/PeopleGroup";
+import { getViewStates } from "features/layout/Selectors";
+import { PeopleGroupIcon } from "foundations/components/icons/PeopleGroupIcon";
 import {
   Wrapper,
   OccupancyNumber,
   IconWrapper
 } from "./ConversationOccupancy.style";
+import {
+  conversationMembersViewDisplayed,
+  conversationMembersViewHidden
+} from "features/layout/LayoutActions";
 
 export interface ConversationOccupancyFragment {
   joinedCount: number;
@@ -51,22 +54,31 @@ const ConversationOccupancy = () => {
   }: ConversationOccupancyFragment = useSelector(
     getCurrentConversationOccupancy
   );
-  const panels = useSelector(getPanelStates);
-  const isRightLayoutToggled = panels.Right;
+  const views = useSelector(getViewStates);
+  const isConversationMembersLayoutVisible = views.ConversationMembers;
   const dispatch = useDispatch();
 
   return (
     <Wrapper
-      highlighted={isRightLayoutToggled}
+      highlighted={isConversationMembersLayoutVisible}
       onClick={() => {
-        dispatch(setLayoutRight());
+        isConversationMembersLayoutVisible
+          ? dispatch(conversationMembersViewHidden())
+          : dispatch(conversationMembersViewDisplayed());
       }}
     >
       <OccupancyNumber>
         <em>{presentCount}</em> | {joinedCount}
       </OccupancyNumber>
       <IconWrapper>
-        <PeopleGroupIcon fill={isRightLayoutToggled ? "#3FABFF" : "#979797"} />
+        <PeopleGroupIcon
+          title={
+            isConversationMembersLayoutVisible
+              ? "Hide members list"
+              : "Show convsersation members"
+          }
+          active={isConversationMembersLayoutVisible}
+        />
       </IconWrapper>
     </Wrapper>
   );

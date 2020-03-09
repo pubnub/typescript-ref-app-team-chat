@@ -8,7 +8,7 @@ export const Wrapper = styled.div<{ highlighted: boolean }>`
   cursor: pointer;
   font-size: 13px;
   color: ${props => (props.highlighted ? "#3FABFF" : "#979797")};
-  @media (max-width: 480px) {
+  @media ${props => props.theme.breakpoint.mediaQuery.small} {
     flex-direction: column-reverse;
     min-width: 50px;
     margin-left: 25px;
@@ -17,7 +17,7 @@ export const Wrapper = styled.div<{ highlighted: boolean }>`
 
 export const OccupancyNumber = styled.section`
   margin-right: 10px;
-  @media (max-width: 480px) {
+  @media ${props => props.theme.breakpoint.mediaQuery.small} {
     margin-right: 0;
     margin-top: 2px;
   }

@@ -1,29 +1,31 @@
 {
   "name": "team-chat",
-  "version": "0.5.4",
+  "version": "0.6.0",
   "description": "Team Chat - A Reference Application for PubNub with Typescript, React and Redux",
   "license": "MIT",
   "private": true,
   "dependencies": {
     "@types/emoji-mart": "^2.11.0",
-    "@types/pubnub": "^4.0.7",
-    "@types/react": "^16.9.4",
+    "@types/invariant": "^2.2.31",
+    "@types/pubnub": "^4.27.2",
+    "@types/react": "^16.9.23",
     "@types/react-dom": "^16.9.1",
     "@types/react-redux": "^7.1.2",
-    "@types/styled-components": "^4.1.19",
+    "@types/styled-components": "^5.0.1",
     "emoji-mart": "^2.11.1",
+    "framer-motion": "^1.8.4",
+    "invariant": "^2.2.4",
     "polished": "^3.4.1",
-    "pubnub": "^4.27.0",
-    "pubnub-react": "^2.0.0-beta.4",
-    "pubnub-redux": "^0.0.2-beta",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "react-pose": "^4.0.8",
-    "react-redux": "^7.1.0",
+    "pubnub": "^4.27.3",
+    "pubnub-react": "^2.0.0",
+    "pubnub-redux": "^0.0.5-beta",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "react-redux": "^7.2.0",
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
-    "styled-components": "^4.4.0"
+    "styled-components": "^5.0.1"
   },
   "scripts": {
     "start": "node setup/populate.js --quick-test && react-scripts start",
@@ -53,8 +55,7 @@
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ]
   },
   "babelMacros": {
@@ -64,19 +65,19 @@
     "node": ">=8.0.0"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^4.0.0",
-    "@testing-library/react": "^9.1.4",
-    "@types/jest": "24.0.18",
-    "@types/node": "^12.7.5",
+    "@testing-library/jest-dom": "^5.1.1",
+    "@testing-library/react": "^9.4.1",
+    "@types/jest": "25.1.3",
+    "@types/node": "^13.7.7",
     "cli-progress": "^3.3.1",
-    "eslint-plugin-react-hooks": "^2.1.1",
+    "eslint-plugin-react-hooks": "^2.5.0",
     "file-system": "^2.2.2",
-    "husky": "^3.0.8",
-    "lint-staged": "^9.4.1",
+    "husky": "^4.2.3",
+    "lint-staged": "^10.0.8",
     "prettier": "^1.18.2",
-    "react-scripts": "3.2.0",
+    "react-scripts": "3.4.0",
     "readline": "^1.3.0",
     "requirejs": "^2.3.6",
-    "typescript": "3.6.3"
+    "typescript": "3.8.3"
   }
 }

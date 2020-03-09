@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { AppState } from "main/storeTypes";
-import { PresenceIndicator as PresenceIndicatorIcon } from "foundations/components/icons/PresenceIndicator";
+import { PresenceIndicatorIcon } from "foundations/components/icons/PresenceIndicatorIcon";
 import { Wrapper } from "./NetworkStatus.style";
 
 const NetworkStatus = () => {
@@ -10,7 +10,10 @@ const NetworkStatus = () => {
   );
   return (
     <Wrapper>
-      <PresenceIndicatorIcon fill={isConnected ? "#B8E986" : "#E9EEF4"} />
+      <PresenceIndicatorIcon
+        title={isConnected ? "connected" : "not connected"}
+        active={isConnected}
+      />
     </Wrapper>
   );
 };

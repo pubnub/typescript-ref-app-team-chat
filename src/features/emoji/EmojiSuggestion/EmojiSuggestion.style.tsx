@@ -7,7 +7,7 @@ export const Popup = styled.div`
 export const Suggestions = styled.section`
   position: absolute;
   bottom: 0;
-  z-index: 4;
+  z-index: 600;
   border: 1px solid lightgray;
   border-radius: 5px;
   max-height: 400px;
@@ -38,7 +38,7 @@ export const Results = styled.div`
   min-height: 20px;
   background-color: white;
 
-  @media only screen and (min-width: 480px) {
+  @media ${props => props.theme.breakpoint.mediaQuery.small} {
     flex-direction: row;
     flex-wrap: wrap;
   }
@@ -56,7 +56,7 @@ export const Result = styled.span`
     color: #ffffff;
   }
 
-  @media only screen and (min-width: 480px) {
+  @media ${props => props.theme.breakpoint.mediaQuery.small} {
     padding: 2px 6px;
     flex-grow: 0;
   }

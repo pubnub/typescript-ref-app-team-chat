@@ -1,7 +1,6 @@
-import React from "react";
-import { getPanelStates } from "features/layout/selectors";
+import React, { useContext } from "react";
+import { getViewStates } from "features/layout/Selectors";
 import { useSelector, useDispatch } from "react-redux";
-import { setLayoutDefault } from "features/layout/actions";
 import { getLoggedInUserId } from "features/authentication/authenticationModel";
 import {
   ConversationDescription,
@@ -11,22 +10,27 @@ import {
   getConversationsByUserId,
   MembershipHash
 } from "../joinedConversationModel";
-import { Cross as CrossIcon } from "foundations/components/icons/Cross";
+import { CrossIcon } from "foundations/components/icons/CrossIcon";
 import {
   ScrollView,
   CloseButton,
   Title,
   Header
-} from "./JoinConversationModal.style";
-import { Overlay, Modal, AnimatedModal } from "foundations/components/Modal";
+} from "./JoinConversationDialog.style";
+import {
+  Overlay,
+  Modal,
+  getAnimatedModalVariants
+} from "foundations/components/Modal";
 import { createSelector } from "reselect";
 import {
   getAllConversations,
   Conversation
 } from "features/conversations/conversationModel";
-import { Breakpoint } from "features/layout/layoutModel";
-import { getBreakpoint } from "features/layout/selectors";
 import { joinConversation } from "../joinConversationCommand";
+import { joinConversationViewHidden } from "features/layout/LayoutActions";
+import { ThemeContext } from "styled-components";
+import { useMediaQuery } from "foundations/hooks/useMediaQuery";
 
 // Fetch all conversations and remove the ones we're already a member of
 const getJoinableConversations = createSelector(
@@ -44,27 +48,38 @@ const getJoinableConversations = createSelector(
   }
 );
 
-const JoinConversationModal = () => {
+/**
+ * Present list to the user of conversations that they could join, but have not.
+ * Allow the user to select the conversation to join or back out.
+ *
+ * TODO: This renders unconditionally as display:none so it will fetch the
+ * list of conversations to join when the UI is rendered even if the user has not
+ * opened the dialog.
+ */
+const JoinConversationDialog = () => {
   const conversations: ConversationDescriptionFragment[] = useSelector(
     getJoinableConversations
   );
-  const panels = useSelector(getPanelStates);
+  const views = useSelector(getViewStates);
   const currentUserId = useSelector(getLoggedInUserId);
   const dispatch = useDispatch();
-  const breakpoint = useSelector(getBreakpoint);
-  const Panel = breakpoint === Breakpoint.Small ? Modal : AnimatedModal;
+  const themeContext = useContext(ThemeContext);
+  const isSmall = useMediaQuery(themeContext.breakpoint.mediaQuery.small);
 
   return (
-    <Overlay displayed={panels.Overlay}>
-      <Panel pose={panels.Overlay ? "open" : "closed"}>
+    <Overlay displayed={views.JoinConversation}>
+      <Modal
+        animate={views.JoinConversation ? "open" : "closed"}
+        variants={getAnimatedModalVariants(isSmall)}
+      >
         <Header>
           <Title>Join a Conversation</Title>
           <CloseButton
             onClick={() => {
-              dispatch(setLayoutDefault());
+              dispatch(joinConversationViewHidden());
             }}
           >
-            <CrossIcon />
+            <CrossIcon title="close" />
           </CloseButton>
         </Header>
         <ScrollView>
@@ -74,15 +89,15 @@ const JoinConversationModal = () => {
               onClick={() => {
                 const conversationId = conversation.id;
                 dispatch(joinConversation(currentUserId, conversationId));
-                dispatch(setLayoutDefault());
+                dispatch(joinConversationViewHidden());
               }}
               conversation={conversation}
             />
           ))}
         </ScrollView>
-      </Panel>
+      </Modal>
     </Overlay>
   );
 };
 
-export { JoinConversationModal };
+export { JoinConversationDialog };

@@ -1,5 +1,5 @@
 const PubNub = require('pubnub');
-const data = require('./input_data.json'); 
+const data = require('./team-chat-initialization-data.json'); 
 const _cliProgress = require('cli-progress');
 const readline = require("readline");
 const fs = require('file-system');

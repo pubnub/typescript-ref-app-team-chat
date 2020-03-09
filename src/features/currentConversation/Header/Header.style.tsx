@@ -5,7 +5,7 @@ export const Wrapper = styled.section`
   height: 90px;
   display: flex;
   flex-direction: column;
-  @media (max-width: 480px) {
+  @media ${props => props.theme.breakpoint.mediaQuery.small} {
     background-color: white;
   }
 `;
@@ -13,7 +13,7 @@ export const Wrapper = styled.section`
 export const BackIconWrapper = styled.div`
   cursor: pointer;
   display: none;
-  @media (max-width: 480px) {
+  @media ${props => props.theme.breakpoint.mediaQuery.small} {
     display: flex;
     margin-right: 25px;
   }
@@ -30,7 +30,7 @@ export const Body = styled.div`
 export const Border = styled.div`
   border-bottom: 1px solid #d0dae5;
   margin: 0 20px;
-  @media (max-width: 480px) {
+  @media ${props => props.theme.breakpoint.mediaQuery.small} {
     display: none;
   }
 `;
@@ -57,7 +57,7 @@ export const Description = styled.div`
   font-weight: 400;
   line-height: 20px;
   text-transform: capitalize;
-  @media (max-width: 480px) {
+  @media ${props => props.theme.breakpoint.mediaQuery.small} {
     line-height: 15px;
   }
 `;

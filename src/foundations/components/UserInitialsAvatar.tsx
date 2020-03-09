@@ -33,7 +33,7 @@ const colorSet = [
 
 type UserInitialsAvatarProps = {
   name: string;
-  uuid: string;
+  userId: string;
   size: number;
   muted?: boolean;
   color?: string;
@@ -41,13 +41,13 @@ type UserInitialsAvatarProps = {
 
 const UserInitialsAvatar = ({
   name,
-  uuid,
+  userId,
   size,
   muted,
   color
 }: UserInitialsAvatarProps) => {
   const initials = name.match(/\b\w/g) || [];
-  const uniqueColor = getUniqueColor(uuid, colorSet);
+  const uniqueColor = getUniqueColor(userId, colorSet);
   const processedColor = muted ? setLightness(0.9, uniqueColor) : uniqueColor;
   return (
     <Wrapper size={size} color={color || processedColor}>

@@ -6,12 +6,16 @@ export const Wrapper = styled.div`
   flex-direction: row;
   padding: 12px 90px 12px 24px;
 
-  @media (max-width: 480px) {
+  @media ${props => props.theme.breakpoint.mediaQuery.small} {
     padding: 4px 16px 4px 16px;
   }
 
   :hover {
     background-color: #eaeef3;
+  }
+
+  :first-child {
+    margin-top: auto;
   }
 `;
 
@@ -36,7 +40,7 @@ export const Content = styled.div`
   white-space: pre-wrap;
   font-size: 15px;
   width: fit-content;
-  @media (max-width: 480px) {
+  @media ${props => props.theme.breakpoint.mediaQuery.small} {
     font-size: 12px;
   }
 `;

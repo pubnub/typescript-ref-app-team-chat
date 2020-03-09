@@ -2,7 +2,6 @@ import React from "react";
 import { ConversationOccupancy } from "../ConversationOccupancy";
 import { useSelector, useDispatch } from "react-redux";
 import { createSelector } from "reselect";
-import { setLayoutLeft } from "features/layout/actions";
 import {
   ConversationsIndexedById,
   getConversationsById
@@ -17,7 +16,8 @@ import {
   Border,
   BackIconWrapper
 } from "./Header.style";
-import { Back as BackIcon } from "foundations/components/icons/Back";
+import { BackIcon } from "foundations/components/icons/BackIcon";
+import { currentConversationViewHidden } from "features/layout/LayoutActions";
 
 export interface ConversationDescriptionFragment {
   id: string;
@@ -43,15 +43,16 @@ const Header = () => {
   );
 
   const dispatch = useDispatch();
+
   return (
     <Wrapper>
       <Body>
         <BackIconWrapper
           onClick={() => {
-            dispatch(setLayoutLeft());
+            dispatch(currentConversationViewHidden());
           }}
         >
-          <BackIcon />
+          <BackIcon title="back" />
         </BackIconWrapper>
         <Information>
           <Name>{conversation.name}</Name>

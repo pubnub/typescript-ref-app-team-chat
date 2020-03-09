@@ -1,22 +1,27 @@
-import React, { useRef } from "react";
+import React, { useRef, useContext } from "react";
 import { useSelector } from "react-redux";
-import { Breakpoint } from "features/layout/layoutModel";
-import { getPanelStates, getBreakpoint } from "features/layout/selectors";
+import { getViewStates } from "features/layout/Selectors";
 import { MyUserDetails } from "features/currentUser/MyUserDetails/MyUserDetails";
 import { MyConversations } from "features/joinedConversations/MyConversations/MyConversations";
-import { Wrapper, AnimatedWrapper } from "./Menu.style";
+import { Wrapper, getAnimatedWrapperVariants } from "./Menu.style";
+import { ThemeContext } from "styled-components";
+import { useMediaQuery } from "foundations/hooks/useMediaQuery";
 
 const Menu = () => {
-  const panel = useRef<HTMLElement>(null);
-  const panels = useSelector(getPanelStates);
-  const breakpoint = useSelector(getBreakpoint);
-  const Panel = breakpoint === Breakpoint.Small ? Wrapper : AnimatedWrapper;
+  const view = useRef<HTMLElement>(null);
+  const views = useSelector(getViewStates);
+  const themeContext = useContext(ThemeContext);
+  const isSmall = useMediaQuery(themeContext.breakpoint.mediaQuery.small);
 
   return (
-    <Panel ref={panel} pose={panels.Left ? "open" : "closed"}>
+    <Wrapper
+      ref={view}
+      animate={views.Menu ? "open" : "closed"}
+      variants={getAnimatedWrapperVariants(isSmall)}
+    >
       <MyUserDetails />
       <MyConversations />
-    </Panel>
+    </Wrapper>
   );
 };
 

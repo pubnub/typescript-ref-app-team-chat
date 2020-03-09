@@ -16,7 +16,7 @@ export const CloseButton = styled.span`
   padding: 8px;
   cursor: pointer;
   margin: 20px 0 30px 30px;
-  @media (max-width: 480px) {
+  @media ${props => props.theme.breakpoint.mediaQuery.small} {
     margin: 27px 0px 22px 30px;
   }
   color: #9c9d9d;
@@ -25,7 +25,7 @@ export const CloseButton = styled.span`
 export const Header = styled.div`
   display: flex;
   justify-content: space-between;
-  @media (max-width: 480px) {
+  @media ${props => props.theme.breakpoint.mediaQuery.small} {
     padding: 0 10px;
   }
 `;

@@ -1,30 +1,31 @@
 import React from "react";
 import { UserInitialsAvatar } from "foundations/components/UserInitialsAvatar";
-import { Message } from "../Message";
+import { MessageListItem, MessageFragment } from "../MessageListItem";
+import { MessageType } from "features/messages/messageModel";
 
-const welcomeMessage = {
+const welcomeMessage: MessageFragment = {
   sender: {
     id: "PUBNUB-BOT",
     name: "PubNub Bot"
   },
   timetoken: "15735897955841496",
   message: {
-    content: {
-      body:
-        "Welcome to Team Chat. 👋👋 Send a message now to start interacting with other users in the app. ⬇️"
-    }
+    type: MessageType.Text,
+    senderId: "PUBNUB-BOT",
+    text:
+      "Welcome to Team Chat. 👋👋 Send a message now to start interacting with other users in the app. ⬇️"
   }
 };
 
 const WelcomeMessage = () => (
-  <Message
-    message={welcomeMessage}
+  <MessageListItem
+    messageFragment={welcomeMessage}
     key={welcomeMessage.timetoken}
     avatar={
       <UserInitialsAvatar
         size={36}
         name="P N"
-        uuid={welcomeMessage.sender.id}
+        userId={welcomeMessage.sender.id}
         color="#E5585E"
       />
     }

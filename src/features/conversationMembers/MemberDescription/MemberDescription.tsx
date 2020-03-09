@@ -31,7 +31,7 @@ const MemberDescription = ({ user }: MemberDescriptionProps) => {
         <UserInitialsAvatar
           size={36}
           name={user.name}
-          uuid={user.id}
+          userId={user.id}
           muted={!user.presence}
         />
       </Avatar>

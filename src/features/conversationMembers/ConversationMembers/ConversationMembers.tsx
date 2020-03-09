@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { createSelector } from "reselect";
-import { getPanelStates, getBreakpoint } from "features/layout/selectors";
-import { Breakpoint } from "features/layout/layoutModel";
+import { getViewStates } from "features/layout/Selectors";
 import { UsersIndexedById, getUsersById } from "features/users/userModel";
 import {
   getUsersByConversationId,
@@ -14,12 +13,11 @@ import {
 } from "features/memberPresence/memberPresenceModel";
 import { MemberDescription, UserFragment } from "../MemberDescription";
 import { getCurrentConversationId } from "features/currentConversation/currentConversationModel";
-import { setLayoutDefault } from "features/layout/actions";
-import { Cross as CrossIcon } from "foundations/components/icons/Cross";
-import { Back as BackIcon } from "foundations/components/icons/Back";
+import { CrossIcon } from "foundations/components/icons/CrossIcon";
+import { BackIcon } from "foundations/components/icons/BackIcon";
 import {
   Wrapper,
-  AnimatedWrapper,
+  getAnimatedWrapperVariants,
   CloseIcon,
   ScrollableView,
   Header,
@@ -28,6 +26,9 @@ import {
 } from "./ConversationMembers.style";
 import { fetchMembers, fetchHereNow } from "pubnub-redux";
 import { usePubNub } from "pubnub-react";
+import { conversationMembersViewHidden } from "features/layout/LayoutActions";
+import { ThemeContext } from "styled-components";
+import { useMediaQuery } from "foundations/hooks/useMediaQuery";
 
 export const getCurrentConversationMembers = createSelector(
   [
@@ -68,9 +69,9 @@ const ConversationMembers = () => {
   const currentConversationId = useSelector(getCurrentConversationId);
   const dispatch = useDispatch();
   const pubnub = usePubNub();
-  const panels = useSelector(getPanelStates);
-  const breakpoint = useSelector(getBreakpoint);
-  const Panel = breakpoint === Breakpoint.Small ? Wrapper : AnimatedWrapper;
+  const views = useSelector(getViewStates);
+  const themeContext = useContext(ThemeContext);
+  const isSmall = useMediaQuery(themeContext.breakpoint.mediaQuery.small);
 
   useEffect(() => {
     if (members.length === 0) {
@@ -94,24 +95,27 @@ const ConversationMembers = () => {
   }, [members, currentConversationId, pubnub, dispatch]);
 
   return (
-    <Panel pose={panels.Right ? "open" : "closed"}>
+    <Wrapper
+      animate={views.ConversationMembers ? "open" : "closed"}
+      variants={getAnimatedWrapperVariants(isSmall)}
+    >
       <Header>
         <Title>
           <BackIconWrapper
             onClick={() => {
-              dispatch(setLayoutDefault());
+              dispatch(conversationMembersViewHidden());
             }}
           >
-            <BackIcon />
+            <BackIcon title="back" />
           </BackIconWrapper>
           Members
         </Title>
         <CloseIcon
           onClick={() => {
-            dispatch(setLayoutDefault());
+            dispatch(conversationMembersViewHidden());
           }}
         >
-          <CrossIcon />
+          <CrossIcon title="close members list" />
         </CloseIcon>
       </Header>
       <ScrollableView>
@@ -119,7 +123,7 @@ const ConversationMembers = () => {
           <MemberDescription user={user} key={user.id} />
         ))}
       </ScrollableView>
-    </Panel>
+    </Wrapper>
   );
 };
 

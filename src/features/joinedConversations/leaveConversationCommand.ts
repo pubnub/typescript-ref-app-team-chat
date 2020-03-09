@@ -5,6 +5,11 @@ import {
   DEFAULT_CONVERSATION
 } from "features/currentConversation/currentConversationModel";
 
+/**
+ * Leave the current conversation and select the default conversation
+ * as the current conversation.  (The application expects that some
+ * conversation will always be current.)
+ */
 export const leaveConversation = (
   userId: string,
   conversationId: string

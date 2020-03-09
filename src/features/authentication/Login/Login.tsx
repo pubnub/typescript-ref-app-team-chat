@@ -12,7 +12,7 @@ import { login } from "../loginCommand";
 import { isLoggingIn } from "../authenticationModel";
 import { isUserLoggedIn } from "features/authentication/authenticationModel";
 import { useSelector } from "react-redux";
-import KnownIds from "./knownUserIds.json";
+import KnownIds from "config/knownUserIds.json";
 
 const Login = () => {
   const dispatch = useDispatch();

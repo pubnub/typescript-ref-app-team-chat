@@ -1,6 +1,8 @@
-import { AppState } from "main/storeTypes";
 import { createSelector } from "reselect";
+import invariant from "invariant";
+import { AppState } from "main/storeTypes";
 import { AppActions } from "main/AppActions";
+
 export const LOGGING_IN = "LOGGIN_IN";
 export const LOGIN_SUCCEEDED = "LOGIN_SUCCEEDED";
 
@@ -62,9 +64,10 @@ const getAuthenticationStateSlice = (state: AppState) => state.authentication;
 export const getLoggedInUserId = createSelector(
   [getAuthenticationStateSlice],
   (authenticationState: AuthenticationState): string => {
-    if (authenticationState.loggedInUserId === undefined) {
-      throw new Error("Requires loggedInUserId");
-    }
+    invariant(
+      authenticationState.loggedInUserId !== undefined,
+      "getLoggedInUserId should not be used in components of the application that are rendered while there is no logged in user"
+    );
     return authenticationState.loggedInUserId;
   }
 );

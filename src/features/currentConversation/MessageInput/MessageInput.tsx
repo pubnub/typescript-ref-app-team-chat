@@ -1,99 +1,57 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { EmojiInput } from "features/emoji/EmojiInput/EmojiInput";
-import { EmojiSuggestion } from "features/emoji/EmojiSuggestion/EmojiSuggestion";
-import { Wrapper, Container, TextArea } from "./MessageInput.style";
-import { sendMessageAction } from "features/messages/sendMessageCommand";
-import {
-  getCurrentConversationId,
-  getConversationMessageInputValue
-} from "../currentConversationModel";
-import { updateConversationMessageInputValueAction } from "features/currentConversation/currentConversationModel";
+import { createSelector } from "reselect";
+import { getLoggedInUserId } from "features/authentication/authenticationModel";
+import { getMessageDrafts } from "features/joinedConversations/DraftsModel";
+import { updateMessageDraft } from "features/joinedConversations/updateMessageDraftCommand";
+import { discardMessageDraft } from "features/joinedConversations/discardMessageDraftCommand";
+import { sendMessage } from "features/messages/sendMessage";
+import { MessageType } from "features/messages/messageModel";
+import { DraftMessage } from "features/messages/draft";
+import { MessageEditor } from "features/messages/MessageEditor";
+import { getCurrentConversationId } from "../currentConversationModel";
+import { Wrapper } from "./MessageInput.style";
 
-const emptyMessage = "";
+const getConversationMessageDraft = createSelector(
+  [getMessageDrafts, getCurrentConversationId],
+  (drafts, conversationId): DraftMessage | undefined => {
+    return drafts[conversationId];
+  }
+);
 
-const autoExpand = (el: HTMLTextAreaElement) => {
-  setTimeout(function() {
-    el.style.cssText = "height:auto; padding:0";
-    el.style.cssText = "height:" + el.scrollHeight + "px";
-  }, 0);
-};
-
-const cleanMessage = (message: string) => message.trim();
-
-type MessageFragment<message = string> = [message, (setTo: message) => void];
-
-const MessageInput = () => {
-  const [message, setMessage]: MessageFragment = useState(emptyMessage);
+/**
+ * Allow editing and sending messages
+ */
+export const MessageInput = () => {
   const conversationId: string = useSelector(getCurrentConversationId);
-  const textareaRef = useRef<HTMLTextAreaElement>(
-    document.createElement("textarea")
+  const userId: string = useSelector(getLoggedInUserId);
+  const storedDraft: DraftMessage | undefined = useSelector(
+    getConversationMessageDraft
   );
-  const conversationMessageInputValue: string = useSelector(
-    getConversationMessageInputValue
-  );
-
+  const defaultDraft: DraftMessage = {
+    type: MessageType.Text,
+    senderId: userId,
+    text: ""
+  };
+  const message: DraftMessage = storedDraft ? storedDraft : defaultDraft;
   const dispatch = useDispatch();
 
-  const changed = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setMessage(e.target.value);
-    dispatch(
-      updateConversationMessageInputValueAction(conversationId, e.target.value)
-    );
+  const send = (appMessage: DraftMessage) => {
+    dispatch(sendMessage(appMessage));
+    dispatch(discardMessageDraft(conversationId));
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === "Enter" && !e.shiftKey && cleanMessage(message) !== "") {
-      send();
-      e.preventDefault();
-    }
-    autoExpand(e.target as HTMLTextAreaElement);
+  const update = (appMessage: DraftMessage) => {
+    dispatch(updateMessageDraft(conversationId, appMessage));
   };
-
-  const send = () => {
-    dispatch(
-      sendMessageAction({
-        type: "text",
-        body: cleanMessage(message)
-      })
-    );
-    dispatch(
-      updateConversationMessageInputValueAction(conversationId, emptyMessage)
-    );
-    setMessage(emptyMessage);
-  };
-
-  useEffect(() => {
-    setMessage(conversationMessageInputValue);
-    autoExpand(textareaRef.current);
-  }, [conversationId, conversationMessageInputValue]);
 
   return (
     <Wrapper>
-      <EmojiSuggestion
-        value={message}
-        onSelection={messageWithEmoji => {
-          setMessage(messageWithEmoji);
-        }}
-      />
-      <Container>
-        <TextArea
-          ref={textareaRef}
-          rows={1}
-          value={message}
-          onChange={changed}
-          onKeyPress={handleKeyPress}
-          placeholder="Type Message"
-        />
-        <EmojiInput
-          value={message}
-          onSelection={messageWithEmoji => {
-            setMessage(messageWithEmoji);
-          }}
-        />
-      </Container>
+      <MessageEditor
+        message={message}
+        sendDraft={send}
+        updateDraft={update}
+      ></MessageEditor>
     </Wrapper>
   );
 };
-
-export { MessageInput };

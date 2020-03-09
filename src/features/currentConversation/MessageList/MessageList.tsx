@@ -1,12 +1,13 @@
 import React, { useRef, useEffect, useState, useCallback } from "react";
 import { useSelector } from "react-redux";
 import { createSelector } from "reselect";
-import { Message, MessageFragment } from "../Message";
+import { MessageListItem, MessageFragment } from "../MessageListItem";
 import { getCurrentConversationId } from "../currentConversationModel";
 import { getUsersById } from "features/users/userModel";
 import { getMessagesById } from "features/messages/messageModel";
 import { Wrapper } from "./MessageList.style";
 import WelcomeMessage from "./WelcomeMessage";
+import { UserInitialsAvatar } from "foundations/components/UserInitialsAvatar";
 
 /**
  * Create a selector that that returns the list of messages in the currentConversation joined
@@ -22,29 +23,32 @@ import WelcomeMessage from "./WelcomeMessage";
 export const getCurrentConversationMessages = createSelector(
   [getMessagesById, getCurrentConversationId, getUsersById],
   (messages, conversationId, users): MessageFragment[] => {
-    if (!messages) {
-      throw new Error(`rats!`);
-    }
-    if (!conversationId) {
-      throw new Error(`rats!`);
-    }
-    if (!users) {
-      throw new Error(`rats!`);
-    }
-
     return messages[conversationId]
       ? Object.values(messages[conversationId])
           .filter(message => message.channel === conversationId)
-          .map(message => {
-            return {
-              ...message,
-              timetoken: String(message.timetoken),
-              sender: users[message.message.sender]
-            };
-          })
+          .map(
+            (message): MessageFragment => {
+              return {
+                ...message,
+                timetoken: String(message.timetoken),
+                sender:
+                  users[message.message.senderId] ||
+                  (message.message.senderId
+                    ? {
+                        id: message.message.senderId,
+                        name: message.message.senderId
+                      }
+                    : {
+                        id: "unknown",
+                        name: "unknown"
+                      })
+              };
+            }
+          )
       : [];
   }
 );
+
 const MessageList = () => {
   type ConversationScrollPositionsType = { [conversationId: string]: number };
   const conversationId: string = useSelector(getCurrentConversationId);
@@ -106,7 +110,17 @@ const MessageList = () => {
     <Wrapper ref={wrapper} onScroll={handleScroll}>
       <WelcomeMessage />
       {messages.map(message => (
-        <Message message={message} key={message.timetoken} />
+        <MessageListItem
+          messageFragment={message}
+          key={message.timetoken}
+          avatar={
+            <UserInitialsAvatar
+              size={36}
+              name={message.sender.name}
+              userId={message.sender.id}
+            />
+          }
+        />
       ))}
     </Wrapper>
   );

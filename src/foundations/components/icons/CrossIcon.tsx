@@ -1,10 +1,12 @@
 import React from "react";
 
-const Cross = (
-  props: JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>
-) => (
-  <svg width={16} height={16} {...props}>
-    <title>{"iconClose"}</title>
+interface CrossIconProps {
+  title: string;
+}
+
+export const CrossIcon = ({ title }: CrossIconProps) => (
+  <svg width={16} height={16}>
+    <title>{title}</title>
     <g
       stroke="#979797"
       strokeWidth={2}
@@ -17,5 +19,3 @@ const Cross = (
     </g>
   </svg>
 );
-
-export { Cross };

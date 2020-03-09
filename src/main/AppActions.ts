@@ -1,15 +1,22 @@
+import { focusOnConversationAction } from "features/currentConversation/currentConversationModel";
 import {
-  focusOnConversationAction,
-  updateConversationMessageInputValueAction
-} from "features/currentConversation/currentConversationModel";
-import {
-  setLayoutAction,
-  setBreakpointAction
-} from "features/layout/layoutModel";
+  MessageDraftUpdatedAction,
+  MessageDraftDiscardedAction
+} from "features/joinedConversations/DraftsModel";
 import {
   logingInAction,
   loginSucceededAction
 } from "features/authentication/authenticationModel";
+import {
+  menuViewDisplayedAction,
+  currentConversationViewDisplayedAction,
+  conversationMembersViewDisplayedAction,
+  joinConversationViewDisplayedAction,
+  menuViewHiddenAction,
+  currentConversationViewHiddenAction,
+  conversationMembersViewHiddenAction,
+  joinConversationViewHiddenAction
+} from "features/layout/LayoutActions";
 
 /**
  * AppActions is the union of all basic actions in this application.
@@ -23,8 +30,15 @@ import {
  */
 export type AppActions =
   | focusOnConversationAction
-  | setLayoutAction
-  | setBreakpointAction
   | logingInAction
   | loginSucceededAction
-  | updateConversationMessageInputValueAction;
+  | MessageDraftUpdatedAction
+  | MessageDraftDiscardedAction
+  | menuViewDisplayedAction
+  | currentConversationViewDisplayedAction
+  | conversationMembersViewDisplayedAction
+  | joinConversationViewDisplayedAction
+  | menuViewHiddenAction
+  | currentConversationViewHiddenAction
+  | conversationMembersViewHiddenAction
+  | joinConversationViewHiddenAction;

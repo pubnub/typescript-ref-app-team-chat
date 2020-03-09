@@ -1,8 +1,5 @@
 import "emoji-mart/css/emoji-mart.css";
-import { getBreakpoint } from "features/layout/selectors";
-import { useSelector } from "react-redux";
-import { Breakpoint } from "features/layout/layoutModel";
-import React, { useRef } from "react";
+import React, { useRef, useContext } from "react";
 import useClickOutside from "foundations/hooks/useClickOutside";
 import { emojiIndex, EmojiData } from "emoji-mart";
 import {
@@ -15,6 +12,8 @@ import {
   Emoji,
   Colons
 } from "./EmojiSuggestion.style";
+import { ThemeContext } from "styled-components";
+import { useMediaQuery } from "foundations/hooks/useMediaQuery";
 
 type EmojiInputProps = {
   value: string;
@@ -54,7 +53,8 @@ const getEmojiSearchTerm = (content: string) => {
 
 const EmojiSuggestion = ({ value, onSelection }: EmojiInputProps) => {
   const suggestions = useRef<HTMLDivElement>(null);
-  const breakpoint = useSelector(getBreakpoint);
+  const themeContext = useContext(ThemeContext);
+  const isSmall = useMediaQuery(themeContext.breakpoint.mediaQuery.small);
 
   const replaceEmoji = (search: string, emoji: EmojiData) => {
     if ("native" in emoji) {
@@ -85,17 +85,15 @@ const EmojiSuggestion = ({ value, onSelection }: EmojiInputProps) => {
             Suggestions for <EmojiSearchTerm>{emojiSearchTerm}</EmojiSearchTerm>
           </Heading>
           <Results>
-            {emojis
-              .slice(0, breakpoint === Breakpoint.Small ? 7 : 35)
-              .map(emoji => (
-                <Result
-                  key={emoji.id}
-                  onClick={() => replaceEmoji(emojiSearchTerm, emoji)}
-                >
-                  <Emoji>{"native" in emoji && emoji.native}</Emoji>
-                  <Colons>{emoji.colons}</Colons>
-                </Result>
-              ))}
+            {emojis.slice(0, isSmall ? 7 : 35).map(emoji => (
+              <Result
+                key={emoji.id}
+                onClick={() => replaceEmoji(emojiSearchTerm, emoji)}
+              >
+                <Emoji>{"native" in emoji && emoji.native}</Emoji>
+                <Colons>{emoji.colons}</Colons>
+              </Result>
+            ))}
           </Results>
         </Suggestions>
       )}

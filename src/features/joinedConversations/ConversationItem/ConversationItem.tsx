@@ -7,7 +7,7 @@ import {
   MessageCount,
   IconWrapper
 } from "./ConversationItem.style";
-import { Leave } from "foundations/components/icons/Leave";
+import { LeaveIcon } from "foundations/components/icons/LeaveIcon";
 import useHover from "foundations/hooks/useHover";
 import { DEFAULT_CONVERSATION } from "features/currentConversation/currentConversationModel";
 
@@ -20,6 +20,11 @@ interface ConversationItemProps {
   onLeave: () => void;
 }
 
+/**
+ * Show a single joined conversation
+ *
+ * Similiar to ConversationDescription but with different style and more functionality
+ */
 const ConversationItem = ({
   selected,
   id,
@@ -48,7 +53,7 @@ const ConversationItem = ({
             onLeave();
           }}
         >
-          <Leave fill={selected ? "white" : "#979797"} />
+          <LeaveIcon title="Leave Conversation" selected={selected} />
         </IconWrapper>
       ) : (
         unreadMessageCount > 0 && (
