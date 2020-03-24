@@ -75,7 +75,7 @@ export type AppMessage = TextMessage;
  * the application.  To remove the fields entirely (for example to use less memory),
  *  use a filter on the incoming messages from subscribe.
  */
-type MessageEnvelope = Required<
+export type MessageEnvelope = Required<
   Pick<PubNubMessageEnvelope, "channel" | "message" | "timetoken">
 > & {
   message: AppMessage;

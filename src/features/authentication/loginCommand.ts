@@ -8,7 +8,7 @@ export const login = (userId: string): ThunkAction<Promise<void>> => {
     dispatch(loggingIn());
 
     // Show the login screen for a minimum amount of time as a splash screen
-    const timer = new Promise(resolve => setTimeout(resolve, 2000));
+    //const timer = new Promise(resolve => setTimeout(resolve, 2000));
 
     // Set the UUID of the current user to ensure that presence works correctly
     context.pubnub.api.setUUID(userId);
@@ -49,7 +49,7 @@ export const login = (userId: string): ThunkAction<Promise<void>> => {
         });
       });
 
-    return Promise.all([timer, isLoginSuccessful]).then(() => {
+    return Promise.all([isLoginSuccessful]).then(() => {
       dispatch(loginSucceeded({ loggedInUserId: userId }));
     });
   };

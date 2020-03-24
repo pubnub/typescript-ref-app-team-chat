@@ -10,6 +10,7 @@ import { Provider } from "react-redux";
 import { createAppStore } from "main/store";
 import keyConfiguration from "config/pubnub-keys.json";
 import { ThemeProvider } from "styled-components";
+import { createTypingIndicatorsListener } from "features/typingIndicator/typingIndicatorModel";
 
 const pubnubConfig = Object.assign(
   {},
@@ -38,6 +39,7 @@ const App = () => {
   useEffect(() => {
     // Start listening for messages and events from PubNub
     pubnub.addListener(createPubNubListener(store.dispatch));
+    pubnub.addListener(createTypingIndicatorsListener(store.dispatch));
     return leaveApplication;
   }, []);
 

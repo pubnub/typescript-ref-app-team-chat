@@ -4,6 +4,7 @@ import { opacify } from "polished";
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
+  flex-shrink: 0;
   padding: 12px 90px 12px 24px;
 
   @media ${props => props.theme.breakpoint.mediaQuery.small} {

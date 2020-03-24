@@ -5,6 +5,7 @@ import { LayoutStateReducer } from "features/layout/LayoutReducer";
 import { UsersReducer } from "features/users/userModel";
 import { AuthenticationStateReducer } from "features/authentication/authenticationModel";
 import { MessageStateReducer } from "features/messages/messageModel";
+import { TypingIndicatorStateReducer } from "features/typingIndicator/typingIndicatorModel";
 import { conversationStateReducer } from "features/conversations/conversationModel";
 import { JoinedConversationsStateReducer } from "features/joinedConversations/joinedConversationModel";
 import { ConversationDraftStateReducer } from "features/joinedConversations/DraftsModel";
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   conversationMembers: ConversationMembersStateReducer,
   memberPresence: MemberPresenceReducer,
   messages: MessageStateReducer,
+  typingIndicators: TypingIndicatorStateReducer,
   authentication: AuthenticationStateReducer,
   currentConversation: currentConversationStateReducer
 });

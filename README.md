@@ -13,6 +13,11 @@ The application demonstrates how to build a chat application using:
 - React
 - Redux
 
+## Tutorial
+We've put together a comprehensive tutorial that explains how key features are built in the team chat app. With this tutorial, you should have a better understanding of of our underlying React and Redux frameworks and the Javascript SDK. You can use these frameworks & SDKs to easily add chat capabilities to any application.
+
+[Click here](https://www.pubnub.com/blog/build-a-fully-featured-react-chat-app/) to view the tutorial.
+
 ## Requirements
 
 - [Node.js](https://nodejs.org/en/)
@@ -61,6 +66,6 @@ To run this application you must obtain publish and subscribe keys from your Pub
 
 ## Further Information
 
-Visit the [PubNub Chat Docs](https://www.pubnub.com/docs/chat) page for more information about how to use the React and Redux SDKs to add in-app chat to your applications.
+Checkout the comprehensive [Tutorial](https://www.pubnub.com/blog/build-a-fully-featured-react-chat-app/) or visit the [PubNub Chat Docs](https://www.pubnub.com/docs/chat) page for more information about how to use the React and Redux SDKs to add in-app chat to your applications.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). Special thanks to Martin Lagrange, Elvis Wolcott, and Mark Erikson.

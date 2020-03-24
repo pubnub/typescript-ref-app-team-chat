@@ -60,7 +60,7 @@ export const getAnimatedWrapperVariants = (isSmall: boolean) => ({
     display: "flex"
   },
   closed: {
-    width: isSmall ? "100%" : "24px",
+    width: isSmall ? "100%" : "0",
     transitionEnd: {
       display: "none"
     }

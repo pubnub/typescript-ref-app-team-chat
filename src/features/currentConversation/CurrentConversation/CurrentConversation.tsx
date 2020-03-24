@@ -5,6 +5,7 @@ import { MessageList } from "../MessageList";
 import { MessageInput } from "../MessageInput";
 import { useSelector } from "react-redux";
 import { getViewStates } from "features/layout/Selectors";
+import { TypingIndicatorDisplay } from "features/typingIndicator/TypingIndicatorDisplay";
 
 const CurrentConversation = () => {
   const views = useSelector(getViewStates);
@@ -16,6 +17,7 @@ const CurrentConversation = () => {
       <Header />
       <MessageList />
       <MessageInput />
+      <TypingIndicatorDisplay />
     </Wrapper>
   );
 };

@@ -98,6 +98,7 @@ const ConversationMembers = () => {
     <Wrapper
       animate={views.ConversationMembers ? "open" : "closed"}
       variants={getAnimatedWrapperVariants(isSmall)}
+      transition={{ ease: "linear", duration: .15 }}
     >
       <Header>
         <Title>

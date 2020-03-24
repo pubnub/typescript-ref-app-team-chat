@@ -4,5 +4,5 @@ export const Wrapper = styled.div`
   left: 16px;
   right: 16px;
   bottom: 16px;
-  margin: 1px 15px 15px 15px;
+  margin: 1px 15px 5px 15px;
 `;
