@@ -17,7 +17,7 @@ import {
   BackIconWrapper
 } from "./Header.style";
 import { BackIcon } from "foundations/components/icons/BackIcon";
-import { currentConversationViewHidden } from "features/layout/LayoutActions";
+import { menuViewDisplayed } from "features/layout/LayoutActions";
 
 export interface ConversationDescriptionFragment {
   id: string;
@@ -49,7 +49,7 @@ const Header = () => {
       <Body>
         <BackIconWrapper
           onClick={() => {
-            dispatch(currentConversationViewHidden());
+            dispatch(menuViewDisplayed());
           }}
         >
           <BackIcon title="back" />

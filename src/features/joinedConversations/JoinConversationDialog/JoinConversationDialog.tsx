@@ -63,14 +63,14 @@ const JoinConversationDialog = () => {
   const views = useSelector(getViewStates);
   const currentUserId = useSelector(getLoggedInUserId);
   const dispatch = useDispatch();
-  const themeContext = useContext(ThemeContext);
-  const isSmall = useMediaQuery(themeContext.breakpoint.mediaQuery.small);
+  const theme = useContext(ThemeContext);
+  const isMedium = useMediaQuery(theme.mediaQueries.medium);
 
   return (
     <Overlay displayed={views.JoinConversation}>
       <Modal
         animate={views.JoinConversation ? "open" : "closed"}
-        variants={getAnimatedModalVariants(isSmall)}
+        variants={getAnimatedModalVariants(isMedium)}
       >
         <Header>
           <Title>Join a Conversation</Title>
@@ -79,7 +79,7 @@ const JoinConversationDialog = () => {
               dispatch(joinConversationViewHidden());
             }}
           >
-            <CrossIcon title="close" />
+            <CrossIcon color={theme.colors.normalText} title="close" />
           </CloseButton>
         </Header>
         <ScrollView>

@@ -1,9 +1,7 @@
 import styled from "styled-components/macro";
 
-export const Wrapper = styled.span`
-  position: relative;
-  left: 40px;
-  top: 40px;
-  height: 0px;
-  width: 0px;
+export const Wrapper = styled.span<{ size: number }>`
+  height: ${({ size }) => size}px;
+  width: ${({ size }) => size}px;
+  display: flex;
 `;

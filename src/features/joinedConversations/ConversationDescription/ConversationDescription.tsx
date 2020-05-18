@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Wrapper,
   Body,
@@ -7,6 +7,8 @@ import {
   Description,
   Content
 } from "./ConversationDescription.style";
+import { ThemeContext } from "styled-components";
+import getUniqueColor from "foundations/utilities/getUniqueColor";
 
 /**
  * This describes the data that this component needs to display a
@@ -37,10 +39,15 @@ const ConversationDescription = ({
   conversation,
   onClick
 }: ConversationDescriptionProps) => {
+  const theme = useContext(ThemeContext);
+  const color = getUniqueColor(
+    conversation.name,
+    (theme.colors.avatars as unknown) as string[]
+  );
   return (
     <Wrapper onClick={onClick}>
       <Body>
-        <ConversationIcon>#</ConversationIcon>
+        <ConversationIcon color={color}>#</ConversationIcon>
         <Content>
           <Name>{conversation.name}</Name>
           <Description>{conversation.description}</Description>

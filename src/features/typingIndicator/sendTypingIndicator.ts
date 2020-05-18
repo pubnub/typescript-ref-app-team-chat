@@ -8,7 +8,9 @@ import { TypingIndicatorType } from "./typingIndicatorModel";
  *
  * This command does not handle failure and leaves the error to the caller
  */
-export const sendTypingIndicator = (typingIndicatorType: TypingIndicatorType): ThunkAction => {
+export const sendTypingIndicator = (
+  typingIndicatorType: TypingIndicatorType
+): ThunkAction => {
   return (dispatch, getState) => {
     const state = getState();
     return dispatch(

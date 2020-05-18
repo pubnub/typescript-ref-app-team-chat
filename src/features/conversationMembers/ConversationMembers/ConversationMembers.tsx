@@ -14,21 +14,27 @@ import {
 import { MemberDescription, UserFragment } from "../MemberDescription";
 import { getCurrentConversationId } from "features/currentConversation/currentConversationModel";
 import { CrossIcon } from "foundations/components/icons/CrossIcon";
-import { BackIcon } from "foundations/components/icons/BackIcon";
 import {
   Wrapper,
   getAnimatedWrapperVariants,
   CloseIcon,
   ScrollableView,
   Header,
-  BackIconWrapper,
-  Title
+  Controls,
+  ConversationIcon,
+  IconWrapper,
+  Details,
+  Title,
+  Channel
 } from "./ConversationMembers.style";
 import { fetchMembers, fetchHereNow } from "pubnub-redux";
 import { usePubNub } from "pubnub-react";
 import { conversationMembersViewHidden } from "features/layout/LayoutActions";
 import { ThemeContext } from "styled-components";
 import { useMediaQuery } from "foundations/hooks/useMediaQuery";
+import { getLoggedInUserId } from "features/authentication/authenticationModel";
+import getUniqueColor from "foundations/utilities/getUniqueColor";
+import { getCurrentConversationDescription } from "features/currentConversation/Header";
 
 export const getCurrentConversationMembers = createSelector(
   [
@@ -65,13 +71,19 @@ const orderByPresence = (members: UserFragment[]) => {
   );
 };
 const ConversationMembers = () => {
+  const userId = useSelector(getLoggedInUserId);
   const members: UserFragment[] = useSelector(getCurrentConversationMembers);
   const currentConversationId = useSelector(getCurrentConversationId);
   const dispatch = useDispatch();
   const pubnub = usePubNub();
   const views = useSelector(getViewStates);
-  const themeContext = useContext(ThemeContext);
-  const isSmall = useMediaQuery(themeContext.breakpoint.mediaQuery.small);
+  const theme = useContext(ThemeContext);
+  const isMedium = useMediaQuery(theme.mediaQueries.medium);
+  const conversation = useSelector(getCurrentConversationDescription);
+  const conversationColor = getUniqueColor(
+    conversation.name,
+    (theme.colors.avatars as unknown) as string[]
+  );
 
   useEffect(() => {
     if (members.length === 0) {
@@ -97,31 +109,37 @@ const ConversationMembers = () => {
   return (
     <Wrapper
       animate={views.ConversationMembers ? "open" : "closed"}
-      variants={getAnimatedWrapperVariants(isSmall)}
-      transition={{ ease: "linear", duration: .15 }}
+      variants={getAnimatedWrapperVariants(isMedium, theme.sizes[4])}
+      transition={{ ease: "linear", duration: 0.15 }}
     >
-      <Header>
-        <Title>
-          <BackIconWrapper
-            onClick={() => {
-              dispatch(conversationMembersViewHidden());
-            }}
-          >
-            <BackIcon title="back" />
-          </BackIconWrapper>
-          Members
-        </Title>
+      <Controls>
         <CloseIcon
           onClick={() => {
             dispatch(conversationMembersViewHidden());
           }}
         >
-          <CrossIcon title="close members list" />
+          <CrossIcon
+            color={theme.colors.normalText}
+            title="close members list"
+          />
         </CloseIcon>
+      </Controls>
+      <Header>
+        <IconWrapper>
+          <ConversationIcon color={conversationColor}>#</ConversationIcon>
+          <Details>
+            <Channel>{conversation.name}</Channel>
+          </Details>
+        </IconWrapper>
       </Header>
+      <Title>Members</Title>
       <ScrollableView>
         {orderByPresence(members).map(user => (
-          <MemberDescription user={user} key={user.id} />
+          <MemberDescription
+            user={user}
+            key={user.id}
+            you={user.id === userId}
+          />
         ))}
       </ScrollableView>
     </Wrapper>

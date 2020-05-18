@@ -1,35 +1,21 @@
-import React from "react";
-import styled from "styled-components/macro";
+import React, { useContext } from "react";
+import styled, { ThemeContext } from "styled-components/macro";
 import getUniqueColor from "foundations/utilities/getUniqueColor";
-import { setLightness } from "polished";
 
 export const Wrapper = styled.div<{ color: string; size: number }>`
-  font-family: "Roboto", sans-serif;
-  font-weight: 400;
-  border-radius: 50%;
-  text-align: center;
-  color: white;
-  text-transform: uppercase;
   vertical-align: middle;
-  background-color: ${props => props.color};
+  border-radius: ${({ theme }) => theme.radii.round};
   width: ${props => props.size}px;
-  font-size: ${props => Math.round(props.size / 3)}px;
   height: ${props => props.size}px;
   line-height: ${props => props.size}px;
+  font-size: ${props => Math.round(props.size / 3)}px;
+  font-family: ${({ theme }) => theme.fonts.app};
+  font-weight: ${({ theme }) => theme.fontWeights.regular};
+  text-transform: uppercase;
+  text-align: center;
+  color: ${({ theme }) => theme.colors.avatarText};
+  background-color: ${props => props.color};
 `;
-
-const colorSet = [
-  "#FFAB91",
-  "#80DEEA",
-  "#EF9A9A",
-  "#CE93D8",
-  "#AED581",
-  "#9FA7DF",
-  "#BCAAA4",
-  "#FFE082",
-  "#F48FB1",
-  "#DCE775"
-];
 
 type UserInitialsAvatarProps = {
   name: string;
@@ -46,11 +32,14 @@ const UserInitialsAvatar = ({
   muted,
   color
 }: UserInitialsAvatarProps) => {
+  const theme = useContext(ThemeContext);
   const initials = name.match(/\b\w/g) || [];
-  const uniqueColor = getUniqueColor(userId, colorSet);
-  const processedColor = muted ? setLightness(0.9, uniqueColor) : uniqueColor;
+  const uniqueColor = getUniqueColor(
+    userId,
+    (theme.colors.avatars as unknown) as string[]
+  );
   return (
-    <Wrapper size={size} color={color || processedColor}>
+    <Wrapper size={size} color={color || uniqueColor}>
       {initials}
     </Wrapper>
   );

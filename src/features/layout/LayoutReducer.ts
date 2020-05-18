@@ -13,7 +13,7 @@ interface LayoutState {
 }
 
 const initialState: LayoutState = {
-  views: [View.Menu, View.CurrentConversation]
+  views: [View.CurrentConversation]
 };
 
 const viewDisplayed = (state: LayoutState, view: View): LayoutState => {

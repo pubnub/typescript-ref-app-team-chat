@@ -13,11 +13,6 @@ The application demonstrates how to build a chat application using:
 - React
 - Redux
 
-## Tutorial
-We've put together a comprehensive tutorial that explains how key features are built in the team chat app. With this tutorial, you should have a better understanding of of our underlying React and Redux frameworks and the Javascript SDK. You can use these frameworks & SDKs to easily add chat capabilities to any application.
-
-[Click here](https://www.pubnub.com/blog/build-a-fully-featured-react-chat-app/) to view the tutorial.
-
 ## Requirements
 
 - [Node.js](https://nodejs.org/en/)
@@ -64,8 +59,35 @@ To run this application you must obtain publish and subscribe keys from your Pub
 
     A web browser should automatically open [http://localhost:3000](http://localhost:3000), and you can explore your very own Team Chat app!
 
+## Documentation
+
+We've included additional documentation and a detailed tutorial for building a chat app with React, Redux, and PubNub.
+You can view it in the `/docs` directory or run the documentation site locally.
+
+### Running the docs website
+
+1. If you haven't already, clone the GitHub repository
+
+    ```bash
+    git clone git@github.com:pubnub/typescript-ref-app-team-chat.git
+    ```
+
+1. Install the dependencies
+
+    ```bash
+    cd typescript-ref-app-team-chat/website
+    npm install
+    ```
+
+1. Run the docs website locally.
+
+    ```bash
+    npm start
+    ```
+    If the chat app is already running, you may be asked to accept a different port. Your browser should open to [http//localhost:3000](http://localhost:3000) where you can find the tutorial and docs.
+
 ## Further Information
 
-Checkout the comprehensive [Tutorial](https://www.pubnub.com/blog/build-a-fully-featured-react-chat-app/) or visit the [PubNub Chat Docs](https://www.pubnub.com/docs/chat) page for more information about how to use the React and Redux SDKs to add in-app chat to your applications.
+Checkout [PubNub Chat Docs](https://www.pubnub.com/docs/chat) page for more information about how to use the React and Redux SDKs to add in-app chat to your applications.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). Special thanks to Martin Lagrange, Elvis Wolcott, and Mark Erikson.

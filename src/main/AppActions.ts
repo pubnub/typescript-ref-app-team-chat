@@ -21,7 +21,7 @@ import { SignalReceivedAction } from "pubnub-redux/dist/features/signal/SignalAc
 import {
   TypingIndicatorEnvelope,
   RemoveTypingIndicatorAction,
-  RemoveTypingIndicatorAllAction,
+  RemoveTypingIndicatorAllAction
 } from "features/typingIndicator/typingIndicatorModel";
 import { MessageReceivedAction } from "pubnub-redux/dist/features/message/MessageActions";
 import { MessageEnvelope } from "features/messages/messageModel";

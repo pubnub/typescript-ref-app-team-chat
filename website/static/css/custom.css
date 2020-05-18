@@ -1,0 +1,82 @@
+/**
+ * Copyright (c) 2017-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+ 
+/* your custom css */
+
+@media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
+}
+
+@media only screen and (min-width: 1024px) {
+}
+
+@media only screen and (max-width: 1023px) {
+}
+
+@media only screen and (min-width: 1400px) {
+}
+
+@media only screen and (min-width: 1500px) {
+}
+
+.nav-footer {
+  background-color: #eeeeee;
+}
+.nav-footer .sitemap h5 {
+  color: #666666;
+  text-transform: uppercase;
+}
+.nav-footer .sitemap a {
+  color: #555555;
+  font-weight: 400;
+}
+.nav-footer .sitemap a:hover {
+  font-weight: 700;
+  color: #555555;
+}
+.toc .toggleNav .navGroup .navGroupCategoryTitle, .toc .toggleNav ul li a {
+  color: #444444;
+  font-size: 15px;
+}
+.fixedHeaderContainer header .headerTitleWithLogo {
+  color: #555555;
+}
+.navigationSlider .slidingNav ul li > a:focus, .navigationSlider .slidingNav ul li > a:hover, .navigationSlider .slidingNav ul li.siteNavItemActive > a, .navigationSlider .slidingNav ul li.siteNavGroupActive > a {
+  background-color: transparent;
+}
+.navigationSlider .slidingNav ul li a:hover, .navigationSlider .slidingNav ul li.siteNavItemActive a, .navigationSlider .slidingNav ul li.siteNavGroupActive a {
+  color: #d02129;
+}
+.fixedHeaderContainer {
+  background-color: #ffffff;
+}
+.fixedHeaderContainer a {
+  height: 56px;
+}
+.navigationSlider .slidingNav ul li a {
+  color: #444444;
+}
+.app-screen-section {
+  padding: 20px 0 40px;
+  background: none;
+}
+.app-screen-section iframe {
+  min-height: 600px;
+  border-radius: 20px;
+  box-shadow: 0 5px 30px 1px rgba(0,0,0,.25);
+  background: #fff;
+  padding: 0;
+  width: 100%;
+}
+.nav-footer .copyright {
+  color: #555555;
+}
+.mainContainer .blockImage img {
+  height: 90px;
+}
+.mainContainer .blockImage {
+  max-width: unset;
+}

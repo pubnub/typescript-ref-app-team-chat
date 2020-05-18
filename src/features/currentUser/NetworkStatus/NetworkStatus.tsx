@@ -4,13 +4,18 @@ import { AppState } from "main/storeTypes";
 import { PresenceIndicatorIcon } from "foundations/components/icons/PresenceIndicatorIcon";
 import { Wrapper } from "./NetworkStatus.style";
 
-const NetworkStatus = () => {
+interface NetworkStatusProps {
+  size: number;
+}
+
+const NetworkStatus = ({ size }: NetworkStatusProps) => {
   let isConnected: boolean = useSelector(
     (state: AppState) => state.networkStatus.isConnected
   );
   return (
-    <Wrapper>
+    <Wrapper size={size}>
       <PresenceIndicatorIcon
+        size={size}
         title={isConnected ? "connected" : "not connected"}
         active={isConnected}
       />

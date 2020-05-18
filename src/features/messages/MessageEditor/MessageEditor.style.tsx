@@ -1,13 +1,11 @@
 import styled from "styled-components/macro";
 
 export const Wrapper = styled.div`
+  display: flex;
+  align-items: flex-end;
   position: relative;
   bottom: 0;
-  line-height: 13px;
-  padding: 9px 7px;
-  height: auto;
-  border-radius: 25px;
-  display: flex;
-  border: 1px solid #979797;
-  align-items: flex-end;
+  border-radius: ${({ theme }) => theme.radii.messageEditor};
+  border: ${({ theme }) => `${theme.borders.light} ${theme.colors.borderDark}`};
+  padding: ${({ theme }) => theme.space[2]};
 `;

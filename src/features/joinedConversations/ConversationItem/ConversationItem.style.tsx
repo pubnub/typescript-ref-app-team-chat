@@ -1,19 +1,24 @@
 import styled from "styled-components/macro";
 
 export const Wrapper = styled.div<{ selected: boolean; emphasized: boolean }>`
-  color: ${props => (props.selected ? "white" : "#565656")};
-  height: 56px;
-  padding: 10px 20px 10px 20px;
-  font-family: "Roboto", sans-serif;
-  font-weight: ${props => (props.emphasized ? "500" : "400")};
-  font-size: 13px;
-  text-transform: capitalize;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
-  background-color: ${props => (props.selected ? "#6FA9F6" : "white")};
+  height: ${({ theme }) => theme.sizes[2]};
+  padding: ${({ theme }) => `${theme.space[1]} ${theme.space[6]}`};
+  font-family: ${({ theme }) => theme.fonts.app};
+  font-weight: ${({ theme, emphasized }) =>
+    emphasized ? theme.fontWeights.black : theme.fontWeights.regular};
+  font-size: ${({ theme }) => theme.fontSizes.regular};
+  text-transform: capitalize;
+  color: ${({ theme }) => theme.colors.onPrimary};
+  background: ${({ theme, selected }) =>
+    selected ? theme.backgrounds.primaryActive : "transparent"};
   :hover {
-    background-color: ${props => (props.selected ? "#6FA9F6" : "#f0f3f7")};
+    background: ${({ theme, selected }) =>
+      selected
+        ? theme.backgrounds.primaryActive
+        : theme.backgrounds.primaryHover};
   }
 `;
 
@@ -22,31 +27,34 @@ export const Body = styled.div`
 `;
 
 export const Name = styled.div`
-  margin: 10px 20px;
-  width: 123px;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  margin: ${({ theme }) => `${theme.space[0]} ${theme.space[6]}`};
+  line-height: ${({ theme }) => theme.sizes[1]};
 `;
 
 export const MessageCount = styled.span`
-  margin: 10px 10px;
+  margin: ${({ theme }) => theme.space[3]};
   :hover {
     display: none;
   }
 `;
 
 export const IconWrapper = styled.div`
-  padding: 11px 0;
+  display: flex;
+  align-items: center;
 `;
 
-export const ConversationIcon = styled.div<{ selected: boolean }>`
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  padding: 11px 13px;
-  font-family: "Roboto", sans-serif;
-  font-weight: 500;
-  font-size: 13px;
-  background-color: ${props => (props.selected ? "#6B9EEA" : "#f0f3f7")};
+export const ConversationIcon = styled.div<{ color: string }>`
+  border-radius: ${({ theme }) => theme.radii.medium};
+  width: ${({ theme }) => theme.sizes[1]};
+  height: ${({ theme }) => theme.sizes[1]};
+  line-height: ${({ theme }) => theme.sizes[1]};
+  font-family: ${({ theme }) => theme.fonts.app};
+  font-weight: ${({ theme }) => theme.fontWeights.medium};
+  font-size: ${({ theme }) => theme.fontSizes.regular};
+  color: ${({ theme }) => theme.colors.selectedText};
+  text-align: center;
+  background: ${({ color }) => color};
 `;

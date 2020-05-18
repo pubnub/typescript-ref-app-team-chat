@@ -1,9 +1,17 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useContext } from "react";
 import { EmojiInput } from "features/emoji/EmojiInput/EmojiInput";
 import { EmojiSuggestion } from "features/emoji/EmojiSuggestion/EmojiSuggestion";
-import { Wrapper, Container, TextArea } from "./TextMessageEditor.style";
+import {
+  Wrapper,
+  Container,
+  TextArea,
+  SendButton
+} from "./TextMessageEditor.style";
 import { MessageType } from "../messageModel";
 import { DraftTextMessage, isDraftModified } from "../draft";
+import { SendIcon } from "foundations/components/icons/SendIcon";
+import { useMediaQuery } from "foundations/hooks/useMediaQuery";
+import { ThemeContext } from "styled-components";
 
 /**
  * Expand the height of the input box as multiple lines of text are entered.
@@ -48,6 +56,8 @@ export const TextMessageEditor = ({
   sendDraft,
   updateDraft
 }: TextMessageEditorProps) => {
+  const theme = useContext(ThemeContext);
+  const touch = useMediaQuery(theme.mediaQueries.touch);
   const text = message.text;
   const textareaRef = useRef<HTMLTextAreaElement>(
     document.createElement("textarea")
@@ -58,7 +68,7 @@ export const TextMessageEditor = ({
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === "Enter" && !e.shiftKey) {
+    if (e.key === "Enter" && !(e.shiftKey || touch)) {
       const draft = newTextDraft(message, text);
       if (isDraftModified(draft)) {
         sendDraft(draft);
@@ -90,6 +100,11 @@ export const TextMessageEditor = ({
           placeholder="Type Message"
         />
         <EmojiInput value={text} onSelection={emojiInserted} />
+        <SendButton
+          onClick={() => isDraftModified(message) && sendDraft(message)}
+        >
+          <SendIcon title="Send Message" />
+        </SendButton>
       </Container>
     </Wrapper>
   );

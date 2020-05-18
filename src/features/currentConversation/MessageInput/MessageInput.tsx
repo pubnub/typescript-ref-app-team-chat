@@ -12,10 +12,13 @@ import { DraftMessage } from "features/messages/draft";
 import { MessageEditor } from "features/messages/MessageEditor";
 import { getCurrentConversationId } from "../currentConversationModel";
 import { Wrapper } from "./MessageInput.style";
-import { TYPING_INDICATOR_DURATION_SECONDS, TypingIndicatorType } from "features/typingIndicator/typingIndicatorModel";
+import {
+  TYPING_INDICATOR_DURATION_SECONDS,
+  TypingIndicatorType
+} from "features/typingIndicator/typingIndicatorModel";
 
 const typingIndicators: {
-  [conversationId: string]: boolean
+  [conversationId: string]: boolean;
 } = {};
 
 const getConversationMessageDraft = createSelector(

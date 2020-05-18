@@ -3,37 +3,34 @@ import styled from "styled-components/macro";
 export const ScrollView = styled.section`
   text-align: left;
   overflow-y: scroll;
-
   > div {
-    padding-bottom: 8px;
-    border-top: 1px solid #f2f5f8;
-    border-bottom: 1px solid #f2f5f8;
+    border-top: ${({ theme }) =>
+      `${theme.borders.light} ${theme.colors.neutral[1]}`};
+    border-bottom: ${({ theme }) =>
+      `${theme.borders.light} ${theme.colors.neutral[1]}`};
   }
 `;
 
-export const CloseButton = styled.span`
-  margin: -8px;
-  padding: 8px;
+export const CloseButton = styled.div`
   cursor: pointer;
-  margin: 20px 0 30px 30px;
-  @media ${props => props.theme.breakpoint.mediaQuery.small} {
-    margin: 27px 0px 22px 30px;
+  color: ${({ theme }) => theme.colors.normalText};
+  ${({ theme }) => theme.mediaQueries.medium} {
   }
-  color: #9c9d9d;
 `;
 
 export const Header = styled.div`
   display: flex;
   justify-content: space-between;
-  @media ${props => props.theme.breakpoint.mediaQuery.small} {
-    padding: 0 10px;
+  padding: ${({ theme }) => `${theme.space[8]} ${theme.space[3]}`};
+  ${({ theme }) => theme.mediaQueries.medium} {
+    padding: ${({ theme }) => theme.space[0]};
+    padding-bottom: ${({ theme }) => theme.space[8]};
   }
 `;
 
 export const Title = styled.div`
-  font-size: 20px;
-  color: #585858;
-  font-weight: 500;
+  font-size: ${({ theme }) => theme.fontSizes.large};
+  font-weight: ${({ theme }) => theme.fontWeights.bold};
   text-align: left;
-  margin: 30px 30px 30px 5px;
+  color: ${({ theme }) => theme.colors.importantText};
 `;

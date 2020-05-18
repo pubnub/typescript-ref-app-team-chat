@@ -7,66 +7,64 @@ export const Popup = styled.div`
 export const Suggestions = styled.section`
   position: absolute;
   bottom: 0;
-  z-index: 600;
-  border: 1px solid lightgray;
-  border-radius: 5px;
-  max-height: 400px;
   overflow-y: scroll;
-  min-width: 450px;
+  z-index: 100;
+  max-height: ${({ theme }) => theme.sizes[4]};
+  border: ${({ theme }) =>
+    `${theme.borders.light} ${theme.colors.borderLight}`};
+  border-radius: ${({ theme }) => theme.radii.light};
+  color: ${({ theme }) => theme.colors.importantText};
 `;
 
 export const Heading = styled.div`
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  border-bottom: 1px solid lightgray;
-  padding: 5px;
-  background-color: white;
-  font-size: 14px;
+  border-top-left-radius: ${({ theme }) => theme.radii.light};
+  border-top-right-radius: ${({ theme }) => theme.radii.light};
+  border-bottom: ${({ theme }) =>
+    `${theme.borders.light} ${theme.colors.borderLight}`};
+  padding: ${({ theme }) => theme.space[1]};
+  font-size: ${({ theme }) => theme.fontSizes.regular};
+  background: ${({ theme }) => theme.backgrounds.panel};
 `;
 
 export const EmojiSearchTerm = styled.span`
-  font-weight: bold;
+  font-weight: ${({ theme }) => theme.fontWeights.bold};
 `;
 
 export const Results = styled.div`
   display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  padding: 5px;
-  min-height: 20px;
-  background-color: white;
-
-  @media ${props => props.theme.breakpoint.mediaQuery.small} {
-    flex-direction: row;
-    flex-wrap: wrap;
+  flex-direction: row;
+  flex-wrap: wrap;
+  border-bottom-left-radius: ${({ theme }) => theme.radii.light};
+  border-bottom-right-radius: ${({ theme }) => theme.radii.light};
+  padding: ${({ theme }) => theme.space[1]};
+  background: ${({ theme }) => theme.backgrounds.panel};
+  ${({ theme }) => theme.mediaQueries.medium} {
+    flex-direction: column;
+    flex-wrap: nowrap;
   }
 `;
 
 export const Result = styled.span`
   cursor: pointer;
-  padding: 8px;
-  border-radius: 4px;
-  font-size: 18px;
-  flex-grow: 1;
-
+  flex-grow: 0;
+  border-radius: ${({ theme }) => theme.radii.light};
+  padding: ${({ theme }) => `${theme.space[1]} ${theme.space[2]}`};
+  font-size: ${({ theme }) => theme.fontSizes.medium};
   &:hover {
-    background-color: #ce1901;
-    color: #ffffff;
+    background-color: ${({ theme }) => theme.colors.active};
+    color: ${({ theme }) => theme.colors.activeText};
   }
-
-  @media ${props => props.theme.breakpoint.mediaQuery.small} {
-    padding: 2px 6px;
-    flex-grow: 0;
+  ${({ theme }) => theme.mediaQueries.medium} {
+    padding: ${({ theme }) => theme.space[2]};
+    flex-grow: 1;
   }
 `;
 
 export const Emoji = styled.span`
-  line-height: 18px;
+  font-size: ${({ theme }) => theme.fontSizes.regular};
 `;
 
 export const Colons = styled.span`
-  font-size: 0.7em;
   padding-right: 0.5em;
+  font-size: ${({ theme }) => theme.fontSizes.small};
 `;

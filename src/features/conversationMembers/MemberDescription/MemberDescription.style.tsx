@@ -1,48 +1,52 @@
 import styled from "styled-components/macro";
 
 export const Wrapper = styled.div`
-  padding: 12px 24px;
   display: flex;
   align-items: center;
+  height: ${({ theme }) => theme.sizes[2]};
+  padding: ${({ theme }) => `${theme.space[0]} ${theme.space[6]}`};
   :hover {
-    background-color: #f0f3f7;
+    background: ${({ theme }) => theme.backgrounds.panelHover};
   }
 `;
 
-export const PresenceDot = styled.span<{ presence: boolean }>`
+export const PresenceDot = styled.div<{ presence: boolean; size: number }>`
+  border-radius: ${({ theme }) => theme.radii.round};
+  width: ${({ size }) => size}px;
+  height: ${({ size }) => size}px;
+  top: -${({ size }) => size / 2}px;
+  right: -${({ size }) => size / 2}px;
+  position: absolute;
+  background-color: ${({ theme, presence }) =>
+    presence ? theme.colors.success : theme.colors.inactive};
   font-size: 0px;
-  border: 5px solid;
-  border-radius: 50%;
-  height: 0px;
-  width: 0px;
-  border-color: ${props => (props.presence ? "#B8E986" : "#E9EEF4")};
-  margin-left: 10px;
-  vertical-align: 6px;
 `;
 
 export const Avatar = styled.div`
-  width: 36px;
-  height: 36px;
+  width: ${({ theme }) => theme.sizes[1]};
+  height: ${({ theme }) => theme.sizes[1]};
+  position: relative;
 `;
 
 export const About = styled.div`
-  padding-left: 20px;
-  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-left: ${({ theme }) => theme.space[6]};
+  height: ${({ theme }) => theme.sizes[1]};
 `;
 
 export const UserName = styled.div<{ muted: boolean }>`
-  font-size: 15px;
+  font-family: ${({ theme }) => theme.fonts.app};
+  font-weight: ${({ theme }) => theme.fontWeights.medium};
+  font-size: ${({ theme }) => theme.fontSizes.medium};
   text-transform: capitalize;
-  color: ${props => (props.muted ? "#DDDDDD" : "#585858")};
-  font-family: "Roboto", sans-serif;
-  font-weight: 500;
-  line-height: 20px;
+  color: ${({ theme }) => theme.colors.importantText};
 `;
 
 export const UserTitle = styled.div<{ muted: boolean }>`
-  font-size: 13px;
-  color: ${props => (props.muted ? "#EBEBEB" : "#9b9b9b")};
-  font-family: "Roboto", sans-serif;
-  font-weight: 400;
-  line-height: 20px;
+  font-family: ${({ theme }) => theme.fonts.app};
+  font-weight: ${({ theme }) => theme.fontWeights.regular};
+  font-size: ${({ theme }) => theme.fontSizes.regular};
+  color: ${({ theme }) => theme.colors.normalText};
 `;

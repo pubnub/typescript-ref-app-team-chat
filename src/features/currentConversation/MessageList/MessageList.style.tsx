@@ -6,5 +6,4 @@ export const Wrapper = styled.div`
   flex-direction: column;
   overflow-y: scroll;
   height: 100%;
-  padding-bottom: 10px;
 `;

@@ -1,63 +1,65 @@
 import styled from "styled-components/macro";
 
 export const Wrapper = styled.section`
-  width: 100%;
-  height: 90px;
   display: flex;
   flex-direction: column;
-  @media ${props => props.theme.breakpoint.mediaQuery.small} {
-    background-color: white;
+  width: 100%;
+  min-height: ${({ theme }) => theme.sizes[3]};
+  justify-content: space-between;
+  background: ${({ theme }) => theme.backgrounds.panel};
+  padding: ${({ theme }) => `${theme.space[7]} ${theme.space[6]}`};
+  padding-bottom: 0px;
+  ${({ theme }) => theme.mediaQueries.medium} {
+    background: transparent;
   }
 `;
 
 export const BackIconWrapper = styled.div`
   cursor: pointer;
-  display: none;
-  @media ${props => props.theme.breakpoint.mediaQuery.small} {
-    display: flex;
-    margin-right: 25px;
+  display: flex;
+  margin-right: ${({ theme }) => theme.space[7]};
+  ${({ theme }) => theme.mediaQueries.medium} {
+    display: none;
   }
 `;
 
 export const Body = styled.div`
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 27px;
+  height: ${({ theme }) => theme.sizes[1]};
+  width: 100%;
 `;
 
 export const Border = styled.div`
-  border-bottom: 1px solid #d0dae5;
-  margin: 0 20px;
-  @media ${props => props.theme.breakpoint.mediaQuery.small} {
-    display: none;
+  display: none;
+  border-bottom: ${({ theme }) =>
+    `${theme.borders.light} ${theme.colors.neutral[2]}`};
+  ${({ theme }) => theme.mediaQueries.medium} {
+    display: inherit;
   }
 `;
 
 export const Information = styled.div`
   display: flex;
-  height: 100%;
   flex-direction: column;
+  height: 100%;
 `;
 
 export const Name = styled.div`
-  font-size: 15px;
-  color: #585858;
-  font-family: "Roboto", sans-serif;
-  font-weight: 500;
-  line-height: 20px;
+  flex-grow: 1;
+  color: ${({ theme }) => theme.colors.importantText};
+  font-size: ${({ theme }) => theme.fontSizes.medium};
+  font-family: ${({ theme }) => theme.fonts.app};
+  font-weight: ${({ theme }) => theme.fontWeights.medium};
   text-transform: capitalize;
 `;
 
 export const Description = styled.div`
-  font-size: 13px;
-  color: #9b9b9b;
-  font-family: "Roboto", sans-serif;
-  font-weight: 400;
-  line-height: 20px;
+  flex-grow: 1;
+  color: ${({ theme }) => theme.colors.normalText};
+  font-size: ${({ theme }) => theme.fontSizes.regular};
+  font-family: ${({ theme }) => theme.fonts.app};
+  font-weight: ${({ theme }) => theme.fontWeights.regular};
   text-transform: capitalize;
-  @media ${props => props.theme.breakpoint.mediaQuery.small} {
-    line-height: 15px;
-  }
 `;

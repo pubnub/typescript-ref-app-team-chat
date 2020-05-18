@@ -1,69 +1,69 @@
 import styled from "styled-components/macro";
-import { opacify } from "polished";
 
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   flex-shrink: 0;
-  padding: 12px 90px 12px 24px;
-
-  @media ${props => props.theme.breakpoint.mediaQuery.small} {
-    padding: 4px 16px 4px 16px;
+  padding: ${({ theme }) => `${theme.space[1]} ${theme.space[5]}`};
+  ${({ theme }) => theme.mediaQueries.medium} {
+    padding: ${({ theme }) => `${theme.space[1]} ${theme.space[6]}`};
   }
-
   :hover {
-    background-color: #eaeef3;
+    background-color: ${({ theme }) => theme.backgrounds.contentHover};
   }
-
   :first-child {
     margin-top: auto;
+  }
+  :last-child {
+    padding-bottom: ${({ theme }) => theme.space[4]};
   }
 `;
 
 export const Body = styled.div`
   display: flex;
   flex-direction: column;
-  margin-left: 10px;
+  margin-left: ${({ theme }) => theme.space[5]};
 `;
 
 export const Header = styled.div`
-  margin: 5px 0;
+  margin: ${({ theme }) => theme.space[0]};
+  margin-bottom: ${({ theme }) => theme.space[1]};
 `;
 
 export const Content = styled.div`
-  padding: 15px;
-  font-family: "Roboto", sans-serif;
-  font-weight: 400;
-  border-radius: 0 15px 15px 15px;
-  text-align: left;
-  background-color: white;
-  color: #5a5a5a;
   white-space: pre-wrap;
-  font-size: 15px;
   width: fit-content;
-  @media ${props => props.theme.breakpoint.mediaQuery.small} {
-    font-size: 12px;
+  padding: ${({ theme }) => theme.space[5]};
+  font-size: ${({ theme }) => theme.fontSizes.small};
+  font-family: ${({ theme }) => theme.fonts.app};
+  font-weight: ${({ theme }) => theme.fontWeights.regular};
+  border-radius: ${({ theme }) => theme.radii.strong};
+  border-top-left-radius: ${({ theme }) => theme.radii.square};
+  text-align: left;
+  background: ${({ theme }) => theme.backgrounds.message};
+  color: ${({ theme }) => theme.colors.messageText};
+  ${({ theme }) => theme.mediaQueries.medium} {
+    font-size: ${({ theme }) => theme.fontSizes.regular};
   }
 `;
 
 export const Avatar = styled.div`
-  width: 36px;
-  height: 36px;
+  width: ${({ theme }) => theme.sizes[1]};
+  height: ${({ theme }) => theme.sizes[1]};
 `;
 
 export const SenderName = styled.span`
-  font-size: 15px;
-  color: #585858;
-  font-family: "Roboto", sans-serif;
-  font-weight: 500;
-  line-height: 20px;
+  font-size: ${({ theme }) => theme.fontSizes.medium};
+  font-family: ${({ theme }) => theme.fonts.app};
+  font-weight: ${({ theme }) => theme.fontWeights.medium};
   text-transform: capitalize;
+  color: ${({ theme }) => theme.colors.importantText};
 `;
 
 export const TimeSent = styled.span`
-  font-size: 11px;
-  font-family: "Roboto", sans-serif;
-  font-weight: 300;
-  margin-left: 10px;
-  color: ${opacify(0.87, "#3F3F3F")};
+  font-size: ${({ theme }) => theme.fontSizes.small};
+  font-family: ${({ theme }) => theme.fonts.app};
+  font-weight: ${({ theme }) => theme.fontWeights.light};
+  margin-left: ${({ theme }) => theme.space[3]};
+  color: ${({ theme }) => theme.colors.importantText};
 `;

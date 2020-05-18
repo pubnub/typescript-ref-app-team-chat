@@ -1,8 +1,10 @@
 import styled from "styled-components/macro";
 
 export const Wrapper = styled.div`
-  left: 16px;
-  right: 16px;
-  bottom: 16px;
-  margin: 1px 15px 5px 15px;
+  left: ${({ theme }) => theme.space[5]};
+  right: ${({ theme }) => theme.space[5]};
+  bottom: ${({ theme }) => theme.space[5]};
+  margin: ${({ theme }) => theme.space[6]};
+  margin-top: ${({ theme }) => theme.space[0]};
+  margin-bottom: ${({ theme }) => theme.space[3]};
 `;

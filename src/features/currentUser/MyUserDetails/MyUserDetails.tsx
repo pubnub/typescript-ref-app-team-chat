@@ -1,16 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { UserInitialsAvatar } from "foundations/components/UserInitialsAvatar";
 import { getLoggedInUserId } from "features/authentication/authenticationModel";
 import { getUsersById } from "features/users/userModel";
 import { NetworkStatus } from "../NetworkStatus";
-import {
-  Wrapper,
-  Avatar,
-  About,
-  UserName,
-  UserTitle
-} from "./MyUserDetails.style";
+import { Wrapper, UserName } from "./MyUserDetails.style";
 
 export interface MyUserDetailsFragment {
   name: string;
@@ -32,14 +25,8 @@ const MyUserDetails = () => {
 
   return (
     <Wrapper>
-      <Avatar>
-        <NetworkStatus />
-        <UserInitialsAvatar size={56} name={user.name} userId={user.id} />
-      </Avatar>
-      <About>
-        <UserName>{user.name}</UserName>
-        <UserTitle>{user.custom.title}</UserTitle>
-      </About>
+      <UserName>{user.name}</UserName>
+      <NetworkStatus size={7} />
     </Wrapper>
   );
 };

@@ -1,54 +1,57 @@
 import styled from "styled-components/macro";
 
 export const Wrapper = styled.div`
-  color: #565656;
-  font-family: "Roboto", sans-serif;
-  padding: 10px 20px 10px 20px;
-  font-weight: 400;
-  font-size: 13px;
-  text-transform: capitalize;
   cursor: pointer;
   display: flex;
-  justify-content: space-between;
-  background-color: white;
+  justify-content: center;
+  flex-direction: column;
+  min-height: ${({ theme }) => theme.sizes[3]};
+  font-family: ${({ theme }) => theme.fonts.app};
+  font-weight: ${({ theme }) => theme.fontWeights.regular};
+  font-size: ${({ theme }) => theme.fontSizes.regular};
+  text-transform: capitalize;
+  color: ${({ theme }) => theme.colors.importantText};
   :hover {
-    background-color: #f0f3f7;
+    background: ${({ theme }) => theme.backgrounds.contentHover};
   }
 `;
 
 export const Body = styled.div`
   display: flex;
+  max-height: ${({ theme }) => theme.sizes[1]};
+  padding: ${({ theme }) => `${theme.space[0]} ${theme.space[1]}`};
 `;
 
 export const Name = styled.div`
-  margin: 5px 20px;
-  width: 123px;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 `;
 
 export const Description = styled.div`
-  margin: 5px 20px;
-  color: #aeafae;
+  color: ${({ theme }) => theme.colors.normalText};
 `;
 
 export const Content = styled.div`
   display: flex;
   flex-direction: column;
+  padding-left: ${({ theme }) => theme.space[5]};
+  justify-content: space-between;
 `;
 
 export const IconWrapper = styled.div`
-  padding: 11px 0;
+  padding: ${({ theme }) => `${theme.space[4]} ${theme.space[0]}`};
 `;
 
-export const ConversationIcon = styled.div`
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  padding: 11px 13px;
-  font-family: "Roboto", sans-serif;
-  font-weight: 500;
-  font-size: 13px;
-  background-color: #f0f3f7;
+export const ConversationIcon = styled.div<{ color: string }>`
+  border-radius: ${({ theme }) => theme.radii.medium};
+  width: ${({ theme }) => theme.sizes[1]};
+  height: ${({ theme }) => theme.sizes[1]};
+  line-height: ${({ theme }) => theme.sizes[1]};
+  text-align: center;
+  font-family: ${({ theme }) => theme.fonts.app};
+  font-weight: ${({ theme }) => theme.fontWeights.medium};
+  font-size: ${({ theme }) => theme.fontSizes.regular};
+  color: ${({ theme }) => theme.colors.onPrimary};
+  background: ${({ color }) => color};
 `;

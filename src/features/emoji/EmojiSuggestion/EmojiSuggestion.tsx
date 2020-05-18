@@ -53,8 +53,8 @@ const getEmojiSearchTerm = (content: string) => {
 
 const EmojiSuggestion = ({ value, onSelection }: EmojiInputProps) => {
   const suggestions = useRef<HTMLDivElement>(null);
-  const themeContext = useContext(ThemeContext);
-  const isSmall = useMediaQuery(themeContext.breakpoint.mediaQuery.small);
+  const theme = useContext(ThemeContext);
+  const isMedium = useMediaQuery(theme.mediaQueries.medium);
 
   const replaceEmoji = (search: string, emoji: EmojiData) => {
     if ("native" in emoji) {
@@ -85,7 +85,7 @@ const EmojiSuggestion = ({ value, onSelection }: EmojiInputProps) => {
             Suggestions for <EmojiSearchTerm>{emojiSearchTerm}</EmojiSearchTerm>
           </Heading>
           <Results>
-            {emojis.slice(0, isSmall ? 7 : 35).map(emoji => (
+            {emojis.slice(0, isMedium ? 35 : 7).map(emoji => (
               <Result
                 key={emoji.id}
                 onClick={() => replaceEmoji(emojiSearchTerm, emoji)}

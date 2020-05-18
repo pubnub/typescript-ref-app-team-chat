@@ -1,0 +1,24 @@
+{
+  "docs": {
+    "Quickstart": [
+      "quickstart/introduction",
+      "quickstart/frameworks",
+      "quickstart/run-locally"
+    ],
+    "Tutorial": [
+      "tutorial/overview",
+      "tutorial/theming",
+      "tutorial/pubnub",
+      "tutorial/sample-data",
+      "tutorial/login",
+      "tutorial/user-details",
+      "tutorial/joined-conversations",
+      "tutorial/messages",
+      "tutorial/join-conversation",
+      "tutorial/leave-conversation",
+      "tutorial/conversation-members",
+      "tutorial/typing-indicators",
+      "tutorial/profanity-filter"
+    ]
+  }
+}

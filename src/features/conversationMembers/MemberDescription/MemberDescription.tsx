@@ -22,9 +22,10 @@ export interface UserFragment {
 
 interface MemberDescriptionProps {
   user: UserFragment;
+  you: boolean;
 }
 
-const MemberDescription = ({ user }: MemberDescriptionProps) => {
+const MemberDescription = ({ user, you }: MemberDescriptionProps) => {
   return (
     <Wrapper>
       <Avatar>
@@ -34,11 +35,12 @@ const MemberDescription = ({ user }: MemberDescriptionProps) => {
           userId={user.id}
           muted={!user.presence}
         />
+        {user.presence && <PresenceDot presence={user.presence} size={7} />}
       </Avatar>
       <About>
         <UserName muted={!user.presence}>
-          {user.name}{" "}
-          {user.presence && <PresenceDot presence={user.presence} />}
+          {user.name}
+          {you && " (you)"}
         </UserName>
         <UserTitle muted={!user.presence}>{user.custom.title}</UserTitle>
       </About>

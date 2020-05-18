@@ -5,30 +5,40 @@ export const Wrapper = styled.div`
 `;
 
 export const Container = styled.div`
-  height: auto;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
+  height: auto;
 `;
 
 export const TextArea = styled.textarea`
   flex-grow: 1;
-  border: none;
   resize: none;
   overflow: auto;
-  max-height: 150px;
-  padding: 0;
-  margin-left: 15px;
-  background-color: #f0f3f7;
-
+  border: ${({ theme }) => theme.borders.none};
+  max-height: ${({ theme }) => theme.sizes[4]};
+  padding: ${({ theme }) => theme.space[0]};
+  font-size: ${({ theme }) => theme.fontSizes.regular};
+  font-family: ${({ theme }) => theme.fonts.app};
+  font-weight: ${({ theme }) => theme.fontWeights.regular};
+  color: ${({ theme }) => theme.colors.importantText};
+  background: ${({ theme }) => theme.backgrounds.content};
   &::placeholder {
-    color: #979797;
+    color: ${({ theme }) => theme.colors.normalText};
   }
-
   &:focus {
     outline: none;
   }
-  font-size: 15px;
-  font-family: "Roboto", sans-serif;
-  font-weight: 400;
-  color: #5a5a5a;
+`;
+
+export const SendButton = styled.div`
+  align-self: flex-end;
+  display: none;
+  padding: ${({ theme }) => theme.space[1]};
+  margin: ${({ theme }) => `-${theme.space[1]}`};
+  margin-left: ${({ theme }) => theme.space[1]};
+  border-radius: ${({ theme }) => theme.radii.light};
+  background-color: ${({ theme }) => theme.colors.primary[0]};
+  ${({ theme }) => theme.mediaQueries.touch} {
+    display: flex;
+  }
 `;

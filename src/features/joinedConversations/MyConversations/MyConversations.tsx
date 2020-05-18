@@ -24,7 +24,8 @@ import { UserFragment } from "features/conversationMembers/MemberDescription/Mem
 import { leaveConversation } from "../leaveConversationCommand";
 import {
   currentConversationViewDisplayed,
-  joinConversationViewDisplayed
+  joinConversationViewDisplayed,
+  menuViewHidden
 } from "features/layout/LayoutActions";
 
 export interface ConversationFragment {
@@ -90,6 +91,7 @@ const MyConversations = () => {
             onClick={() => {
               dispatch(focusOnConversation(conversation.id));
               dispatch(currentConversationViewDisplayed());
+              dispatch(menuViewHidden());
 
               if (members.length === 0) {
                 dispatch(
