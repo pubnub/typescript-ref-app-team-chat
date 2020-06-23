@@ -4,6 +4,7 @@ import { DraftMessage } from "../draft";
 import { MessageType } from "../messageModel";
 import { TextMessageEditor } from "../TextMessageEditor";
 import { Wrapper } from "./MessageEditor.style";
+import { BaseMessage } from "sharedTypes/messageModel";
 
 type MessageEditorProps = {
   message: DraftMessage;
@@ -12,12 +13,12 @@ type MessageEditorProps = {
 };
 
 /**
- * Edit a Draft Message buy selecting the proper editor for the message type
+ * Edit a Draft Message by selecting the proper editor for the message type
  */
 export const MessageEditor = ({
   message,
   sendDraft,
-  updateDraft
+  updateDraft,
 }: MessageEditorProps) => {
   switch (message.type) {
     case MessageType.Text:
@@ -37,7 +38,9 @@ export const MessageEditor = ({
     default:
       invariant(
         false,
-        `No editor available for draft message of type "${message.type}"`
+        `No editor available for draft message of type "${
+          (message as BaseMessage).type
+        }"`
       );
   }
 };

@@ -3,7 +3,8 @@
     "Quickstart": [
       "quickstart/introduction",
       "quickstart/frameworks",
-      "quickstart/run-locally"
+      "quickstart/run-locally",
+      "quickstart/optional-features"
     ],
     "Tutorial": [
       "tutorial/overview",

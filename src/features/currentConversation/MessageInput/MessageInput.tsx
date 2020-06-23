@@ -14,7 +14,7 @@ import { getCurrentConversationId } from "../currentConversationModel";
 import { Wrapper } from "./MessageInput.style";
 import {
   TYPING_INDICATOR_DURATION_SECONDS,
-  TypingIndicatorType
+  TypingIndicatorType,
 } from "features/typingIndicator/typingIndicatorModel";
 
 const typingIndicators: {
@@ -40,7 +40,7 @@ export const MessageInput = () => {
   const defaultDraft: DraftMessage = {
     type: MessageType.Text,
     senderId: userId,
-    text: ""
+    text: "",
   };
   const message: DraftMessage = storedDraft ? storedDraft : defaultDraft;
   const dispatch = useDispatch();
@@ -73,10 +73,12 @@ export const MessageInput = () => {
   const update = (appMessage: DraftMessage) => {
     dispatch(updateMessageDraft(conversationId, appMessage));
 
-    if (appMessage.text.length > 0) {
-      notifyTyping();
-    } else {
-      notifyStopTyping();
+    if ("text" in appMessage) {
+      if (appMessage.text.length > 0) {
+        notifyTyping();
+      } else {
+        notifyStopTyping();
+      }
     }
   };
 

@@ -5,19 +5,20 @@ const breakpoints = ["600px", "1200px"] as const;
 const mediaQueries = {
   medium: `@media screen and (min-width: ${breakpoints[0]})`,
   large: `@media screen and (min-width: ${breakpoints[1]})`,
-  touch: `@media (hover: none)`
+  touch: `@media (hover: none)`,
 } as const;
 const fonts = {
-  app: '"Roboto", sans-serif'
+  app: '"Roboto", sans-serif',
 } as const;
 /* fonts */
-const fontSizes = ["0px", "11px", "13px", "15px", "20px"] as const;
+const fontSizes = ["0px", "11px", "12px", "13px", "15px", "20px"] as const;
 const fontSizesAliases = {
   none: fontSizes[0],
   small: fontSizes[1],
-  regular: fontSizes[2],
-  medium: fontSizes[3],
-  large: fontSizes[4]
+  card: fontSizes[2],
+  regular: fontSizes[3],
+  medium: fontSizes[4],
+  large: fontSizes[5],
 };
 const fontWeights = [0, 300, 400, 500, 700, 900] as const;
 const fontWeightsAliases = {
@@ -26,7 +27,7 @@ const fontWeightsAliases = {
   regular: fontWeights[2],
   medium: fontWeights[3],
   bold: fontWeights[4],
-  black: fontWeights[5]
+  black: fontWeights[5],
 };
 /* colors */
 const colors = {
@@ -35,7 +36,7 @@ const colors = {
   inactive: "#F5A623",
   primary: ["#8E2DE2", "#4A00E0"],
   neutral: ["#FFFFFF", "#F8F6FD", "#F1EDFD", "#9B9B9B", "#585858"],
-  avatars: ["#F7861C", "#35B7DF", "#DE2440", "#1F68EF", "#9F34C3"]
+  avatars: ["#F7861C", "#35B7DF", "#DE2440", "#1F68EF", "#9F34C3"],
 } as const;
 const colorAliases = {
   onPrimary: colors.neutral[0],
@@ -47,7 +48,7 @@ const colorAliases = {
   importantText: colors.neutral[4],
   avatarText: colors.neutral[0],
   borderLight: colors.neutral[2],
-  borderDark: colors.neutral[3]
+  borderDark: colors.neutral[3],
 } as const;
 // backgrounds can be colors or gradients
 const backgrounds = {
@@ -58,7 +59,7 @@ const backgrounds = {
   panelHover: colors.neutral[1],
   content: colors.neutral[1],
   contentHover: colors.neutral[2],
-  message: colors.neutral[0]
+  message: colors.neutral[0],
 };
 /* space and sizes */
 const sizes = ["0", "36px", "56px", "85px", "260px", "290px"] as const;
@@ -71,7 +72,7 @@ const space = [
   "21px",
   "24px",
   "32px",
-  "40px"
+  "40px",
 ] as const;
 /* borders */
 const radii = ["0", "5px", "10px", "100vmax"] as const;
@@ -81,29 +82,30 @@ const radiiAliases = {
   messageEditor: radii[1],
   medium: radii[2],
   strong: radii[2],
-  round: radii[3]
+  round: radii[3],
 };
 const borderWidths = ["0", "1px", "5px"] as const;
 const borderStyles = ["solid"] as const;
 const borders = [
   "none",
   `${borderWidths[1]} ${borderStyles[0]}`,
-  `${borderWidths[2]} ${borderStyles[0]}`
+  `${borderWidths[2]} ${borderStyles[0]}`,
 ] as const;
 const bordersAliases = {
   none: borders[0],
   light: borders[1],
-  strong: borders[2]
+  strong: borders[2],
 };
 /* other */
 const shadows = [
   "0 6px 10px rgba(103, 19, 176, 0.06)",
-  "0 4px 30px rgba(0, 0, 0, 0.4)"
+  "0px 6px 10px rgba(103, 19, 176, 0.2)",
+  "0 4px 30px rgba(0, 0, 0, 0.4)",
 ] as const;
 const custom = {
   dark: false,
   companyName: "PubNub",
-  tagLine: "World-Class APIs for In-App Chat"
+  tagLine: "World-Class APIs for In-App Chat",
 } as const;
 
 export const appTheme = {
@@ -121,7 +123,7 @@ export const appTheme = {
   borderStyles,
   borders: { ...borders, ...bordersAliases },
   shadows,
-  custom
+  custom,
 };
 
 export type Theme = typeof appTheme;

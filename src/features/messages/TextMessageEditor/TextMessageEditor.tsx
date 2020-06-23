@@ -1,23 +1,30 @@
 import React, { useEffect, useRef, useContext } from "react";
 import { EmojiInput } from "features/emoji/EmojiInput/EmojiInput";
+import { GifInput } from "features/gifs/GifInput";
+import { IGif } from "@giphy/js-types";
 import { EmojiSuggestion } from "features/emoji/EmojiSuggestion/EmojiSuggestion";
 import {
   Wrapper,
   Container,
   TextArea,
-  SendButton
+  SendButton,
+  Editor,
+  EditorActions,
 } from "./TextMessageEditor.style";
 import { MessageType } from "../messageModel";
 import { DraftTextMessage, isDraftModified } from "../draft";
 import { SendIcon } from "foundations/components/icons/SendIcon";
 import { useMediaQuery } from "foundations/hooks/useMediaQuery";
 import { ThemeContext } from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { sendMessage } from "../sendMessage";
+import { getLoggedInUserId } from "features/authentication/authenticationModel";
 
 /**
  * Expand the height of the input box as multiple lines of text are entered.
  */
 const autoExpand = (el: HTMLTextAreaElement) => {
-  setTimeout(function() {
+  setTimeout(function () {
     el.style.cssText = "height:auto; padding:0";
     el.style.cssText = "height:" + el.scrollHeight + "px";
   }, 0);
@@ -38,7 +45,7 @@ const newTextDraft = (
   return {
     type: MessageType.Text,
     senderId: draft.senderId,
-    text: newText
+    text: newText,
   };
 };
 
@@ -54,8 +61,10 @@ type TextMessageEditorProps = {
 export const TextMessageEditor = ({
   message,
   sendDraft,
-  updateDraft
+  updateDraft,
 }: TextMessageEditorProps) => {
+  const dispatch = useDispatch();
+  const userId = useSelector(getLoggedInUserId);
   const theme = useContext(ThemeContext);
   const touch = useMediaQuery(theme.mediaQueries.touch);
   const text = message.text;
@@ -83,6 +92,18 @@ export const TextMessageEditor = ({
     textareaRef.current.focus();
   };
 
+  // immediately send gifs (without creating a draft message)
+  const sendGif = (gif: IGif, query: string) => {
+    dispatch(
+      sendMessage({
+        type: MessageType.Giphy,
+        senderId: userId,
+        query,
+        gif,
+      })
+    );
+  };
+
   useEffect(() => {
     autoExpand(textareaRef.current);
   }, [textareaRef]);
@@ -91,20 +112,27 @@ export const TextMessageEditor = ({
     <Wrapper>
       <EmojiSuggestion value={text} onSelection={emojiInserted} />
       <Container>
-        <TextArea
-          ref={textareaRef}
-          rows={1}
-          value={text}
-          onChange={textChanged}
-          onKeyPress={handleKeyPress}
-          placeholder="Type Message"
-        />
-        <EmojiInput value={text} onSelection={emojiInserted} />
-        <SendButton
-          onClick={() => isDraftModified(message) && sendDraft(message)}
-        >
-          <SendIcon title="Send Message" />
-        </SendButton>
+        <Editor>
+          <TextArea
+            ref={textareaRef}
+            rows={1}
+            value={text}
+            onChange={textChanged}
+            onKeyPress={handleKeyPress}
+            placeholder="Type Message"
+          />
+        </Editor>
+        <EditorActions>
+          {process.env.REACT_APP_GIPHY_API_KEY && (
+            <GifInput onSelection={sendGif} />
+          )}
+          <EmojiInput value={text} onSelection={emojiInserted} />
+          <SendButton
+            onClick={() => isDraftModified(message) && sendDraft(message)}
+          >
+            <SendIcon title="Send Message" />
+          </SendButton>
+        </EditorActions>
       </Container>
     </Wrapper>
   );

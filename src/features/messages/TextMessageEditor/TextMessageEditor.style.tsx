@@ -5,13 +5,19 @@ export const Wrapper = styled.div`
 `;
 
 export const Container = styled.div`
+  height: auto;
+  display: flex;
+`;
+
+export const Editor = styled.div`
+  padding: ${({ theme }) => theme.space[2]};
+  flex-grow: 1;
   display: flex;
   align-items: center;
-  height: auto;
 `;
 
 export const TextArea = styled.textarea`
-  flex-grow: 1;
+  width: 100%;
   resize: none;
   overflow: auto;
   border: ${({ theme }) => theme.borders.none};
@@ -27,6 +33,16 @@ export const TextArea = styled.textarea`
   }
   &:focus {
     outline: none;
+  }
+`;
+
+export const EditorActions = styled.div`
+  display: flex;
+  padding: ${({ theme }) => theme.space[2]};
+  justify-content: flex-end;
+
+  > * {
+    margin-left: ${({ theme }) => theme.space[1]};
   }
 `;
 

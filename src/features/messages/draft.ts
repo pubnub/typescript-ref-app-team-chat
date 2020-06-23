@@ -1,5 +1,5 @@
 import invariant from "invariant";
-import { MessageType, TextMessage } from "./messageModel";
+import { MessageType, TextMessage, GiphyMessage } from "./messageModel";
 
 /**
  * We define a draft text message to to be identical to a finalized text message.
@@ -8,6 +8,8 @@ import { MessageType, TextMessage } from "./messageModel";
  * be optional in the draft but required in the final version for example.
  */
 export type DraftTextMessage = TextMessage;
+
+export type DraftGiphyMessage = GiphyMessage;
 
 /**
  * This is a union of all draft message types defined by the application.
@@ -19,7 +21,7 @@ export type DraftTextMessage = TextMessage;
  * we don't do any of those things in this example, but having a separate type
  * helps to clarify which parts of the code are working with unsent messages.
  */
-export type DraftMessage = DraftTextMessage;
+export type DraftMessage = DraftTextMessage | DraftGiphyMessage;
 
 /**
  * Test if a draft message been modified (used to ignore unmodified drafts).
@@ -31,7 +33,7 @@ export const isDraftModified = (message: DraftMessage) => {
     default:
       invariant(
         false,
-        `Cannot determin if message of type "${message.type}" has been modified.`
+        `Cannot determine if message of type "${message.type}" has been modified.`
       );
   }
 };

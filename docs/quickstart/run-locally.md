@@ -21,11 +21,13 @@ To run this application you must obtain publish and subscribe keys from your Pub
 
 1. Give your app a name, and select **Chat App** as the app type.
 
-1. Select a region to store your user data (e.g. *Portland*).
-
 1. Click **Create**.
 
 1. Click your new app to open its settings, then click its keyset.
+
+1. Enable the **Objects** feature. **Presence** and **PubNub Functions** should have been enabled when the keyset was created.
+
+1. Select a region to store your user data (e.g. *US East*).
 
 1. Locate the *Publish* and *Subscribe* keys. You'll need these keys to include in this project.
 

@@ -10,6 +10,7 @@ node_modules
 
 # production
 /build
+/functions/build
 
 # misc
 .DS_Store
@@ -26,8 +27,14 @@ yarn.lock
 # Ensure our pubnub keys do not get checked in to github
 pubnub-keys.json
 
+# Functions upload cache
+.cache
+
 # IDE
 .idea
 
 deployment_keys
 deployment_keys.pub
+
+# Environment variables
+.env

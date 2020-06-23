@@ -3,7 +3,7 @@ import {
   getTypingIndicatorsById,
   TypingIndicator,
   TypingIndicatorEnvelope,
-  TYPING_INDICATOR_DURATION_SECONDS
+  TYPING_INDICATOR_DURATION_SECONDS,
 } from "../typingIndicatorModel";
 import { getCurrentConversationId } from "features/currentConversation/currentConversationModel";
 import { getUsersById } from "features/users/userModel";
@@ -22,25 +22,13 @@ export interface TypingIndicatorFragment {
 }
 
 export const getCurrentConversationTypingIndicators = createSelector(
-  [
-    getTypingIndicatorsById,
-    getCurrentConversationId,
-    getUsersById,
-    getLoggedInUserId
-  ],
-  (
-    typingIndicators,
-    conversationId,
-    users,
-    loggedInUserId
-  ): TypingIndicatorFragment[] => {
+  [getTypingIndicatorsById, getCurrentConversationId, getUsersById],
+  (typingIndicators, conversationId, users): TypingIndicatorFragment[] => {
     return typingIndicators[conversationId]
       ? Object.values(
           Object.values(typingIndicators[conversationId] || [])
             .filter(
-              typingIndicator =>
-                typingIndicator.channel === conversationId &&
-                typingIndicator.publisher !== loggedInUserId
+              (typingIndicator) => typingIndicator.channel === conversationId
             )
             .reduce(
               (
@@ -54,11 +42,11 @@ export const getCurrentConversationTypingIndicators = createSelector(
             )
         )
           .filter(
-            typingIndicator =>
+            (typingIndicator) =>
               Date.now() - typingIndicator.timetoken / 10000 <
               TYPING_INDICATOR_DURATION_SECONDS * 1000
           )
-          .map(typingIndicator => {
+          .map((typingIndicator) => {
             return {
               ...typingIndicator,
               timetoken: String(typingIndicator.timetoken),
@@ -67,12 +55,12 @@ export const getCurrentConversationTypingIndicators = createSelector(
                 (typingIndicator.publisher
                   ? {
                       id: typingIndicator.publisher,
-                      name: typingIndicator.publisher
+                      name: typingIndicator.publisher,
                     }
                   : {
                       id: "unknown",
-                      name: "unknown"
-                    })
+                      name: "unknown",
+                    }),
             };
           })
       : [];
@@ -86,11 +74,19 @@ export const TypingIndicatorDisplay = () => {
   const typingIndicators: TypingIndicatorFragment[] = useSelector(
     getCurrentConversationTypingIndicators
   );
+  const loggedInUser = useSelector(getLoggedInUserId);
 
   if (typingIndicators.length === 0) {
     return <Wrapper>&nbsp;</Wrapper>;
   } else if (typingIndicators.length === 1) {
-    return <Wrapper>{typingIndicators[0].sender.name} is typing ...</Wrapper>;
+    const {
+      sender: { name, id },
+    } = typingIndicators[0];
+    return (
+      <Wrapper>
+        {id === loggedInUser ? `You are` : `${name} is`} typing ...
+      </Wrapper>
+    );
   } else {
     return <Wrapper>Multiple users typing ...</Wrapper>;
   }

@@ -23,7 +23,7 @@ export const Overlay = styled.div<{ displayed: boolean }>`
 
 export const Modal = styled(motion.section)`
   z-index: 300;
-  box-shadow: ${({ theme }) => theme.shadows[1]};
+  box-shadow: ${({ theme }) => theme.shadows[2]};
   border-radius: ${({ theme }) => theme.radii.square};
   width: 100%;
   height: 100%;
@@ -40,12 +40,12 @@ export const Modal = styled(motion.section)`
 export const getAnimatedModalVariants = (isMedium: boolean) => ({
   open: {
     y: "0%",
-    display: "flex"
+    display: "flex",
   },
   closed: {
     y: isMedium ? "-200%" : "50%",
     transitionEnd: {
-      display: "none"
-    }
-  }
+      display: "none",
+    },
+  },
 });

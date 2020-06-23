@@ -6,7 +6,7 @@ import {
   Header,
   Avatar,
   SenderName,
-  TimeSent
+  TimeSent,
 } from "./MessageListItem.style";
 import { MessageDisplay } from "features/messages/MessageDisplay";
 import { AppMessage } from "features/messages/messageModel";
@@ -42,7 +42,10 @@ const MessageListItem = ({ messageFragment, avatar }: MessageProps) => {
             {convertTimestampToTime(messageFragment.timetoken)}
           </TimeSent>
         </Header>
-        <MessageDisplay message={messageFragment.message}></MessageDisplay>
+        <MessageDisplay
+          message={messageFragment.message}
+          parentKey={messageFragment.timetoken}
+        ></MessageDisplay>
       </Body>
     </Wrapper>
   );

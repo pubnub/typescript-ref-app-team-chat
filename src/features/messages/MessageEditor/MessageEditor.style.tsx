@@ -7,5 +7,4 @@ export const Wrapper = styled.div`
   bottom: 0;
   border-radius: ${({ theme }) => theme.radii.messageEditor};
   border: ${({ theme }) => `${theme.borders.light} ${theme.colors.borderDark}`};
-  padding: ${({ theme }) => theme.space[2]};
 `;
