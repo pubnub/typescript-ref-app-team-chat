@@ -7,7 +7,7 @@ sidebar_label: Conversation Members
 Click the membership count at the top right of a conversation, and you’ll see the conversation’s member list.
 Online members are placed at the top of the list and have a green dot, while offline members are below, and greyed out.
 
-![members list](/img/team-chat-member-list.png)
+![members list](assets/team-chat-member-list.png)
 
 The `conversationMembers/ConversationMembers/ConversationMembers.tsx` component displays the list of members that belong to the conversations. 
 It calls the [fetchMembers](https://www.pubnub.com/docs/chat/redux/members#fetchmembers) command to get the list of members in the conversation from PubNub and stores the members in the local store.

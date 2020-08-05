@@ -8,7 +8,7 @@ Along the top of the conversation pane, the app displays details about the conve
 Below that, the app shows messages in the conversation as they arrive. 
 At the bottom, we have a component to let us input text and emoji.
 
-![a conversation](/img/team-chat-conversation.png)
+![a conversation](assets/team-chat-conversation.png)
 
 Once a conversation is selected, the `currentConversation/CurrentConversation/CurrentConversation.tsx` component displays details of the conversation as well as its messages.
 

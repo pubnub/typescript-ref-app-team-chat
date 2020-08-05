@@ -12,10 +12,10 @@ jobs:
       name: "Team Chat Reference Application"
       before_install:
         - |
-          echo '{
-            "publishKey": "${PROD_PUBLISH_KEY}",
-            "subscribeKey": "${PROD_SUBSCRIBE_KEY}"
-          }' >> ./src/config/pubnub-keys.json
+          echo '
+          REACT_APP_PUBLISH_KEY="${DEV_PUBLISH_KEY}",
+          REACT_APP_SUBSCRIBE_KEY="${DEV_SUBSCRIBE_KEY}"
+          ' >> .env
       install:
         - npm install
       script:

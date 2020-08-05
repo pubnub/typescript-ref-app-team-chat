@@ -7,7 +7,7 @@ sidebar_label: User Details
 In the top left section of the UI, the app shows details for the current user. 
 These include an avatar image, the user’s name and title, and the user’s network status.
 
-![user details](/img/team-chat-user-details.png)
+![user details](assets/team-chat-user-details.png)
 
 The `currentUser/MyUserDetails.tsx` component displays the details for the user like name, title and profileUrl. 
 The component calls `getUsersById()` selector to retrieve these user details from the [local store](https://www.pubnub.com/docs/chat/redux/users#state-shape).

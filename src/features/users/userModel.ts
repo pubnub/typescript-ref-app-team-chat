@@ -1,14 +1,15 @@
 import { AppState } from "main/storeTypes";
 import { createSelector } from "reselect";
-import { createUserReducer, User as PubNubUser } from "pubnub-redux";
+import { createUserDataReducer, UserData } from "pubnub-redux";
+import { RequireFields } from "foundations/utilities/requireFields";
 
 /**
  * This application uses a custom field called title, which must be defined for
  * every user
  */
-interface CustomUserFields {
+type CustomUserFields = {
   title: string;
-}
+};
 
 /**
  * Define which fields of PubNub's User object is accessed by this application.
@@ -16,9 +17,10 @@ interface CustomUserFields {
  * We use this oportunity to indicate that some fields which are optional in
  * the PubNub object definition are NOT optional in this application.
  */
-export type User = Required<Pick<PubNubUser, "id" | "name" | "profileUrl">> & {
-  custom: CustomUserFields;
-};
+export type User = RequireFields<
+  UserData<CustomUserFields>,
+  "id" | "name" | "profileUrl" | "custom"
+>;
 
 /**
  * Describes a way to lookup a user from a userId
@@ -28,7 +30,7 @@ export type UsersIndexedById = { [id: string]: User };
 /**
  * create a reducer which holds all known user objects in a normalized form
  */
-const UsersReducer = createUserReducer<User>();
+const UsersReducer = createUserDataReducer<User>();
 export { UsersReducer };
 
 /**
@@ -42,6 +44,6 @@ const getUsersSlice = (state: AppState) => state.users;
 export const getUsersById = createSelector(
   [getUsersSlice],
   (users): UsersIndexedById => {
-    return users.byId;
+    return users.byId as UsersIndexedById;
   }
 );

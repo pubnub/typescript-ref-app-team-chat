@@ -8,7 +8,7 @@ Hover over a conversation in your list of joined conversations to display a leav
 Click it, and you’ll leave the conversation. 
 You'll no longer receiving messages sent to that conversation.
 
-![leave a conversation](/img/leave-conversation.png)
+![leave a conversation](assets/leave-conversation.png)
 
 The `joinedConversations/MyConversations/MyConversations.tsx` component displays the icon next to the user’s conversations to leave a conversation. 
 The next section goes over the method that is called. 

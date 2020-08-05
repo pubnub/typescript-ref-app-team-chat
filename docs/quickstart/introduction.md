@@ -6,7 +6,7 @@ sidebar_label: Introduction
 
 Team Chat is our group chat app with features like user login, joining/leaving group conversations, send/receive messages, members online/offline presence, typing indicators, profanity filtering and more. Its UI is built in React, and uses the PubNub Redux framework to manage client state on the application.
 
-![team chat preview](/img/team-chat-preview.png)
+![team chat preview](assets/team-chat-preview.png)
 
 ## Features
 

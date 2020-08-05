@@ -8,7 +8,7 @@ import { createPubNubListener } from "pubnub-redux";
 import { PubNubProvider } from "pubnub-react";
 import { Provider } from "react-redux";
 import { createAppStore } from "main/store";
-import keyConfiguration from "config/pubnub-keys.json";
+import keyConfiguration from "config/pubnub-keys";
 import { ThemeProvider } from "styled-components";
 import { createTypingIndicatorsListener } from "features/typingIndicator/typingIndicatorModel";
 
@@ -17,7 +17,7 @@ const pubnubConfig = Object.assign(
   {
     // Ensure that subscriptions will be retained if the network connection is lost
     restore: true,
-    heartbeatInterval: 0
+    heartbeatInterval: 0,
   },
   keyConfiguration
 );
@@ -25,8 +25,8 @@ const pubnub = new Pubnub(pubnubConfig);
 
 const store = createAppStore({
   pubnub: {
-    api: pubnub
-  }
+    api: pubnub,
+  },
 });
 
 const leaveApplication = () => {

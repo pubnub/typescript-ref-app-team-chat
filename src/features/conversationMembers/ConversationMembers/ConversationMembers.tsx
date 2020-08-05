@@ -5,11 +5,11 @@ import { getViewStates } from "features/layout/Selectors";
 import { UsersIndexedById, getUsersById } from "features/users/userModel";
 import {
   getUsersByConversationId,
-  MembershipHash
+  MembershipHash,
 } from "../conversationMemberModel";
 import {
   getPresenceByConversationId,
-  ConversationPresence
+  ConversationPresence,
 } from "features/memberPresence/memberPresenceModel";
 import { MemberDescription, UserFragment } from "../MemberDescription";
 import { getCurrentConversationId } from "features/currentConversation/currentConversationModel";
@@ -25,9 +25,9 @@ import {
   IconWrapper,
   Details,
   Title,
-  Channel
+  Channel,
 } from "./ConversationMembers.style";
-import { fetchMembers, fetchHereNow } from "pubnub-redux";
+import { fetchChannelMembers, fetchHereNow } from "pubnub-redux";
 import { usePubNub } from "pubnub-react";
 import { conversationMembersViewHidden } from "features/layout/LayoutActions";
 import { ThemeContext } from "styled-components";
@@ -41,7 +41,7 @@ export const getCurrentConversationMembers = createSelector(
     getUsersById,
     getCurrentConversationId,
     getUsersByConversationId,
-    getPresenceByConversationId
+    getPresenceByConversationId,
   ],
   (
     users: UsersIndexedById,
@@ -51,14 +51,14 @@ export const getCurrentConversationMembers = createSelector(
   ): UserFragment[] => {
     let presence = conversationPresence[conversationId];
     return conversationMemberships[conversationId]
-      ? conversationMemberships[conversationId].map(user => {
+      ? conversationMemberships[conversationId].map((user) => {
           return {
             ...users[user.id],
             presence: presence
-              ? presence.occupants.filter(occupant => {
+              ? presence.occupants.filter((occupant) => {
                   return occupant.uuid === user.id;
                 }).length > 0
-              : false
+              : false,
           };
         })
       : [];
@@ -88,19 +88,19 @@ const ConversationMembers = () => {
   useEffect(() => {
     if (members.length === 0) {
       dispatch(
-        fetchMembers({
-          spaceId: currentConversationId,
+        fetchChannelMembers({
+          channel: currentConversationId,
           include: {
-            userFields: true,
-            customUserFields: true,
-            totalCount: false
-          }
+            UUIDFields: true,
+            customUUIDFields: true,
+            totalCount: false,
+          },
         })
       );
 
       dispatch(
         fetchHereNow({
-          channels: [currentConversationId]
+          channels: [currentConversationId],
         })
       );
     }
@@ -134,7 +134,7 @@ const ConversationMembers = () => {
       </Header>
       <Title>Members</Title>
       <ScrollableView>
-        {orderByPresence(members).map(user => (
+        {orderByPresence(members).map((user) => (
           <MemberDescription
             user={user}
             key={user.id}

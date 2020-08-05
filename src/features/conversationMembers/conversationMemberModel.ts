@@ -1,6 +1,6 @@
 import { AppState } from "main/storeTypes";
 import { createSelector } from "reselect";
-import { createMembersReducer } from "pubnub-redux";
+import { createChannelMembersReducer } from "pubnub-redux";
 
 export type MembershipHash = { [id: string]: { id: string }[] };
 
@@ -17,6 +17,6 @@ export const getUsersByConversationId = createSelector(
   }
 );
 
-const ConversationMembersStateReducer = createMembersReducer();
+const ConversationMembersStateReducer = createChannelMembersReducer();
 
 export { ConversationMembersStateReducer };

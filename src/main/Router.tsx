@@ -5,7 +5,7 @@ import { Login } from "features/authentication/Login/Login";
 import { ChatUI } from "features/chat/Chat";
 import { isUserLoggedIn } from "features/authentication/authenticationModel";
 import { useSelector } from "react-redux";
-import keyConfiguration from "config/pubnub-keys.json";
+import keyConfiguration from "config/pubnub-keys";
 import isPubNubConfigured from "foundations/utilities/isPubNubConfigured";
 import { ErrorBanner } from "main/styles/ErrorBanner.style";
 

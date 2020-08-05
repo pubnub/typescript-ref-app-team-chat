@@ -7,7 +7,7 @@ sidebar_label: Profanity Filter
 Filtering input is a common request, as it helps automate moderation for busy chat applications. 
 An easy way to implement profanity filtering, in real time, is to implement a serverless [PubNub Function](https://www.pubnub.com/products/functions/).
 
-![profanity filtered chat](/img/profanity-filter.png)
+![profanity filtered chat](assets/profanity-filter.png)
 
 Adding a profanity filter lets you moderate chat messages in real time as they go over the network. 
 The function detects objectionable words in any given text, and lets you censor the content in a variety of ways. 
@@ -25,7 +25,7 @@ By providing the ability to program the network, PubNub Functions simplifies dep
 Go to your [PubNub Dashboard](https://dashboard.pubnub.com/) and create a new module, and then create a new Before Publish function.
 The function should be set up to trigger on a specific set of channels (such as `chat.*`) or on all channels using wildcards (`*`).
 
-![create a new function dashboard](/img/function-setup-1.png)
+![create a new function dashboard](assets/function-setup-1.png)
 
 ## Copy the Function Code
 

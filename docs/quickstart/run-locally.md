@@ -36,7 +36,7 @@ To run this application you must obtain publish and subscribe keys from your Pub
 1. Clone the GitHub repository.
 
     ```bash
-    git clone git@github.com:pubnub/typescript-ref-app-team-chat.git
+    git clone https://github.com/pubnub/typescript-ref-app-team-chat-private.git
     ```
 
 1. Install the project.

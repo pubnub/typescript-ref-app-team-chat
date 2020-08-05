@@ -1,8 +1,8 @@
 import { ThunkAction } from "main/storeTypes";
-import { leaveSpaces } from "pubnub-redux";
+import { removeMemberships } from "pubnub-redux";
 import {
   focusOnConversation,
-  DEFAULT_CONVERSATION
+  DEFAULT_CONVERSATION,
 } from "features/currentConversation/currentConversationModel";
 
 /**
@@ -19,13 +19,13 @@ export const leaveConversation = (
       return Promise.resolve();
     }
     return dispatch(
-      leaveSpaces({
-        userId: userId,
-        spaces: [{ id: conversationId }]
+      removeMemberships({
+        uuid: userId,
+        channels: [conversationId],
       })
     ).then(() => {
       context.pubnub.api.unsubscribe({
-        channels: [conversationId]
+        channels: [conversationId],
       });
       dispatch(focusOnConversation(DEFAULT_CONVERSATION));
     });

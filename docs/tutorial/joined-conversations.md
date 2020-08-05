@@ -10,7 +10,7 @@ The Introductions conversation is automatically selected when the app launches.
 You can join other conversations with the + button, and leave existing conversations with the Exit button. 
 These features are covered in the [join conversation](/docs/tutorial/join-conversation) and [leave conversation](/docs/tutorial/leave-conversation) sections of the tutorial.
 
-![conversations list](/img/team-chat-my-conversations.png)
+![conversations list](assets/team-chat-my-conversations.png)
 
 The `joinedConversations/MyConversations/MyConversations.tsx` component gets the user’s list of conversations and allows the user to select a conversation. 
 When the app loads, it selects the Introduction conversation by default.

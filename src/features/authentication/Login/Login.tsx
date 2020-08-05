@@ -11,7 +11,7 @@ import {
   Logo,
   Label,
   Field,
-  Body
+  Body,
 } from "./Login.style";
 import logo from "./logo.svg";
 import { login } from "../loginCommand";
@@ -61,7 +61,7 @@ const Login = () => {
             <Label>Username</Label>
             <Field
               readOnly
-              value={user ? user.name.toLowerCase().replace(" ", ".") : ""}
+              value={user ? user.name?.toLowerCase().replace(" ", ".") : ""}
             />
             <Label>Password</Label>
             <Field readOnly type="password" value={"password123"} />

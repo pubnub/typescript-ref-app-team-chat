@@ -7,7 +7,7 @@ sidebar_label: Join Conversation
 When you click the "+ button" on your list of joined conversations, the app displays an overlay listing all the other available conversations. 
 Click a conversation to join it and start receiving the messages from that conversation.
 
-![join a conversation](/img/join-conversations.png)
+![join a conversation](assets/join-conversations.png)
 
 The `joinedConversations/JoinConversationDialog/JoinConversationDialog.tsx` component displays the dialog with a list of conversations that are available to join. 
 The component calls the `getAllConversations` selector to fetch all conversations from the [local store](https://www.pubnub.com/docs/chat/redux/spaces?#state-shape). 

@@ -25,23 +25,26 @@ export const getCurrentConversationMessages = createSelector(
   (messages, conversationId, users): MessageFragment[] => {
     return messages[conversationId]
       ? Object.values(messages[conversationId])
-          .filter(message => message.channel === conversationId)
+          .filter((message) => message.channel === conversationId)
           .map(
             (message): MessageFragment => {
               return {
                 ...message,
                 timetoken: String(message.timetoken),
                 sender:
-                  users[message.message.senderId] ||
+                  (users[message.message.senderId] as {
+                    id: string;
+                    name: string;
+                  }) ||
                   (message.message.senderId
                     ? {
                         id: message.message.senderId,
-                        name: message.message.senderId
+                        name: message.message.senderId,
                       }
                     : {
                         id: "unknown",
-                        name: "unknown"
-                      })
+                        name: "unknown",
+                      }),
               };
             }
           )
@@ -54,13 +57,13 @@ const MessageList = () => {
   const conversationId: string = useSelector(getCurrentConversationId);
   const [
     conversationsScrollPositions,
-    setConversationsScrollPositions
+    setConversationsScrollPositions,
   ] = useState<ConversationScrollPositionsType>({});
 
   const updateCurrentConversationScrollPosition = (scrollPosition: number) => {
     setConversationsScrollPositions({
       ...conversationsScrollPositions,
-      [conversationId]: scrollPosition
+      [conversationId]: scrollPosition,
     });
   };
 
@@ -109,7 +112,7 @@ const MessageList = () => {
   return (
     <Wrapper ref={wrapper} onScroll={handleScroll}>
       <WelcomeMessage />
-      {messages.map(message => (
+      {messages.map((message) => (
         <MessageListItem
           messageFragment={message}
           key={message.timetoken}

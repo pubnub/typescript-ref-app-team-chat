@@ -6,7 +6,7 @@ sidebar_label: User Login
 
 While the splash screen displays, the app is selecting a user for you, and retrieving the conversations to which your user is subscribed. 
 
-![splash screen](/img/team-chat-loading-screen.png)
+![splash screen](assets/team-chat-loading-screen.png)
 
 ## Select a User
 

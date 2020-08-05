@@ -7,7 +7,7 @@ sidebar_label: Typing Indicators
 When someone is typing, the app displays a message showing the name of the user who is typing.
 If more than one person is typing, the message changes to reflect that multiple users are typing.
 
-![typing indicators](/img/typing-indicator.png)
+![typing indicators](assets/typing-indicator.png)
 
 The `typingIndicator/TypingIndicatorDisplay/TypingIndicatorDisplay.tsx` component adds logic to display typing indicators in the app.
 The typing indicators are displayed to all users in a conversation as a user is typing a message.

@@ -1,5 +1,5 @@
 import { ThunkAction } from "main/storeTypes";
-import { joinSpaces } from "pubnub-redux";
+import { setMemberships } from "pubnub-redux";
 import { focusOnConversation } from "features/currentConversation/currentConversationModel";
 
 /**
@@ -14,14 +14,14 @@ export const joinConversation = (
 ): ThunkAction<Promise<void>> => {
   return (dispatch, getState, context) => {
     return dispatch(
-      joinSpaces({
-        userId: userId,
-        spaces: [{ id: conversationId }]
+      setMemberships({
+        uuid: userId,
+        channels: [{ id: conversationId }],
       })
     ).then(() => {
       context.pubnub.api.subscribe({
         channels: [conversationId],
-        withPresence: true
+        withPresence: true,
       });
       dispatch(focusOnConversation(conversationId));
     });

@@ -98,7 +98,7 @@ const custom = {
 } as const;
 ```
 
-![image](/img/dark-theme.png)
+![image](assets/dark-theme.png)
 
 ## Other Changes
 

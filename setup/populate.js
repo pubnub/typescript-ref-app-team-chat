@@ -1,235 +1,226 @@
-const PubNub = require('pubnub');
-const data = require('./team-chat-initialization-data.json'); 
-const _cliProgress = require('cli-progress');
-const readline = require("readline");
-const fs = require('file-system');
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
-let createdUsers = [];
-let userCreationErrors;
-let createdSpaces = [];
-let spacesCreationErrors;
-let createdMemberships = [];
-let membershipsCreationErrors = [''];
-let keys;
-let membersPerRequest = 20;
+const PubNub = require("pubnub");
+const initializationData = require("./team-chat-initialization-data");
+const { SingleBar, Presets } = require("cli-progress");
+const prompts = require("prompts");
+const fs = require("file-system");
+const dotenv = require("dotenv");
+const expand = require("dotenv-expand");
 
-const CONFIG_FILE = 'src/config/pubnub-keys.json';
+const keyPrompt = `
+*** A PubNub account is required. ***
+Visit the PubNub dashboard to create an account or login.
+     https://dashboard.pubnub.com/
+Create a new chat app or locate your chat app in the dashboard.
+Copy and paste your publish key and then your subscribe key below.
+`;
 
-try {
-    const rawdata = fs.readFileSync(CONFIG_FILE);
-    keys = JSON.parse(rawdata);
-    if(keys && keys.publishKey.length && keys.subscribeKey.length) {
-        console.log(`Keys detected in ${CONFIG_FILE}.`);
-        if (process.argv[2] === '--quick-test') {
-            process.exit(0);
-        }
-        scriptStart(keys.publishKey, keys.subscribeKey);
+const DOTENV = ".env";
+let errorCount = 0;
+
+// group into batches of size
+const batch = (list, size) => {
+  // split into batches
+  return list.reduce(
+    (batched, item, index, items) => {
+      batched.current.push(item);
+      // move complete batches out
+      if ((index > 0 && index % size === 0) || index === items.length - 1) {
+        batched.complete.push(batched.current);
+        batched.current = [];
+      }
+      return batched;
+    },
+    { complete: [], current: [] }
+  ).complete;
+};
+
+//  invoke f on all members of the each batch sequentially
+const doBatches = async (batches, f) => {
+  for (const batch of batches) {
+    await Promise.all(batch.map(f));
+  }
+};
+
+const getKeys = async () => {
+  // check current environment variables in .env
+  const env = expand(dotenv.config());
+  if (
+    env.parsed &&
+    env.parsed.REACT_APP_PUBLISH_KEY &&
+    env.parsed.REACT_APP_SUBSCRIBE_KEY
+  ) {
+    if (process.argv[2] === "--quick-test") {
+      console.log("Keys detected in .env");
+      process.exit(0);
     }
-    else addKeysAndStartScript(); //in case of empty pub&sub values
-} catch (e) {
-    addKeysAndStartScript(); //in case of non-xisting keys file
+    return {
+      publishKey: env.parsed.REACT_APP_PUBLISH_KEY,
+      subscribeKey: env.parsed.REACT_APP_SUBSCRIBE_KEY,
+    };
+  }
+  // prompt
+  console.log(keyPrompt);
+  const result = await prompts([
+    {
+      type: "text",
+      name: "publishKey",
+      message: "Enter your publish key",
+      validate: (key) =>
+        key.startsWith("pub-") ? true : "Invalid publish key",
+    },
+    {
+      type: "text",
+      name: "subscribeKey",
+      message: "Enter your subscribe key",
+      validate: (key) =>
+        key.startsWith("sub-") ? true : "Invalid subscribe key",
+    },
+  ]);
+  // append to .env
+  fs.writeFileSync(
+    DOTENV,
+    `\nREACT_APP_PUBLISH_KEY=${result.publishKey}\nREACT_APP_SUBSCRIBE_KEY=${result.subscribeKey}`,
+    { flag: "a" }
+  );
+  console.log("\n Your keys have been saved to .env");
+  return {
+    publishKey: result.publishKey,
+    subscribeKey: result.subscribeKey
+  }
+};
+
+const formatError = (e) => `${e.name}(${e.status.operation}): ${e.status.category}.${e.status.errorData.code}`;
+
+const initializeUUID = (pubnub, status) => async ({ id: uuid, ...data }) => {
+  try {
+    const response = await pubnub.objects.setUUIDMetadata({
+      uuid,
+      data,
+    });
+    if (response.status === 403) {
+      console.error(
+        "Objects is not enabled on your keys.\nPlease enable objects in your PubNub dashboard to proceed."
+      );
+      process.exit(1);
+    } else if (response.status === 200) {
+      status.increment();
+    } else {
+      errorCount++;
+      console.error(`Unknown error initializing data for ${uuid}.`);
+    }
+  } catch (e) {
+    errorCount++;
+    console.error(formatError(e));
+  }
+};
+
+const initializeChannel = (pubnub, status) => async ({
+  id: channel,
+  ...data
+}) => {
+  try {
+    const response = await pubnub.objects.setChannelMetadata({
+      channel,
+      data,
+    });
+    if (response.status === 200) {
+      status.increment();
+    } else {
+      errorCount++;
+      console.error(`Unknown error initializing data for ${channel}.`);
+    }
+  } catch (e) {
+    errorCount++;
+    console.error(formatError(e));
+  }
+};
+
+const initializeMembership = (pubnub, status) => async ({
+  space: channel,
+  members: uuids,
+}) => {
+  try {
+    const response = await pubnub.objects.setChannelMembers({
+      channel,
+      uuids,
+    });
+    if (response.status === 200) {
+      status.increment(uuids.length);
+    } else {
+      errorCount++;
+      console.error(`Unknown error initializing members for ${channel}.`);
+    }
+  } catch (e) {
+    errorCount++;
+    console.error(formatError(e));
+  }
+};
+
+// the bars need a second to update
+const sleep = async (ms) => {
+  return new Promise(resolve => {
+    setTimeout(resolve, ms);
+  })
 }
 
-function addKeysAndStartScript() {
-    console.log('\n*** A PubNub account is required. ***');
-    console.log('\nVisit the PubNub dashboard to create an account or login.');
-    console.log('\n     https://dashboard.pubnub.com/');
-    console.log('\nCreate a new chat app or locate your chat app in the dashboard.');
-    console.log('\nCopy and paste your publish key and then your subscribe key below.');
-    rl.question("\nEnter your publish key: ", publishKey => {
-        rl.question("Enter your subscribe key: ", subscribeKey => {
-            if (publishKey.startsWith('pub') && subscribeKey.startsWith('sub')) {
-                const updateKeys = {
-                    "publishKey": publishKey,
-                    "subscribeKey": subscribeKey
-                }
-                if(!keys) {
-                    fs.openSync(CONFIG_FILE, 'a'); 
-                    console.log(`\n${CONFIG_FILE} file for storing your publish and subscribe key is created.`)
-                }
-                fs.writeFile(CONFIG_FILE, JSON.stringify(updateKeys), (err) => {
-                    if (!err) console.log( `\nYour keys have been saved to ${CONFIG_FILE} file.`);
-                    scriptStart(publishKey, subscribeKey);
-                });
-            } 
-            else {
-                console.log('\nYou entered invalid keys format!');
-                process.exit(1);
-            }
-        })
-    })
-}
+const main = async () => {
+  // get pubsub keys
+  const keys = await getKeys();
+  const pubnub = new PubNub({
+    ...keys,
+  });
+  // setup progress bars
+  const totalUUIDs = initializationData.users.length;
+  const totalChannels = initializationData.spaces.length;
+  const totalMemberships = initializationData.members
+    .map((channel) => channel.members.length)
+    .reduce((a, b) => a + b);
+  const uuidCreationStatus = new SingleBar({}, Presets.shades_classic);
+  const channelCreationStatus = new SingleBar({}, Presets.shades_classic);
+  const membershipCreationStatus = new SingleBar({}, Presets.shades_classic);
 
-async function scriptStart (publishKey, subscribeKey) {
-    let pubnub = new PubNub({
-        subscribeKey: `${subscribeKey}`,
-        publishKey: `${publishKey}`
-    });     
-    let numberOfUsers = data.users.length;
-    let numberOfSpaces = data.spaces.length;
-    const usersCreatedBar = new _cliProgress.SingleBar({}, _cliProgress.Presets.shades_classic);
-    const spacesCreatedBar = new _cliProgress.SingleBar({}, _cliProgress.Presets.shades_classic);
-    const membershipsCreatedBar = new _cliProgress.SingleBar({}, _cliProgress.Presets.shades_classic);
-    console.log('\nCreating users:');
-    usersCreatedBar.start(numberOfUsers, 0);
+  // initialize data
+  console.log("\nInitializing UUID Metdata:");
+  uuidCreationStatus.start(totalUUIDs, 0);
+  await doBatches(
+    batch(initializationData.users, 10),
+    initializeUUID(pubnub, uuidCreationStatus)
+  );
+  await sleep(100);
+  console.log("\n");
 
-    const createUsers = () => {
-        data.users.forEach((item, index) => {
-            createdUsers.push(new Promise((resolve, reject) => {
-                setTimeout(() => {
-                    usersCreatedBar.increment();
-                    pubnub.createUser({
-                        id: item.id,
-                        name: item.name,
-                        profileUrl: item.profileUrl,
-                        custom: item.custom
-                    },  status => { 
-                        if (!status.error) {
-                            resolve()  
-                        }
-                        else {
-                            if (status.statusCode === 409) { //skip duplicate users ie that already exists
-                                resolve();
-                            } 
-                            else if (status.statusCode === 403) { //objects are not enabled for the subscribe key
-                                console.log(`\n${status.errorData.error.message}`);
-                                console.log('Please enable objects in your PubNub dashboard to proceed.');
-                                process.exit(1);
-                            }
-                            else {
-                                console.log(`\ncreateUser ${item.id} error:`, status.errorData ? (
-                                    console.log('\nSubscribe key that you entered is invalid!'), 
-                                    //reset keys in case of invalid format
-                                    fs.writeFile(CONFIG_FILE, JSON.stringify({"publishKey": "", "subscribeKey": ""}), () => {  
-                                        process.exit(1)  //Early exit
-                                    })
-                                ) : status.message);
-                                reject()
-                            }
-                        }
-                    })
-                }, 150*(index + 1));
-            }));
-        });
-    }
+  console.log("\nInitializing Channel Metdata:");
+  channelCreationStatus.start(totalChannels, 0);
+  await doBatches(
+    batch(initializationData.spaces, 5),
+    initializeChannel(pubnub, channelCreationStatus)
+  );
+  await sleep(100);
+  console.log("\n");
 
-    const createSpaces = () => {
-        console.log('\nCreating spaces:');
-        spacesCreatedBar.start(numberOfSpaces, 0);
-        data.spaces.forEach((item, index) => {
-            createdSpaces.push(new Promise((resolve, reject) => {
-                setTimeout(() => {
-                    spacesCreatedBar.increment()
-                    pubnub.createSpace({
-                        id: item.id,
-                        name: item.name,
-                        description: item.description
-                    },  status => {
-                        if (!status.error) {
-                            resolve();
-                        }   
-                        else {
-                            if (status.statusCode === 409) { //skip duplicate spaces ie that already exists
-                                resolve();
-                            }
-                            else {
-                                console.log(`\ncreateSpace ${item.id} error:`, status.errorData ? status.errorData : status.message);
-                                reject();
-                            }
-                        }
-                    })
-                }, 100*(index + 1));
-            }));
-        });
-    }
+  console.log("\nInitializing Memberships:");
+  // batch members into groups of 20
+  const memberships = initializationData.members
+    .map(({ space, members }) =>
+      batch(members, 20).map((batched) => ({ space, members: batched }))
+    )
+    .flat();
+  membershipCreationStatus.start(totalMemberships, 0);
+  // memberships seem to be more likely to timeout, so take it slowly
+  await sleep(1000);
+  await doBatches(
+    batch(memberships, 1),
+    initializeMembership(pubnub, membershipCreationStatus)
+  );
+  await sleep(100);
+  console.log("\n");
 
-    const createMemberships = () => {
-        console.log('\nCreating memberships:');
-        membershipsCreatedBar.start(numberOfSpaces, 0);
-        data.members.forEach((item, index) => {
-            createdMemberships.push(new Promise((resolve, reject) => {
-                setTimeout(() => {
-                    membershipsCreatedBar.increment();
-                    if(data.members[index].members.length > membersPerRequest) {
-                        let leftMembersToAdd = data.members[index].members.length;
-                        let devideMembersArray = [];
-                        while (leftMembersToAdd > 0) {
-                            let sliceMembersStart = leftMembersToAdd - membersPerRequest > 0 ? leftMembersToAdd - membersPerRequest : 0;
-                            devideMembersArray.push(data.members[index].members.slice(sliceMembersStart, leftMembersToAdd))
-                            leftMembersToAdd = leftMembersToAdd - membersPerRequest;
-                        }
-                        for (let members of devideMembersArray) {
-                            addMembers(item, members, resolve, reject);
-                        }
-                    }
-                    else addMembers(item, data.members[index].members, resolve, reject);
-                }, 100*(index + 1));
-            }));
-        });
+  if (errorCount === 0) {
+    process.exit(0);
+  } else {
+    console.warn(`${errorCount} error${errorCount === 1 ? '': 's'} initializing data. \n Please "npm run setup" again.`);
+    process.exit(1);
+  }
+};
 
-        function addMembers (item, membersToAdd, resolve, reject) {
-            pubnub.addMembers({
-                spaceId: item.space,
-                users: membersToAdd.map(member => ({ id: member }))
-            },  status => {
-                if(!status.error) {
-                    resolve()  
-                }
-                else if (status.statusCode === 400){
-                    if(status.errorData.error.details[0].message === 'User with specified id is already a member.')
-                        resolve();
-                    else {
-                        console.log('\naddMembers error:', status.errorData.error.details[0].message);
-                        reject();
-                    }
-                }
-                else {
-                    console.log('\naddMembers error:', status.errorData);
-                    reject();
-                }
-            })
-        }
-    }
-
-    createUsers();
-    let values = await Promise.all(createdUsers.map(p => p.then(
-        () => ({status: "fulfilled" }),
-        () => ({status: "rejected" })
-    )));
-    createdUsers = values.filter(value => value.status === 'fulfilled');
-    userCreationErrors = values.filter(value => value.status === 'rejected');
-    createSpaces();
-    values = await Promise.all(createdSpaces.map(p => p.then(
-        () => ({status: "fulfilled" }),
-        () => ({status: "rejected" })
-    )));
-    createdSpaces = values.filter(value => value.status === 'fulfilled');
-    spacesCreationErrors = values.filter(value => value.status === 'rejected');
-    if (createdUsers.length > 0 && createdSpaces.length > 0) { //Do not make memberships calls if there are no users or spaces
-        createMemberships();
-        values = await Promise.all(createdMemberships.map(p => p.then(
-            () => ({status: "fulfilled" }),
-            () => ({status: "rejected" })
-        )));
-        createdMemberships = values.filter(value => value.status === 'fulfilled');
-        membershipsCreationErrors = values.filter(value => value.status === 'rejected');
-    }
-    rl.close(); 
-}
-
-rl.on("close", () => {
-    userCreationErrors.length ? 
-        console.log(`\n\n${createdUsers.length} out of ${data.users.length} users created.`) :
-        console.log(`\n\n${createdUsers.length} new users created.`);
-    spacesCreationErrors.length ? 
-        console.log(`${createdSpaces.length} out of ${data.spaces.length} spaces created.`) :
-        console.log(`${createdSpaces.length} new spaces created.`);
-    membershipsCreationErrors.length ? 
-        console.log(`${createdMemberships.length} out of ${data.spaces.length} memberships created.`) :
-        console.log(`${createdMemberships.length} new memberships created.`);
-        console.log(`\nYour data has been loaded successfully!`);
-        process.exit(0);
-});
+main();

@@ -13,6 +13,10 @@
         "title": "Introduction",
         "sidebar_label": "Introduction"
       },
+      "quickstart/optional-features": {
+        "title": "Optional Features",
+        "sidebar_label": "Optional Features"
+      },
       "quickstart/run-locally": {
         "title": "Running the App",
         "sidebar_label": "Run Locally"
@@ -59,7 +63,7 @@
       },
       "tutorial/theming": {
         "title": "Theming the Application",
-        "sidebar_label": "Themeing"
+        "sidebar_label": "Theming"
       },
       "tutorial/typing-indicators": {
         "title": "Typing Indicators",
