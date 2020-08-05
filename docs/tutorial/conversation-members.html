@@ -1,0 +1,263 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Show Members in Conversation · Team Chat Powered by PubNub</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="Click the membership count at the top right of a conversation, and you’ll see the conversation’s member list."/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Show Members in Conversation · Team Chat Powered by PubNub"/><meta property="og:type" content="website"/><meta property="og:url" content="https://pubnub.github.io/typescript-ref-app-team-chat/typescript-ref-app-team-chat/"/><meta property="og:description" content="Click the membership count at the top right of a conversation, and you’ll see the conversation’s member list."/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/typescript-ref-app-team-chat/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/typescript-ref-app-team-chat/js/scrollSpy.js"></script><link rel="stylesheet" href="/typescript-ref-app-team-chat/css/main.css"/><script src="/typescript-ref-app-team-chat/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/typescript-ref-app-team-chat/"><img class="logo" src="/typescript-ref-app-team-chat/img/pubnub_red.svg" alt="Team Chat Powered by PubNub"/><h2 class="headerTitleWithLogo">Team Chat Powered by PubNub</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"></ul></nav></div></header></div></div><div class="navPusher singleRowMobileNav"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Tutorial</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Quickstart</h3><ul class=""><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/quickstart/introduction">Introduction</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/quickstart/frameworks">Frameworks</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/quickstart/run-locally">Run Locally</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/quickstart/optional-features">Optional Features</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Tutorial</h3><ul class=""><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/overview">Overview</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/theming">Theming</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/pubnub">PubNub Integration</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/sample-data">Sample Data</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/login">User Login</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/user-details">User Details</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/joined-conversations">Joined Conversations</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/messages">Messages</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/join-conversation">Join Conversation</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/leave-conversation">Leave Conversation</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/conversation-members">Conversation Members</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/typing-indicators">Typing Indicators</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/profanity-filter">Profanity Filter</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Show Members in Conversation</h1></header><article><div><span><p>Click the membership count at the top right of a conversation, and you’ll see the conversation’s member list.
+Online members are placed at the top of the list and have a green dot, while offline members are below, and greyed out.</p>
+<p><img src="/typescript-ref-app-team-chat/docs/assets/team-chat-member-list.png" alt="members list"></p>
+<p>The <code>conversationMembers/ConversationMembers/ConversationMembers.tsx</code> component displays the list of members that belong to the conversations.
+It calls the <a href="https://www.pubnub.com/docs/chat/redux/members#fetchmembers">fetchMembers</a> command to get the list of members in the conversation from PubNub and stores the members in the local store.</p>
+<p>The component also calls the <a href="https://www.pubnub.com/docs/chat/redux/presence#fetchherenow">fetchHereNow</a> command from the Redux framework.
+This command uses presence to indicate if members in the conversation are online.
+<a href="https://www.pubnub.com/docs/chat/redux/presence">Presence</a> allows you to track the state of users in realtime.
+When users are connected to the app and present in the conversation, their &quot;present&quot; state is indicated with a green dot.
+If they are away from the app, their &quot;away&quot; state is indicated by removing the green dot and graying out their name.</p>
+<pre><code class="hljs css language-tsx"><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> getCurrentConversationMembers = createSelector(
+  [
+    getUsersById,
+    getCurrentConversationId,
+    getUsersByConversationId,
+    getPresenceByConversationId
+  ],
+  (
+    users: UsersIndexedById,
+    <span class="hljs-attr">conversationId</span>: string,
+    <span class="hljs-attr">conversationMemberships</span>: MembershipHash,
+    <span class="hljs-attr">conversationPresence</span>: ConversationPresence
+  ): UserFragment[] =&gt; {
+    <span class="hljs-keyword">let</span> presence = conversationPresence[conversationId];
+    <span class="hljs-keyword">return</span> conversationMemberships[conversationId]
+      ? conversationMemberships[conversationId].map(<span class="hljs-function"><span class="hljs-params">user</span> =&gt;</span> {
+          <span class="hljs-keyword">return</span> {
+            ...users[user.id],
+            <span class="hljs-attr">presence</span>: presence
+              ? presence.occupants.filter(<span class="hljs-function"><span class="hljs-params">occupant</span> =&gt;</span> {
+                  <span class="hljs-keyword">return</span> occupant.uuid === user.id;
+                }).length &gt; <span class="hljs-number">0</span>
+              : <span class="hljs-literal">false</span>
+          };
+        })
+      : [];
+  }
+);
+<span class="hljs-keyword">const</span> orderByPresence = <span class="hljs-function">(<span class="hljs-params">members: UserFragment[]</span>) =&gt;</span> {
+  <span class="hljs-keyword">return</span> members.sort(<span class="hljs-function">(<span class="hljs-params">userA, userB</span>) =&gt;</span>
+    userA.presence === userB.presence ? <span class="hljs-number">0</span> : userA.presence ? <span class="hljs-number">-1</span> : <span class="hljs-number">1</span>
+  );
+};
+<span class="hljs-keyword">const</span> ConversationMembers = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  <span class="hljs-keyword">const</span> members: UserFragment[] = useSelector(getCurrentConversationMembers);
+  <span class="hljs-keyword">const</span> currentConversationId = useSelector(getCurrentConversationId);
+  <span class="hljs-keyword">const</span> dispatch = useDispatch();
+  <span class="hljs-keyword">const</span> pubnub = usePubNub();
+  <span class="hljs-keyword">const</span> views = useSelector(getViewStates);
+  <span class="hljs-keyword">const</span> themeContext = useContext(ThemeContext);
+  <span class="hljs-keyword">const</span> isSmall = useMediaQuery(themeContext.breakpoint.mediaQuery.small);
+  useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    <span class="hljs-keyword">if</span> (members.length === <span class="hljs-number">0</span>) {
+      dispatch(
+        fetchMembers({
+          <span class="hljs-attr">spaceId</span>: currentConversationId,
+          <span class="hljs-attr">include</span>: {
+            <span class="hljs-attr">userFields</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-attr">customUserFields</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-attr">totalCount</span>: <span class="hljs-literal">false</span>
+          }
+        })
+      );
+      dispatch(
+        fetchHereNow({
+          <span class="hljs-attr">channels</span>: [currentConversationId]
+        })
+      );
+    }
+  }, [members, currentConversationId, pubnub, dispatch]);
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Wrapper</span>
+      <span class="hljs-attr">animate</span>=<span class="hljs-string">{views.ConversationMembers</span> ? "<span class="hljs-attr">open</span>" <span class="hljs-attr">:</span> "<span class="hljs-attr">closed</span>"}
+      <span class="hljs-attr">variants</span>=<span class="hljs-string">{getAnimatedWrapperVariants(isSmall)}</span>
+    &gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">Header</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Title</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">BackIconWrapper</span>
+            <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> {
+              dispatch(conversationMembersViewHidden());
+            }}
+          &gt;
+            <span class="hljs-tag">&lt;<span class="hljs-name">BackIcon</span> <span class="hljs-attr">title</span>=<span class="hljs-string">"back"</span> /&gt;</span>
+          <span class="hljs-tag">&lt;/<span class="hljs-name">BackIconWrapper</span>&gt;</span>
+          Members
+        <span class="hljs-tag">&lt;/<span class="hljs-name">Title</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">CloseIcon</span>
+          <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> {
+            dispatch(conversationMembersViewHidden());
+          }}
+        &gt;
+          <span class="hljs-tag">&lt;<span class="hljs-name">CrossIcon</span> <span class="hljs-attr">title</span>=<span class="hljs-string">"close members list"</span> /&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">CloseIcon</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">Header</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">ScrollableView</span>&gt;</span>
+        {orderByPresence(members).map(user =&gt; (
+          <span class="hljs-tag">&lt;<span class="hljs-name">MemberDescription</span> <span class="hljs-attr">user</span>=<span class="hljs-string">{user}</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{user.id}</span> /&gt;</span>
+        ))}
+      <span class="hljs-tag">&lt;/<span class="hljs-name">ScrollableView</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">Wrapper</span>&gt;</span></span>
+  );
+};
+<span class="hljs-keyword">export</span> { ConversationMembers };
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="member-details"></a><a href="#member-details" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Member Details</h2>
+<p>The <code>MemberDescription</code> method (in <code>conversationMembers/MemberDescription/MemberDescription.tsx</code>) displays the name, profile image, and title of each member.</p>
+<p>The member list also displays user presence to indicate if users are online or offline within a conversation.
+The app fetches the presence state from the <code>user.presence</code> flag in the <a href="https://www.pubnub.com/docs/chat/redux/presence#state-shape">local</a> store.
+The next section provides more details on presence events.</p>
+<pre><code class="hljs css language-tsx">const MemberDescription = ({ <span class="hljs-keyword">user</span> }: MemberDescriptionProps) =&gt; {
+  <span class="hljs-keyword">return</span> (
+    &lt;<span class="hljs-keyword">Wrapper</span>&gt;
+      &lt;Avatar&gt;
+        &lt;UserInitialsAvatar
+          size={<span class="hljs-number">36</span>}
+          <span class="hljs-type">name</span>={<span class="hljs-keyword">user</span>.name}
+          userId={<span class="hljs-keyword">user</span>.id}
+          muted={!<span class="hljs-keyword">user</span>.presence}
+        /&gt;
+      &lt;/Avatar&gt;
+      &lt;About&gt;
+        &lt;UserName muted={!<span class="hljs-keyword">user</span>.presence}&gt;
+          {<span class="hljs-keyword">user</span>.name}{" "}
+          {<span class="hljs-keyword">user</span>.presence &amp;&amp; &lt;PresenceDot presence={<span class="hljs-keyword">user</span>.presence} /&gt;}
+        &lt;/UserName&gt;
+        &lt;UserTitle muted={!<span class="hljs-keyword">user</span>.presence}&gt;{<span class="hljs-keyword">user</span>.custom.title}&lt;/UserTitle&gt;
+      &lt;/About&gt;
+    &lt;/<span class="hljs-keyword">Wrapper</span>&gt;
+  );
+};
+export { MemberDescription };
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="presence-events"></a><a href="#presence-events" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Presence Events</h2>
+<p>The <code>features/memberPresence/memberPresenceModel.ts</code> file calls <a href="https://www.pubnub.com/docs/chat/redux/presence#createpresencereducer">createPresenceReducer()</a> reducer from the Redux framework.
+This automatically updates the presence state for users in the local store.
+The reducer responds to actions that are dispatched when presence join, leave, timeout or interval events are received by the app.</p>
+<pre><code class="hljs css language-tsx"><span class="hljs-comment">/**
+ * Create a reducer to presence information for conversation members
+ */</span>
+<span class="hljs-keyword">const</span> MemberPresenceReducer = createPresenceReducer();
+<span class="hljs-keyword">export</span> { MemberPresenceReducer };
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="presence-occupancy"></a><a href="#presence-occupancy" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Presence Occupancy</h2>
+<p>The <code>currentConversation/ConversationOccupancy/ConversationOccupancy.tsx</code> component uses <code>joinedCount</code> and <code>presentCount</code> to show counts of all members in the conversation and the count of members who are currently online.</p>
+<p>The component uses the <code>getUsersByConversationId</code> selector to get all members from the <a href="https://www.pubnub.com/docs/chat/redux/presence#state-shape">local store</a> and <code>getPresenceByConversationId</code> to get online users from the <a href="https://www.pubnub.com/docs/chat/redux/presence#state-shape">local store</a>.</p>
+<pre><code class="hljs css language-tsx"><span class="hljs-keyword">export</span> interface ConversationOccupancyFragment {
+  <span class="hljs-attr">joinedCount</span>: number;
+  presentCount: number;
+}
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> getCurrentConversationOccupancy = createSelector(
+  [
+    getCurrentConversationId,
+    getUsersByConversationId,
+    getPresenceByConversationId
+  ],
+  (
+    currentConversationId: string,
+    <span class="hljs-attr">conversationMemberships</span>: MembershipHash,
+    <span class="hljs-attr">conversationPresence</span>: ConversationPresence
+  ): <span class="hljs-function"><span class="hljs-params">ConversationOccupancyFragment</span> =&gt;</span> {
+    <span class="hljs-keyword">const</span> members = conversationMemberships[currentConversationId];
+    <span class="hljs-keyword">const</span> presence = conversationPresence[currentConversationId];
+    <span class="hljs-keyword">return</span> {
+      <span class="hljs-attr">joinedCount</span>: members ? members.length : <span class="hljs-number">0</span>,
+      <span class="hljs-attr">presentCount</span>: presence ? presence.occupancy : <span class="hljs-number">0</span>
+    };
+  }
+);
+<span class="hljs-keyword">const</span> ConversationOccupancy = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  <span class="hljs-keyword">const</span> {
+    joinedCount,
+    presentCount
+  }: ConversationOccupancyFragment = useSelector(
+    getCurrentConversationOccupancy
+  );
+  <span class="hljs-keyword">const</span> views = useSelector(getViewStates);
+  <span class="hljs-keyword">const</span> isConversationMembersLayoutVisible = views.ConversationMembers;
+  <span class="hljs-keyword">const</span> dispatch = useDispatch();
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Wrapper</span>
+      <span class="hljs-attr">highlighted</span>=<span class="hljs-string">{isConversationMembersLayoutVisible}</span>
+      <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> {
+        isConversationMembersLayoutVisible
+          ? dispatch(conversationMembersViewHidden())
+          : dispatch(conversationMembersViewDisplayed());
+      }}
+    &gt;
+      <span class="hljs-tag">&lt;<span class="hljs-name">OccupancyNumber</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">em</span>&gt;</span>{presentCount}<span class="hljs-tag">&lt;/<span class="hljs-name">em</span>&gt;</span> | {joinedCount}
+      <span class="hljs-tag">&lt;/<span class="hljs-name">OccupancyNumber</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">IconWrapper</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">PeopleGroupIcon</span>
+          <span class="hljs-attr">title</span>=<span class="hljs-string">{</span>
+            <span class="hljs-attr">isConversationMembersLayoutVisible</span>
+              ? "<span class="hljs-attr">Hide</span> <span class="hljs-attr">members</span> <span class="hljs-attr">list</span>"
+              <span class="hljs-attr">:</span> "<span class="hljs-attr">Show</span> <span class="hljs-attr">conversation</span> <span class="hljs-attr">members</span>"
+          }
+          <span class="hljs-attr">active</span>=<span class="hljs-string">{isConversationMembersLayoutVisible}</span>
+        /&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">IconWrapper</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">Wrapper</span>&gt;</span></span>
+  );
+};
+
+<span class="hljs-keyword">export</span> { ConversationOccupancy };
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/typescript-ref-app-team-chat/docs/tutorial/leave-conversation"><span class="arrow-prev">← </span><span>Leave Conversation</span></a><a class="docs-next button" href="/typescript-ref-app-team-chat/docs/tutorial/typing-indicators"><span>Typing Indicators</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#member-details">Member Details</a></li><li><a href="#presence-events">Presence Events</a></li><li><a href="#presence-occupancy">Presence Occupancy</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><div><h5>Docs</h5><a href="/typescript-ref-app-team-chat/docs/quickstart">Quickstart</a><a href="/typescript-ref-app-team-chat/docs/tutorial-part-1">Tutorial</a><a href="/typescript-ref-app-team-chat/docs/theming">Themeing</a><a href="https://www.pubnub.com/docs/chat/quickstart">PubNub Chat</a></div><div><h5>Source</h5><a href="https://github.com/pubnub/typescript-ref-app-team-chat">GitHub</a><a class="github-button" href="https://github.com/pubnub/typescript-ref-app-team-chat" data-icon="octicon-star" data-count-href="/pubnub/typescript-ref-app-team-chat/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><a href="https://pubnub.com/chat" target="_blank" rel="noreferrer noopener" class="fbOpenSource"><img src="/typescript-ref-app-team-chat/img/pubnub_red.svg" alt="PubNub" width="170" height="45"/></a><section class="copyright">Copyright © 2020 PubNub</section></footer></div></body></html>

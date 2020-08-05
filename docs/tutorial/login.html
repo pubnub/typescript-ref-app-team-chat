@@ -1,0 +1,143 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Log in with a User · Team Chat Powered by PubNub</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="While the splash screen displays, the app is selecting a user for you, and retrieving the conversations to which your user is subscribed. "/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Log in with a User · Team Chat Powered by PubNub"/><meta property="og:type" content="website"/><meta property="og:url" content="https://pubnub.github.io/typescript-ref-app-team-chat/typescript-ref-app-team-chat/"/><meta property="og:description" content="While the splash screen displays, the app is selecting a user for you, and retrieving the conversations to which your user is subscribed. "/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/typescript-ref-app-team-chat/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/typescript-ref-app-team-chat/js/scrollSpy.js"></script><link rel="stylesheet" href="/typescript-ref-app-team-chat/css/main.css"/><script src="/typescript-ref-app-team-chat/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/typescript-ref-app-team-chat/"><img class="logo" src="/typescript-ref-app-team-chat/img/pubnub_red.svg" alt="Team Chat Powered by PubNub"/><h2 class="headerTitleWithLogo">Team Chat Powered by PubNub</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"></ul></nav></div></header></div></div><div class="navPusher singleRowMobileNav"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Tutorial</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Quickstart</h3><ul class=""><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/quickstart/introduction">Introduction</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/quickstart/frameworks">Frameworks</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/quickstart/run-locally">Run Locally</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/quickstart/optional-features">Optional Features</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Tutorial</h3><ul class=""><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/overview">Overview</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/theming">Theming</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/pubnub">PubNub Integration</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/sample-data">Sample Data</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/login">User Login</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/user-details">User Details</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/joined-conversations">Joined Conversations</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/messages">Messages</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/join-conversation">Join Conversation</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/leave-conversation">Leave Conversation</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/conversation-members">Conversation Members</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/typing-indicators">Typing Indicators</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/profanity-filter">Profanity Filter</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Log in with a User</h1></header><article><div><span><p>While the splash screen displays, the app is selecting a user for you, and retrieving the conversations to which your user is subscribed.</p>
+<p><img src="/typescript-ref-app-team-chat/docs/assets/team-chat-loading-screen.png" alt="splash screen"></p>
+<h2><a class="anchor" aria-hidden="true" id="select-a-user"></a><a href="#select-a-user" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Select a User</h2>
+<p>The <code>authentication/login/Login.tsx</code> component displays a login screen and selects a random user to log into the application.
+The user is selected from the list of IDs defined in the <code>knownUserIds.json</code> file.
+These are the same users that were initially populated on your key.</p>
+<pre><code class="hljs css language-tsx">const <span class="hljs-keyword">Login</span> = () =&gt; {
+  const dispatch = useDispatch();
+  const loggingIn = useSelector(isLoggingIn);
+  const loggedIn = useSelector(isUserLoggedIn);
+  const loginWithRandomlyPickedUser = () =&gt; {
+    <span class="hljs-keyword">if</span> (loggingIn || loggedIn) {
+      <span class="hljs-keyword">return</span>;
+    }
+    const userId = KnownIds[Math.floor(Math.random() * KnownIds.length)];
+    dispatch(<span class="hljs-keyword">login</span>(userId));
+  };
+  <span class="hljs-keyword">if</span> (!loggedIn &amp;&amp; !loggingIn) {
+    loginWithRandomlyPickedUser();
+  }
+  <span class="hljs-keyword">return</span> (
+    &lt;<span class="hljs-keyword">Wrapper</span>&gt;
+      &lt;Body&gt;
+        &lt;Button onClick={loginWithRandomlyPickedUser}&gt;
+          {loggingIn ? "Connecting" : "Connect"}
+        &lt;/Button&gt;
+        &lt;PoweredByPubNub&gt;
+          &lt;PoweredBy&gt;Powered <span class="hljs-keyword">By</span>&lt;/PoweredBy&gt;
+          &lt;img alt="PubNub" src={PubNubLogo} /&gt;
+        &lt;/PoweredByPubNub&gt;
+      &lt;/Body&gt;
+    &lt;/<span class="hljs-keyword">Wrapper</span>&gt;
+  );
+};
+export { <span class="hljs-keyword">Login</span> };
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="set-the-user"></a><a href="#set-the-user" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Set the User</h2>
+<p>Once the app selects a user, the following code (in <code>authentication/loginCommand.ts</code>) calls <a href="https://www.pubnub.com/docs/chat/reference/users#set-a-user">pubnub.api.setUUID()</a> to set the user’s ID on the pubnub object.
+This ID will be passed in all API calls to PubNub so that the network can identify the user who performs these operations.</p>
+<p>We then call the <a href="https://www.pubnub.com/docs/chat/redux/users#fetchuserbyid">fetchUserById()</a> command to fetch user details from PubNub and store the logged in user in the local store.</p>
+<pre><code class="hljs css language-tsx"><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> login = (userId: <span class="hljs-built_in">string</span>): ThunkAction&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt;&gt; =&gt; {
+  <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">dispatch, getState, context</span>) =&gt;</span> {
+    dispatch(loggingIn());
+    <span class="hljs-comment">// Show the login screen for a minimum amount of time</span>
+    <span class="hljs-keyword">const</span> timer = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-params">resolve</span> =&gt;</span> setTimeout(resolve, <span class="hljs-number">2000</span>));
+    <span class="hljs-comment">// Set the UUID of the current user</span>
+    context.pubnub.api.setUUID(userId);
+    <span class="hljs-comment">// Fetch user from PubNub</span>
+    <span class="hljs-keyword">const</span> isLoginSuccessful = dispatch(fetchUserById({ userId }))
+});
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="connect-to-conversations"></a><a href="#connect-to-conversations" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Connect To Conversations</h2>
+<p>Once the login is successful, we call the <a href="https://www.pubnub.com/docs/chat/redux/memberships#fetchmemberships">fetchMemberships()</a> command to retrieve the user’s conversations from PubNub.
+The method returns a list of space memberships that were initially populated by the <code>setup/populate.js</code> script and stores these conversations in the local store.</p>
+<p>Next, we call <a href="https://www.pubnub.com/docs/chat/reference/spaces#subscribe-to-channels">pubnub.api.subscribe()</a> to open a realtime connection with PubNub and subscribe the user to the conversation channels.
+If a client is subscribed to one or more channels, it will start receiving the messages and events published on those channels.
+Subscribing with presence also subscribes you to presence channels so you can receive join and leave events, which allow you to show other users as online or offline on the app.
+(We’ll dive into detail on presence in the next part of the tutorial.)</p>
+<pre><code class="hljs css language-tsx">const isLoginSuccessful = dispatch(fetchUserById({ userId }))
+  .<span class="hljs-keyword">then</span>(() =&gt; {
+    <span class="hljs-keyword">return</span> dispatch(
+      // <span class="hljs-keyword">Fetch</span> the <span class="hljs-keyword">user</span>’s conversations <span class="hljs-keyword">from</span> PubNub
+      fetchMemberships({
+        userId,
+        <span class="hljs-keyword">include</span>: {
+          spaceFields: <span class="hljs-keyword">true</span>,
+          customSpaceFields: <span class="hljs-keyword">false</span>,
+          customFields: <span class="hljs-keyword">false</span>,
+          totalCount: <span class="hljs-keyword">false</span>
+        }
+      })
+    );
+  })
+  .<span class="hljs-keyword">then</span>(() =&gt; {
+    // Subscribe <span class="hljs-keyword">to</span> messages <span class="hljs-keyword">on</span> the <span class="hljs-keyword">user</span><span class="hljs-string">'s joined conversations.
+    // The store contains a list of the user'</span>s conversations; we use
+    // this list <span class="hljs-keyword">to</span> <span class="hljs-keyword">perform</span> the subscribe() operation.
+    const conversationChannels = getConversationsByUserId(getState())[
+      userId
+    ].map(membership =&gt; membership.id);
+    context.pubnub.api.subscribe({
+      channels: conversationChannels,
+      withPresence: <span class="hljs-keyword">true</span>
+    });
+  });
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/typescript-ref-app-team-chat/docs/tutorial/sample-data"><span class="arrow-prev">← </span><span>Sample Data</span></a><a class="docs-next button" href="/typescript-ref-app-team-chat/docs/tutorial/user-details"><span>User Details</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#select-a-user">Select a User</a></li><li><a href="#set-the-user">Set the User</a></li><li><a href="#connect-to-conversations">Connect To Conversations</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><div><h5>Docs</h5><a href="/typescript-ref-app-team-chat/docs/quickstart">Quickstart</a><a href="/typescript-ref-app-team-chat/docs/tutorial-part-1">Tutorial</a><a href="/typescript-ref-app-team-chat/docs/theming">Themeing</a><a href="https://www.pubnub.com/docs/chat/quickstart">PubNub Chat</a></div><div><h5>Source</h5><a href="https://github.com/pubnub/typescript-ref-app-team-chat">GitHub</a><a class="github-button" href="https://github.com/pubnub/typescript-ref-app-team-chat" data-icon="octicon-star" data-count-href="/pubnub/typescript-ref-app-team-chat/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><a href="https://pubnub.com/chat" target="_blank" rel="noreferrer noopener" class="fbOpenSource"><img src="/typescript-ref-app-team-chat/img/pubnub_red.svg" alt="PubNub" width="170" height="45"/></a><section class="copyright">Copyright © 2020 PubNub</section></footer></div></body></html>

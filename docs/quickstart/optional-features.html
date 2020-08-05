@@ -1,0 +1,115 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Optional Features · Team Chat Powered by PubNub</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="Team Chat comes with additional rich features like link previews, gifs, and content moderation."/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Optional Features · Team Chat Powered by PubNub"/><meta property="og:type" content="website"/><meta property="og:url" content="https://pubnub.github.io/typescript-ref-app-team-chat/typescript-ref-app-team-chat/"/><meta property="og:description" content="Team Chat comes with additional rich features like link previews, gifs, and content moderation."/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/typescript-ref-app-team-chat/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/typescript-ref-app-team-chat/js/scrollSpy.js"></script><link rel="stylesheet" href="/typescript-ref-app-team-chat/css/main.css"/><script src="/typescript-ref-app-team-chat/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/typescript-ref-app-team-chat/"><img class="logo" src="/typescript-ref-app-team-chat/img/pubnub_red.svg" alt="Team Chat Powered by PubNub"/><h2 class="headerTitleWithLogo">Team Chat Powered by PubNub</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"></ul></nav></div></header></div></div><div class="navPusher singleRowMobileNav"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Quickstart</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Quickstart</h3><ul class=""><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/quickstart/introduction">Introduction</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/quickstart/frameworks">Frameworks</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/quickstart/run-locally">Run Locally</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/typescript-ref-app-team-chat/docs/quickstart/optional-features">Optional Features</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Tutorial</h3><ul class=""><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/overview">Overview</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/theming">Theming</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/pubnub">PubNub Integration</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/sample-data">Sample Data</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/login">User Login</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/user-details">User Details</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/joined-conversations">Joined Conversations</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/messages">Messages</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/join-conversation">Join Conversation</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/leave-conversation">Leave Conversation</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/conversation-members">Conversation Members</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/typing-indicators">Typing Indicators</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/profanity-filter">Profanity Filter</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Optional Features</h1></header><article><div><span><p>Team Chat comes with additional rich features like link previews, gifs, and content moderation.
+These features required additional setup and free third party APIs.</p>
+<h2><a class="anchor" aria-hidden="true" id="gif-picker"></a><a href="#gif-picker" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Gif Picker</h2>
+<p>To enable the gif picker, you need a GIPHY API key.
+You can sign up for a (free) developer account and create a key from the <a href="https://developers.giphy.com/dashboard/">GIPHY developer dashboard</a>.</p>
+<ol>
+<li><p>Create <code>.env</code> at the root of the project to hold your environment variables. This file will no be commited.</p></li>
+<li><p>Copy the API key from the dashboard and add it to <code>.env</code>.</p>
+<pre><code class="hljs css language-dotenv"><span class="hljs-attr">GIPHY_API_KEY</span>=your-api-key
+</code></pre></li>
+<li><p>The variable needs to be exposed to the React app by adding another line.</p>
+<pre><code class="hljs css language-dotenv"><span class="hljs-attr">REACT_APP_GIPHY_API_KEY</span>=<span class="hljs-variable">$GIPHY_API_KEY</span>
+</code></pre></li>
+</ol>
+<ol>
+<li><p>Restart the dev server for the changes to take effect.</p>
+<pre><code class="hljs css language-bash">npm start
+</code></pre></li>
+</ol>
+<h2><a class="anchor" aria-hidden="true" id="image-moderation"></a><a href="#image-moderation" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Image Moderation</h2>
+<p>In addition to message moderation, AI powered moderation can be enabled to block innapropriate images.</p>
+<p>You can sign up for a (free) account and API key from the <a href="https://dashboard.sightengine.com/">Sightengine dashboard</a>.</p>
+<ol>
+<li><p>Add the <strong>API User</strong> and <strong>API Secret</strong> to your <code>.env</code> file.</p>
+<pre><code class="hljs css language-dotenv"><span class="hljs-attr">FUNCTIONS_SIGHTENGINE_API_SECRET</span>=your-api-secret
+<span class="hljs-attr">FUNCTIONS_SIGHTENGINE_API_USER</span>=your-api-user
+</code></pre></li>
+</ol>
+<h2><a class="anchor" aria-hidden="true" id="giphy-command"></a><a href="#giphy-command" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>/giphy command</h2>
+<p>The <code>/giphy ${message}</code> command shares a gif related to the message.</p>
+<ol>
+<li><p>You should have created a GIPHY API key in the <a href="#gif-picker">Gif Picker</a> section. Exposed it to the function by adding another variable that references it.</p>
+<pre><code class="hljs css language-dotenv"><span class="hljs-attr">FUNCTIONS_GIPHY_API_KEY</span>=<span class="hljs-variable">$GIPHY_API_KEY</span>
+</code></pre></li>
+</ol>
+<h2><a class="anchor" aria-hidden="true" id="deploy-functions"></a><a href="#deploy-functions" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Deploy Functions</h2>
+<p>Link previews, message moderation, and the <code>/giphy</code> command are powered by PubNub functions. To enable these features, you'll need to build and deploy the function code in <code>/server</code>.</p>
+<h3><a class="anchor" aria-hidden="true" id="option-1-automatic-upload"></a><a href="#option-1-automatic-upload" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Option 1: Automatic Upload</h3>
+<blockquote>
+<p>Note: To manage functions from the CLI, you have to sign in to your PubNub account. This is currently not possible if you created your account with SSO.</p>
+</blockquote>
+<ol>
+<li><p>Use the CLI to build and deploy the functions from source (in <code>server/src</code>).</p>
+<pre><code class="hljs css language-bash">npm run deploy:<span class="hljs-built_in">functions</span>
+</code></pre></li>
+<li><p>Enter your PubNub account email and password (these will <strong>not</strong> be saved).</p></li>
+<li><p>Select your app and keyset using the up/down arrows and return to submit.</p></li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="option-2-manual-upload"></a><a href="#option-2-manual-upload" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Option 2: Manual Upload</h3>
+<ol>
+<li><p>From the PubNub dashboard, select the keyset your are using. Then, open the functions tab (on the left). Enter a module name and description, then click <strong>Create New Module</strong>.</p></li>
+<li><p>Click <strong>Create Function</strong>, give it a name, set the event type to <em>Before Publish or Fire</em> and enter <code>*</code> for the channel pattern and click <strong>Create</strong>.</p></li>
+<li><p>Use the CLI to build the functions from source (in <code>server/src</code>).</p>
+<pre><code class="hljs css language-bash">npm run build:<span class="hljs-built_in">functions</span>
+</code></pre></li>
+<li><p>After running the build command, a minified and compiled version of the function is available is <code>server/build/transformPublishedMessages.js</code>. Copy the contents of the file into the functions editor and click <strong>Save</strong>.</p></li>
+<li><p>Click <strong>Start Module</strong> from the top right to deploy your function.</p></li>
+</ol>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/typescript-ref-app-team-chat/docs/quickstart/run-locally"><span class="arrow-prev">← </span><span>Run Locally</span></a><a class="docs-next button" href="/typescript-ref-app-team-chat/docs/tutorial/overview"><span>Overview</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#gif-picker">Gif Picker</a></li><li><a href="#image-moderation">Image Moderation</a></li><li><a href="#giphy-command">/giphy command</a></li><li><a href="#deploy-functions">Deploy Functions</a><ul class="toc-headings"><li><a href="#option-1-automatic-upload">Option 1: Automatic Upload</a></li><li><a href="#option-2-manual-upload">Option 2: Manual Upload</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><div><h5>Docs</h5><a href="/typescript-ref-app-team-chat/docs/quickstart">Quickstart</a><a href="/typescript-ref-app-team-chat/docs/tutorial-part-1">Tutorial</a><a href="/typescript-ref-app-team-chat/docs/theming">Themeing</a><a href="https://www.pubnub.com/docs/chat/quickstart">PubNub Chat</a></div><div><h5>Source</h5><a href="https://github.com/pubnub/typescript-ref-app-team-chat">GitHub</a><a class="github-button" href="https://github.com/pubnub/typescript-ref-app-team-chat" data-icon="octicon-star" data-count-href="/pubnub/typescript-ref-app-team-chat/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><a href="https://pubnub.com/chat" target="_blank" rel="noreferrer noopener" class="fbOpenSource"><img src="/typescript-ref-app-team-chat/img/pubnub_red.svg" alt="PubNub" width="170" height="45"/></a><section class="copyright">Copyright © 2020 PubNub</section></footer></div></body></html>

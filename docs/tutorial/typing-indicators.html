@@ -1,0 +1,261 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Typing Indicators · Team Chat Powered by PubNub</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="When someone is typing, the app displays a message showing the name of the user who is typing."/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Typing Indicators · Team Chat Powered by PubNub"/><meta property="og:type" content="website"/><meta property="og:url" content="https://pubnub.github.io/typescript-ref-app-team-chat/typescript-ref-app-team-chat/"/><meta property="og:description" content="When someone is typing, the app displays a message showing the name of the user who is typing."/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/typescript-ref-app-team-chat/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/typescript-ref-app-team-chat/js/scrollSpy.js"></script><link rel="stylesheet" href="/typescript-ref-app-team-chat/css/main.css"/><script src="/typescript-ref-app-team-chat/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/typescript-ref-app-team-chat/"><img class="logo" src="/typescript-ref-app-team-chat/img/pubnub_red.svg" alt="Team Chat Powered by PubNub"/><h2 class="headerTitleWithLogo">Team Chat Powered by PubNub</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"></ul></nav></div></header></div></div><div class="navPusher singleRowMobileNav"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Tutorial</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Quickstart</h3><ul class=""><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/quickstart/introduction">Introduction</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/quickstart/frameworks">Frameworks</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/quickstart/run-locally">Run Locally</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/quickstart/optional-features">Optional Features</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Tutorial</h3><ul class=""><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/overview">Overview</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/theming">Theming</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/pubnub">PubNub Integration</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/sample-data">Sample Data</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/login">User Login</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/user-details">User Details</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/joined-conversations">Joined Conversations</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/messages">Messages</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/join-conversation">Join Conversation</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/leave-conversation">Leave Conversation</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/conversation-members">Conversation Members</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/typing-indicators">Typing Indicators</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/profanity-filter">Profanity Filter</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Typing Indicators</h1></header><article><div><span><p>When someone is typing, the app displays a message showing the name of the user who is typing.
+If more than one person is typing, the message changes to reflect that multiple users are typing.</p>
+<p><img src="/typescript-ref-app-team-chat/docs/assets/typing-indicator.png" alt="typing indicators"></p>
+<p>The <code>typingIndicator/TypingIndicatorDisplay/TypingIndicatorDisplay.tsx</code> component adds logic to display typing indicators in the app.
+The typing indicators are displayed to all users in a conversation as a user is typing a message.</p>
+<p>The component calls the <code>getTypingIndicatorsById</code> selector to get the typing indicator signals for a conversation from the local store.
+If the store has typing indicator signals for the conversation and the signal was triggered less than 10 seconds ago, “User is typing ...” text is displayed on the screen.
+If typing indicators are present from multiple users, “Multiple users typing …” text is displayed.</p>
+<pre><code class="hljs css language-tsx"><span class="hljs-keyword">export</span> interface TypingIndicatorFragment {
+  <span class="hljs-attr">sender</span>: {
+    <span class="hljs-attr">id</span>: string;
+    name: string;
+  };
+  timetoken: string;
+  message: TypingIndicator;
+}
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> getCurrentConversationTypingIndicators = createSelector(
+  [getTypingIndicatorsById, getCurrentConversationId, getUsersById, getLoggedInUserId],
+  (typingIndicators, conversationId, users, loggedInUserId): TypingIndicatorFragment[] =&gt; {
+    <span class="hljs-keyword">return</span> typingIndicators[conversationId]
+      ? <span class="hljs-built_in">Object</span>.values(
+          <span class="hljs-built_in">Object</span>.values(typingIndicators[conversationId] || [])
+            .filter(<span class="hljs-function"><span class="hljs-params">typingIndicator</span> =&gt;</span> typingIndicator.channel === conversationId )
+            .reduce(<span class="hljs-function">(<span class="hljs-params">grouped: {[key:string]: TypingIndicatorEnvelope}, typingIndicator</span>) =&gt;</span> {
+              grouped[typingIndicator.publisher] = typingIndicator;
+              <span class="hljs-keyword">return</span> grouped;
+            }, {})
+          )
+          .filter(<span class="hljs-function"><span class="hljs-params">typingIndicator</span> =&gt;</span> (<span class="hljs-built_in">Date</span>.now() - (typingIndicator.timetoken / <span class="hljs-number">10000</span>)) &lt; (TYPING_INDICATOR_DURATION_SECONDS * <span class="hljs-number">1000</span>))
+          .map(
+            <span class="hljs-function"><span class="hljs-params">typingIndicator</span> =&gt;</span> {
+              <span class="hljs-keyword">return</span> {
+                ...typingIndicator,
+                <span class="hljs-attr">timetoken</span>: <span class="hljs-built_in">String</span>(typingIndicator.timetoken),
+                <span class="hljs-attr">sender</span>:
+                  users[typingIndicator.publisher || <span class="hljs-string">''</span>] ||
+                  (typingIndicator.publisher
+                    ? {
+                        <span class="hljs-attr">id</span>: typingIndicator.publisher,
+                        <span class="hljs-attr">name</span>: typingIndicator.publisher
+                      }
+                    : {
+                        <span class="hljs-attr">id</span>: <span class="hljs-string">"unknown"</span>,
+                        <span class="hljs-attr">name</span>: <span class="hljs-string">"unknown"</span>
+                      })
+              };
+            }
+          )
+      : [];
+  }
+);
+<span class="hljs-comment">/**
+ * Display a Message based on its type
+ */</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> TypingIndicatorDisplay = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  <span class="hljs-keyword">const</span> typingIndicators: TypingIndicatorFragment[] = useSelector(
+    getCurrentConversationTypingIndicators
+  );
+  <span class="hljs-keyword">if</span> (typingIndicators.length === <span class="hljs-number">0</span>) {
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Wrapper</span>&gt;</span> <span class="hljs-tag">&lt;/<span class="hljs-name">Wrapper</span>&gt;</span></span>;
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (typingIndicators.length === <span class="hljs-number">1</span>) {
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Wrapper</span>&gt;</span>{typingIndicators[0].sender.name} is typing ...<span class="hljs-tag">&lt;/<span class="hljs-name">Wrapper</span>&gt;</span></span>
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Wrapper</span>&gt;</span>Multiple users typing ...<span class="hljs-tag">&lt;/<span class="hljs-name">Wrapper</span>&gt;</span></span>;
+  }
+};
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="receive-a-typing-signal"></a><a href="#receive-a-typing-signal" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Receive a Typing Signal</h2>
+<p>The <code>features/typingIndicator/typingIndicatorModel.ts</code> file calls the <a href="https://www.pubnub.com/docs/chat/redux/signals#createsignalreducer">createSignalReducer()</a> reducer from the Redux framework.
+This responds to actions dispatched when signals are received by the app.
+The reducer automatically updates state in the local store when it receives a signal.</p>
+<p>The code then either stores the &quot;typing on&quot; signal in the store, or removes this signal from the store if an actual message was received from the sender.
+The signal is also removed if the sender stopped typing, which sends a &quot;typing off&quot; signal.</p>
+<p>It also initiates a 10-second timer to expire each typing signal, and dispatch an action that removes the “User is typing ...” text from the screen.
+The expectation is that the sender of the message will trigger another typing signal if they continue typing once 10 second window elapses.
+In such a case, the app will continue to show that the user is typing.</p>
+<pre><code class="hljs css language-tsx">const signalReducer = createSignalReducer<span class="hljs-variable">&lt;TypingIndicatorEnvelope&gt;</span>();
+const <span class="hljs-keyword">default</span>State = { byId: {} };
+const removeTypingIndicator = (<span class="hljs-keyword">state</span>: SignalState<span class="hljs-variable">&lt;TypingIndicatorEnvelope&gt;</span>, channel: string, <span class="hljs-keyword">user</span>Id: string, timetoken?: number): SignalState<span class="hljs-variable">&lt;TypingIndicatorEnvelope&gt;</span> =&gt; {
+  let newState = {
+    byId: { ...<span class="hljs-keyword">state</span>.byId },
+  };
+  newState.byId[channel] = newState.byId[channel].filter(
+    (signal) =&gt; timetoken ? !(signal.publisher === <span class="hljs-keyword">user</span>Id &amp;&amp; signal.timetoken === timetoken) : !(signal.publisher === <span class="hljs-keyword">user</span>Id)
+  );
+  return newState;
+};
+/**
+ * create a reducer which holds <span class="hljs-literal">all</span> typing indicator signal objects <span class="hljs-keyword">in</span> a normalized form
+ */
+export const TypingIndicatorStateReducer = (<span class="hljs-keyword">state</span>: SignalState<span class="hljs-variable">&lt;TypingIndicatorEnvelope&gt;</span>, action: AppActions): SignalState<span class="hljs-variable">&lt;TypingIndicatorEnvelope&gt;</span> =&gt; {
+  switch (action.type) {
+    case SignalActionType.SIGNAL_RECEIVED:
+      if (action.payload.message.type === TypingIndicatorType.ShowTypingIndicator) {
+        // we only want <span class="hljs-keyword">to</span> store the show typing indicator signals
+        // the hide signal is handled by the listener below
+        return signalReducer(<span class="hljs-keyword">state</span>, action);
+      }
+      
+      return <span class="hljs-keyword">state</span> || <span class="hljs-keyword">default</span>State;
+    case TypingIndicatorActionType.REMOVE_TYPING_INDICATOR:
+      return removeTypingIndicator(<span class="hljs-keyword">state</span>, action.payload.channel, action.payload.<span class="hljs-keyword">user</span>Id, action.payload.timetoken);
+    case TypingIndicatorActionType.REMOVE_TYPING_INDICATOR_ALL:
+      return removeTypingIndicator(<span class="hljs-keyword">state</span>, action.payload.channel, action.payload.<span class="hljs-keyword">user</span>Id);
+    case MessageActionType.MESSAGE_RECEIVED:
+      return removeTypingIndicator(<span class="hljs-keyword">state</span>, action.payload.channel, action.payload.message.senderId);
+    <span class="hljs-keyword">default</span>:
+      return <span class="hljs-keyword">state</span> || <span class="hljs-keyword">default</span>State;
+  }
+};
+export const typingIndicatorRemoved = (
+  payload: RemoveTypingIndicatorPayload
+): RemoveTypingIndicatorAction =&gt; ({
+  type: TypingIndicatorActionType.REMOVE_TYPING_INDICATOR,
+  payload,
+});
+export const typingIndicatorRemovedAll = (
+  payload: RemoveTypingIndicatorAllPayload
+): RemoveTypingIndicatorAllAction =&gt; ({
+  type: TypingIndicatorActionType.REMOVE_TYPING_INDICATOR_ALL,
+  payload,
+});
+/**
+ * This listener will initiate a timer <span class="hljs-keyword">to</span> dispatch a RemoveTypingIndicatorAction <span class="hljs-keyword">once</span> the 
+ * TYPING_INDICATOR_DURATION_SECONDS time is passed
+ */
+export const createTypingIndicatorsListener = (
+  dispatch: Dispatch<span class="hljs-variable">&lt;AppActions&gt;</span>
+): <span class="hljs-literal">any</span> =&gt; ({
+  signal: (payload: TypingIndicatorEnvelope) =&gt; {
+    if (payload.message.type === TypingIndicatorType.ShowTypingIndicator) {
+      // hide indicator after display seconds
+      <span class="hljs-built_in">set</span>Timeout(() =&gt; {
+        dispatch(typingIndicatorRemoved({
+          <span class="hljs-keyword">user</span>Id: payload.publisher,
+          channel: payload.channel,
+          timetoken: payload.timetoken,
+        }));
+      }, TYPING_INDICATOR_DURATION_SECONDS * <span class="hljs-number">1000</span>);
+    } else if (payload.message.type === TypingIndicatorType.HideTypingIndicator) {
+      // hide indicator now, removes <span class="hljs-literal">all</span> <span class="hljs-keyword">for</span> <span class="hljs-keyword">user</span> regardless of time token
+      dispatch(typingIndicatorRemovedAll({
+        <span class="hljs-keyword">user</span>Id: payload.publisher,
+        channel: payload.channel,
+      }));
+    }
+  }
+});
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="send-a-typing-signal"></a><a href="#send-a-typing-signal" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Send a Typing Signal</h2>
+<p>The <code>currentConversation/MessageInput/MessageInput.tsx</code> component dispatches actions that trigger signals as a user is typing a message.
+The code automatically dispatches the &quot;typing on&quot; signal in a conversation when a user starts typing in that conversation.
+If the user is still typing the message after 10 seconds, another signal is sent to indicate that the user is still typing.
+If the user stops typing and clears off the message from the screen, a &quot;typing off&quot; signal is triggered to remove the typing indicator from the screen.</p>
+<pre><code class="hljs">const notifyTyping =<span class="hljs-function"> <span class="hljs-params">()</span> =&gt;</span> {
+  <span class="hljs-keyword">if</span> (!typingIndicators<span class="hljs-literal">[<span class="hljs-identifier">conversationId</span>]</span>) {
+    typingIndicators<span class="hljs-literal">[<span class="hljs-identifier">conversationId</span>]</span> = <span class="hljs-literal">true</span>;
+    dispatch(send<span class="hljs-constructor">TypingIndicator(TypingIndicatorType.ShowTypingIndicator)</span>);
+    <span class="hljs-comment">// allow sending additional typing indicators 1 seconds before display duration ends</span>
+    set<span class="hljs-constructor">Timeout(()</span> =&gt; {
+      typingIndicators<span class="hljs-literal">[<span class="hljs-identifier">conversationId</span>]</span> = <span class="hljs-literal">false</span>;
+    }, (TYPING_INDICATOR_DURATION_SECONDS - <span class="hljs-number">1</span>)<span class="hljs-operator"> * </span><span class="hljs-number">1000</span>);
+  }
+};
+const notifyStopTyping =<span class="hljs-function"> <span class="hljs-params">()</span> =&gt;</span> {
+  <span class="hljs-keyword">if</span> (typingIndicators<span class="hljs-literal">[<span class="hljs-identifier">conversationId</span>]</span>) {
+    typingIndicators<span class="hljs-literal">[<span class="hljs-identifier">conversationId</span>]</span> = <span class="hljs-literal">false</span>;
+    dispatch(send<span class="hljs-constructor">TypingIndicator(TypingIndicatorType.HideTypingIndicator)</span>);
+  }
+};
+const send =<span class="hljs-function"> (<span class="hljs-params">appMessage</span>: D<span class="hljs-params">raftMessage</span>) =&gt;</span> {
+  dispatch(send<span class="hljs-constructor">Message(<span class="hljs-params">appMessage</span>)</span>);
+  dispatch(discard<span class="hljs-constructor">MessageDraft(<span class="hljs-params">conversationId</span>)</span>);
+  typingIndicators<span class="hljs-literal">[<span class="hljs-identifier">conversationId</span>]</span> = <span class="hljs-literal">false</span>;
+};
+const update =<span class="hljs-function"> (<span class="hljs-params">appMessage</span>: D<span class="hljs-params">raftMessage</span>) =&gt;</span> {
+  dispatch(update<span class="hljs-constructor">MessageDraft(<span class="hljs-params">conversationId</span>, <span class="hljs-params">appMessage</span>)</span>);
+  <span class="hljs-keyword">if</span> (appMessage.text.length &gt; <span class="hljs-number">0</span>) {
+    notify<span class="hljs-constructor">Typing()</span>;
+  } <span class="hljs-keyword">else</span> {
+    notify<span class="hljs-constructor">StopTyping()</span>;
+  }
+};
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="sendsignal-command"></a><a href="#sendsignal-command" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>SendSignal Command</h2>
+<p>The <code>typingIndicator/sendTypingIndicator.ts</code> file calls the <a href="https://www.pubnub.com/docs/chat/redux/signals#sendsignal">sendSignal</a> command from the Redux framework to trigger typing on/off signals.
+These signals are sent to all users in a channel and can be used to display typing indicators in the app.</p>
+<pre><code class="hljs css language-tsx"><span class="hljs-comment">/**
+ * Send a typing indicator to the current conversation
+ *
+ * This command does not handle failure and leaves the error to the caller
+ */</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> sendTypingIndicator = (typingIndicatorType: TypingIndicatorType): <span class="hljs-function"><span class="hljs-params">ThunkAction</span> =&gt;</span> {
+  <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">dispatch, getState</span>) =&gt;</span> {
+    <span class="hljs-keyword">const</span> state = getState();
+    <span class="hljs-keyword">return</span> dispatch(
+      sendSignal({
+        channel: getCurrentConversationId(state),
+        message: { <span class="hljs-keyword">type</span>: typingIndicatorType }
+      })
+    );
+  };
+};
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/typescript-ref-app-team-chat/docs/tutorial/conversation-members"><span class="arrow-prev">← </span><span>Conversation Members</span></a><a class="docs-next button" href="/typescript-ref-app-team-chat/docs/tutorial/profanity-filter"><span>Profanity Filter</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#receive-a-typing-signal">Receive a Typing Signal</a></li><li><a href="#send-a-typing-signal">Send a Typing Signal</a></li><li><a href="#sendsignal-command">SendSignal Command</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><div><h5>Docs</h5><a href="/typescript-ref-app-team-chat/docs/quickstart">Quickstart</a><a href="/typescript-ref-app-team-chat/docs/tutorial-part-1">Tutorial</a><a href="/typescript-ref-app-team-chat/docs/theming">Themeing</a><a href="https://www.pubnub.com/docs/chat/quickstart">PubNub Chat</a></div><div><h5>Source</h5><a href="https://github.com/pubnub/typescript-ref-app-team-chat">GitHub</a><a class="github-button" href="https://github.com/pubnub/typescript-ref-app-team-chat" data-icon="octicon-star" data-count-href="/pubnub/typescript-ref-app-team-chat/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><a href="https://pubnub.com/chat" target="_blank" rel="noreferrer noopener" class="fbOpenSource"><img src="/typescript-ref-app-team-chat/img/pubnub_red.svg" alt="PubNub" width="170" height="45"/></a><section class="copyright">Copyright © 2020 PubNub</section></footer></div></body></html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Theming the Application · Team Chat Powered by PubNub</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="Team Chat was built using the [System UI theme specification](https://system-ui.com/theme/)."/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Theming the Application · Team Chat Powered by PubNub"/><meta property="og:type" content="website"/><meta property="og:url" content="https://pubnub.github.io/typescript-ref-app-team-chat/typescript-ref-app-team-chat/"/><meta property="og:description" content="Team Chat was built using the [System UI theme specification](https://system-ui.com/theme/)."/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/typescript-ref-app-team-chat/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/typescript-ref-app-team-chat/js/scrollSpy.js"></script><link rel="stylesheet" href="/typescript-ref-app-team-chat/css/main.css"/><script src="/typescript-ref-app-team-chat/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/typescript-ref-app-team-chat/"><img class="logo" src="/typescript-ref-app-team-chat/img/pubnub_red.svg" alt="Team Chat Powered by PubNub"/><h2 class="headerTitleWithLogo">Team Chat Powered by PubNub</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"></ul></nav></div></header></div></div><div class="navPusher singleRowMobileNav"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Tutorial</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Quickstart</h3><ul class=""><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/quickstart/introduction">Introduction</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/quickstart/frameworks">Frameworks</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/quickstart/run-locally">Run Locally</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/quickstart/optional-features">Optional Features</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Tutorial</h3><ul class=""><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/overview">Overview</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/theming">Theming</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/pubnub">PubNub Integration</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/sample-data">Sample Data</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/login">User Login</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/user-details">User Details</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/joined-conversations">Joined Conversations</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/messages">Messages</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/join-conversation">Join Conversation</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/leave-conversation">Leave Conversation</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/conversation-members">Conversation Members</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/typing-indicators">Typing Indicators</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/profanity-filter">Profanity Filter</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Theming the Application</h1></header><article><div><span><p>Team Chat was built using the <a href="https://system-ui.com/theme/">System UI theme specification</a>.
+The theme provides a single source of truth for sizes, fonts, colors, and other styles, which makes it possible to customize the look of the entire app by just editing the theme.
+You can find the theme in <code>src/main/Theme.ts</code>.</p>
+<h2><a class="anchor" aria-hidden="true" id="example-dark-mode"></a><a href="#example-dark-mode" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example: Dark Mode</h2>
+<p>Most of the themes is based on scales (arrays) of values for a property.
+These are combined with aliases that give the values easier to remember names and add an extra layer of control.</p>
+<p>To start, replace the <code>neutral</code> colors with some dark mode colors in <code>src/main/Theme.ts</code>.</p>
+<pre><code class="hljs css language-diff">const colors = {
+  error: "#B63133",
+  success: "#50d133",
+  inactive: "#E9EEF4",
+  primary: ["#0168ff", "#0247ad"],
+<span class="hljs-deletion">- neutral: ["#FFFFFF", "#F8F6FD", "#F1EDFD", "#9B9B9B", "#585858"],</span>
+<span class="hljs-addition">+ neutral: ["#201f26", "#34313b", "#3c3845", "#80878c", "#FFFFFF"],</span>
+  avatars: [
+    "#6b11d9",
+    "#371bc2",
+    "#612fbd",
+    "#222bd4",
+    "#1037e6",
+    "#22943d",
+    "#229485",
+    "#227694",
+    "#7d0c91",
+    "#4a0c91"
+  ]
+} as const;
+</code></pre>
+<p>If you reload the app, you'll notice that the contrast in some areas isn't too great.
+We can fix that by swapping where the colors are applied by modifying the aliases.</p>
+<pre><code class="hljs css language-diff">const colorAliases = {
+<span class="hljs-deletion">- onPrimary: colors.neutral[0],</span>
+<span class="hljs-addition">+ onPrimary: colors.neutral[4],</span>
+  selectedText: "rgba(0, 0, 0, 0.5)",
+  active: colors.primary[0],
+<span class="hljs-deletion">- activeText: colors.neutral[0],</span>
+<span class="hljs-addition">+ activeText: colors.neutral[4],</span>
+  messageText: colors.neutral[4],
+  normalText: colors.neutral[3],
+  importantText: colors.neutral[4],
+<span class="hljs-deletion">- avatarText: colors.neutral[0],</span>
+<span class="hljs-addition">+ avatarText: colors.neutral[4],</span>
+  borderLight: colors.neutral[2],
+  borderDark: colors.neutral[3]
+} as const;
+</code></pre>
+<p>Simmilarly, we can change the background for messages to add some more color.</p>
+<pre><code class="hljs css language-diff">const backgrounds = {
+  primary: `linear-gradient(180deg, ${colors.primary[0]} 0%, ${colors.primary[1]} 100%)`,
+  primaryHover: "rgba(255, 255, 255, 0.1)",
+  primaryActive: "rgba(0, 0, 0, 0.1)",
+  panel: colors.neutral[0],
+  panelHover: colors.neutral[1],
+  content: colors.neutral[1],
+  contentHover: colors.neutral[2],
+<span class="hljs-deletion">- message: colors.neutral[0]</span>
+<span class="hljs-addition">+ message: colors.primary[0]</span>
+};
+</code></pre>
+<p>To maintain contrast, increase the strength of the shadows slightly.</p>
+<pre><code class="hljs css language-diff">const shadows = [
+<span class="hljs-deletion">- "0 6px 10px rgba(103, 19, 176, 0.06)",</span>
+<span class="hljs-deletion">- "0 4px 30px rgba(0, 0, 0, 0.4)"</span>
+<span class="hljs-addition">+ "0 6px 10px rgba(103, 19, 176, 0.4)",</span>
+<span class="hljs-addition">+ "0 4px 30px rgba(0, 0, 0, 0.6)"</span>
+] as const;
+</code></pre>
+<p>Also change the extra data in <code>custom</code> to indicate this is a dark theme.
+Most notably, this is neccessary to switch the emoji picker theme.</p>
+<pre><code class="hljs css language-diff">const custom = {
+<span class="hljs-deletion">- dark: false,</span>
+<span class="hljs-addition">+ dark: true,</span>
+  companyName: "PubNub",
+  tagLine: "World-Class APIs for In-App Chat"
+} as const;
+</code></pre>
+<p><img src="/typescript-ref-app-team-chat/docs/assets/dark-theme.png" alt="image"></p>
+<h2><a class="anchor" aria-hidden="true" id="other-changes"></a><a href="#other-changes" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Other Changes</h2>
+<p>There's a few things to change before you show off your chat app.</p>
+<h3><a class="anchor" aria-hidden="true" id="change-the-logo-and-name"></a><a href="#change-the-logo-and-name" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Change the Logo and Name</h3>
+<p>In the custom section of the theme, change the companyName.
+This affects the text displayed next to the logo in the top left corner.</p>
+<p>To change the icon, replace <code>src/foundations/components/icons/LogoIcon.tsx</code>.
+This is an React component which produces and SVG.
+Eitheir replace the SVG with your own logo or delete the <code>path</code> elements to remove the PubNub text.</p>
+<h3><a class="anchor" aria-hidden="true" id="change-the-login-screen"></a><a href="#change-the-login-screen" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Change the Login Screen</h3>
+<p>The login screen lives in <code>src/features/authentication/Login</code>.
+Updating the background image, app screenshot, and logo is as simple as replacing <code>background.png</code>, <code>screenshot.png</code>, and <code>logo.svg</code> respectively.</p>
+<p>To update the tagline, edit the <code>tagLine</code> in the custom section of the theme.</p>
+<h3><a class="anchor" aria-hidden="true" id="replace-the-icon"></a><a href="#replace-the-icon" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Replace the Icon</h3>
+<p>The favicon and homescreen icon are taken from the <code>public</code> folder.
+Replace <code>logo512.png</code>, <code>logo192.png</code>, and <code>favicon.ico</code> with your own icons.</p>
+<h3><a class="anchor" aria-hidden="true" id="change-the-meta-name-and-description"></a><a href="#change-the-meta-name-and-description" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Change the Meta Name and Description</h3>
+<p>The name of the app exists in the manifest and HTML template.
+In <code>public/manifest.json</code>, change the <code>short_name</code> and <code>name</code> fields.
+In <code>public/index.html</code>, replace the contents of the <code>title</code> tag.</p>
+<p>To change the description, change the <code>content</code> property of the <code>meta</code> tag with the name <code>description</code>.</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/typescript-ref-app-team-chat/docs/tutorial/overview"><span class="arrow-prev">← </span><span>Overview</span></a><a class="docs-next button" href="/typescript-ref-app-team-chat/docs/tutorial/pubnub"><span class="function-name-prevnext">PubNub Integration</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#example-dark-mode">Example: Dark Mode</a></li><li><a href="#other-changes">Other Changes</a><ul class="toc-headings"><li><a href="#change-the-logo-and-name">Change the Logo and Name</a></li><li><a href="#change-the-login-screen">Change the Login Screen</a></li><li><a href="#replace-the-icon">Replace the Icon</a></li><li><a href="#change-the-meta-name-and-description">Change the Meta Name and Description</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><div><h5>Docs</h5><a href="/typescript-ref-app-team-chat/docs/quickstart">Quickstart</a><a href="/typescript-ref-app-team-chat/docs/tutorial-part-1">Tutorial</a><a href="/typescript-ref-app-team-chat/docs/theming">Themeing</a><a href="https://www.pubnub.com/docs/chat/quickstart">PubNub Chat</a></div><div><h5>Source</h5><a href="https://github.com/pubnub/typescript-ref-app-team-chat">GitHub</a><a class="github-button" href="https://github.com/pubnub/typescript-ref-app-team-chat" data-icon="octicon-star" data-count-href="/pubnub/typescript-ref-app-team-chat/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><a href="https://pubnub.com/chat" target="_blank" rel="noreferrer noopener" class="fbOpenSource"><img src="/typescript-ref-app-team-chat/img/pubnub_red.svg" alt="PubNub" width="170" height="45"/></a><section class="copyright">Copyright © 2020 PubNub</section></footer></div></body></html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Join a Conversation · Team Chat Powered by PubNub</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="When you click the &quot;+ button&quot; on your list of joined conversations, the app displays an overlay listing all the other available conversations. "/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Join a Conversation · Team Chat Powered by PubNub"/><meta property="og:type" content="website"/><meta property="og:url" content="https://pubnub.github.io/typescript-ref-app-team-chat/typescript-ref-app-team-chat/"/><meta property="og:description" content="When you click the &quot;+ button&quot; on your list of joined conversations, the app displays an overlay listing all the other available conversations. "/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/typescript-ref-app-team-chat/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/typescript-ref-app-team-chat/js/scrollSpy.js"></script><link rel="stylesheet" href="/typescript-ref-app-team-chat/css/main.css"/><script src="/typescript-ref-app-team-chat/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/typescript-ref-app-team-chat/"><img class="logo" src="/typescript-ref-app-team-chat/img/pubnub_red.svg" alt="Team Chat Powered by PubNub"/><h2 class="headerTitleWithLogo">Team Chat Powered by PubNub</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"></ul></nav></div></header></div></div><div class="navPusher singleRowMobileNav"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Tutorial</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Quickstart</h3><ul class=""><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/quickstart/introduction">Introduction</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/quickstart/frameworks">Frameworks</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/quickstart/run-locally">Run Locally</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/quickstart/optional-features">Optional Features</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Tutorial</h3><ul class=""><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/overview">Overview</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/theming">Theming</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/pubnub">PubNub Integration</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/sample-data">Sample Data</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/login">User Login</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/user-details">User Details</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/joined-conversations">Joined Conversations</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/messages">Messages</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/join-conversation">Join Conversation</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/leave-conversation">Leave Conversation</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/conversation-members">Conversation Members</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/typing-indicators">Typing Indicators</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/profanity-filter">Profanity Filter</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Join a Conversation</h1></header><article><div><span><p>When you click the &quot;+ button&quot; on your list of joined conversations, the app displays an overlay listing all the other available conversations.
+Click a conversation to join it and start receiving the messages from that conversation.</p>
+<p><img src="/typescript-ref-app-team-chat/docs/assets/join-conversations.png" alt="join a conversation"></p>
+<p>The <code>joinedConversations/JoinConversationDialog/JoinConversationDialog.tsx</code> component displays the dialog with a list of conversations that are available to join.
+The component calls the <code>getAllConversations</code> selector to fetch all conversations from the <a href="https://www.pubnub.com/docs/chat/redux/spaces?#state-shape">local store</a>.
+It also calls <code>getConversationsByUserId</code> selector to fetch the user’s current conversations from the <a href="https://www.pubnub.com/docs/chat/redux/memberships#state-shape">local store</a> so the list doesn't display them again.</p>
+<pre><code class="hljs css language-tsx"><span class="hljs-comment">// Fetch all conversations and remove the ones we're already a member of</span>
+<span class="hljs-keyword">const</span> getJoinableConversations = createSelector(
+  [getAllConversations, getLoggedInUserId, getConversationsByUserId],
+  (
+    conversations: Conversation[],
+    <span class="hljs-attr">userId</span>: string,
+    <span class="hljs-attr">joinedConversations</span>: MembershipHash
+  ): ConversationDescriptionFragment[] =&gt; {
+    <span class="hljs-keyword">return</span> conversations.filter(<span class="hljs-function"><span class="hljs-params">conversation</span> =&gt;</span> {
+      <span class="hljs-keyword">return</span> !joinedConversations[userId]
+        .map(<span class="hljs-function"><span class="hljs-params">conv</span> =&gt;</span> conv.id)
+        .includes(conversation.id);
+    });
+  }
+);
+<span class="hljs-comment">/**
+ * Present list to the user of conversations that they could join, but have not.
+ * Allow the user to select the conversation to join or back out.
+ */</span>
+<span class="hljs-keyword">const</span> JoinConversationDialog = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  <span class="hljs-keyword">const</span> conversations: ConversationDescriptionFragment[] = useSelector(
+    getJoinableConversations
+  );
+  <span class="hljs-keyword">const</span> views = useSelector(getViewStates);
+  <span class="hljs-keyword">const</span> currentUserId = useSelector(getLoggedInUserId);
+  <span class="hljs-keyword">const</span> dispatch = useDispatch();
+  <span class="hljs-keyword">const</span> themeContext = useContext(ThemeContext);
+  <span class="hljs-keyword">const</span> isSmall = useMediaQuery(themeContext.breakpoint.mediaQuery.small);
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Overlay</span> <span class="hljs-attr">displayed</span>=<span class="hljs-string">{views.JoinConversation}</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">Modal</span>
+        <span class="hljs-attr">animate</span>=<span class="hljs-string">{views.JoinConversation</span> ? "<span class="hljs-attr">open</span>" <span class="hljs-attr">:</span> "<span class="hljs-attr">closed</span>"}
+        <span class="hljs-attr">variants</span>=<span class="hljs-string">{getAnimatedModalVariants(isSmall)}</span>
+      &gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Header</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">Title</span>&gt;</span>Join a Conversation<span class="hljs-tag">&lt;/<span class="hljs-name">Title</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">CloseButton</span>
+            <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> {
+              dispatch(joinConversationViewHidden());
+            }}
+          &gt;
+            <span class="hljs-tag">&lt;<span class="hljs-name">CrossIcon</span> <span class="hljs-attr">title</span>=<span class="hljs-string">"close"</span> /&gt;</span>
+          <span class="hljs-tag">&lt;/<span class="hljs-name">CloseButton</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">Header</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">ScrollView</span>&gt;</span>
+          {conversations.map(conversation =&gt; (
+            <span class="hljs-tag">&lt;<span class="hljs-name">ConversationDescription</span>
+              <span class="hljs-attr">key</span>=<span class="hljs-string">{</span>`<span class="hljs-attr">conversationDescription-</span>${<span class="hljs-attr">conversation.id</span>}`}
+              <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> {
+                const conversationId = conversation.id;
+                dispatch(joinConversation(currentUserId, conversationId));
+                dispatch(joinConversationViewHidden());
+              }}
+              conversation={conversation}
+            /&gt;
+          ))}
+        <span class="hljs-tag">&lt;/<span class="hljs-name">ScrollView</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">Modal</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">Overlay</span>&gt;</span></span>
+  );
+};
+<span class="hljs-keyword">export</span> { JoinConversationDialog }
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="joinspaces-command"></a><a href="#joinspaces-command" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>joinSpaces Command</h2>
+<p>The <code>joinConversation()</code> method (in the <code>joinedConversations/joinConversationCommand.ts</code> file) uses the <a href="https://www.pubnub.com/docs/chat/redux/memberships#joinspaces">joinSpaces</a> command from the Redux framework to add the conversation membership for the user.
+It also calls <a href="https://www.pubnub.com/docs/chat/reference/spaces#subscribe-to-channels">pubnub.api.subscribe</a> to subscribe to the conversation channel to start receiving messages on that channel.</p>
+<pre><code class="hljs css language-tsx"><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> joinConversation = (
+  userId: <span class="hljs-built_in">string</span>,
+  conversationId: <span class="hljs-built_in">string</span>
+): ThunkAction&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt;&gt; =&gt; {
+  <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">dispatch, getState, context</span>) =&gt;</span> {
+    <span class="hljs-keyword">return</span> dispatch(
+      joinSpaces({
+        userId: userId,
+        spaces: [{ id: conversationId }]
+      })
+    ).then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+      context.pubnub.api.subscribe({
+        channels: [conversationId],
+        withPresence: <span class="hljs-literal">true</span>
+      });
+      dispatch(focusOnConversation(conversationId));
+    });
+  };
+};
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/typescript-ref-app-team-chat/docs/tutorial/messages"><span class="arrow-prev">← </span><span>Messages</span></a><a class="docs-next button" href="/typescript-ref-app-team-chat/docs/tutorial/leave-conversation"><span>Leave Conversation</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#joinspaces-command">joinSpaces Command</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><div><h5>Docs</h5><a href="/typescript-ref-app-team-chat/docs/quickstart">Quickstart</a><a href="/typescript-ref-app-team-chat/docs/tutorial-part-1">Tutorial</a><a href="/typescript-ref-app-team-chat/docs/theming">Themeing</a><a href="https://www.pubnub.com/docs/chat/quickstart">PubNub Chat</a></div><div><h5>Source</h5><a href="https://github.com/pubnub/typescript-ref-app-team-chat">GitHub</a><a class="github-button" href="https://github.com/pubnub/typescript-ref-app-team-chat" data-icon="octicon-star" data-count-href="/pubnub/typescript-ref-app-team-chat/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><a href="https://pubnub.com/chat" target="_blank" rel="noreferrer noopener" class="fbOpenSource"><img src="/typescript-ref-app-team-chat/img/pubnub_red.svg" alt="PubNub" width="170" height="45"/></a><section class="copyright">Copyright © 2020 PubNub</section></footer></div></body></html>

@@ -1,0 +1,353 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Send and Receive Messages · Team Chat Powered by PubNub</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="Along the top of the conversation pane, the app displays details about the conversation: a title, description, and membership and presence information. "/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Send and Receive Messages · Team Chat Powered by PubNub"/><meta property="og:type" content="website"/><meta property="og:url" content="https://pubnub.github.io/typescript-ref-app-team-chat/typescript-ref-app-team-chat/"/><meta property="og:description" content="Along the top of the conversation pane, the app displays details about the conversation: a title, description, and membership and presence information. "/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/typescript-ref-app-team-chat/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/typescript-ref-app-team-chat/js/scrollSpy.js"></script><link rel="stylesheet" href="/typescript-ref-app-team-chat/css/main.css"/><script src="/typescript-ref-app-team-chat/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/typescript-ref-app-team-chat/"><img class="logo" src="/typescript-ref-app-team-chat/img/pubnub_red.svg" alt="Team Chat Powered by PubNub"/><h2 class="headerTitleWithLogo">Team Chat Powered by PubNub</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"></ul></nav></div></header></div></div><div class="navPusher singleRowMobileNav"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Tutorial</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Quickstart</h3><ul class=""><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/quickstart/introduction">Introduction</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/quickstart/frameworks">Frameworks</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/quickstart/run-locally">Run Locally</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/quickstart/optional-features">Optional Features</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Tutorial</h3><ul class=""><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/overview">Overview</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/theming">Theming</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/pubnub">PubNub Integration</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/sample-data">Sample Data</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/login">User Login</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/user-details">User Details</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/joined-conversations">Joined Conversations</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/messages">Messages</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/join-conversation">Join Conversation</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/leave-conversation">Leave Conversation</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/conversation-members">Conversation Members</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/typing-indicators">Typing Indicators</a></li><li class="navListItem"><a class="navItem" href="/typescript-ref-app-team-chat/docs/tutorial/profanity-filter">Profanity Filter</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Send and Receive Messages</h1></header><article><div><span><p>Along the top of the conversation pane, the app displays details about the conversation: a title, description, and membership and presence information.
+Below that, the app shows messages in the conversation as they arrive.
+At the bottom, we have a component to let us input text and emoji.</p>
+<p><img src="/typescript-ref-app-team-chat/docs/assets/team-chat-conversation.png" alt="a conversation"></p>
+<p>Once a conversation is selected, the <code>currentConversation/CurrentConversation/CurrentConversation.tsx</code> component displays details of the conversation as well as its messages.</p>
+<p>There are three sub-components:</p>
+<ul>
+<li><code>Header</code> includes the conversation name, description, and occupancy count</li>
+<li><code>MessageList</code> shows the messages in the conversation (we’ll talk about this in the next section)</li>
+<li><code>MessageInput</code> shows the text input area and emoji picker (we’ll talk about this in the next section, too)</li>
+</ul>
+<pre><code class="hljs css language-tsx"><span class="hljs-keyword">const</span> CurrentConversation = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  <span class="hljs-keyword">const</span> panels = useSelector(getPanelStates);
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">AnimatedWrapper</span> <span class="hljs-attr">pose</span>=<span class="hljs-string">{panels.Content</span> ? "<span class="hljs-attr">open</span>" <span class="hljs-attr">:</span> "<span class="hljs-attr">closed</span>"}&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">Header</span> /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">MessageList</span> /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">MessageInput</span> /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">AnimatedWrapper</span>&gt;</span></span>
+  );
+};
+<span class="hljs-keyword">export</span> { CurrentConversation };
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="show-the-current-conversation"></a><a href="#show-the-current-conversation" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Show the Current Conversation</h2>
+<p>The <code>currentConversation/Header/Header.tsx</code> component calls <code>getConversationsById()</code> to get details of the selected conversation from the <a href="https://www.pubnub.com/docs/chat/redux/spaces#state-shape">local store</a>, and renders them in the UI.</p>
+<pre><code class="hljs css language-tsx"><span class="hljs-keyword">export</span> interface ConversationDescriptionFragment {
+  <span class="hljs-attr">id</span>: string;
+  name: string;
+  description: string;
+}
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> getCurrentConversationDescription = createSelector(
+  [getConversationsById, getCurrentConversationId],
+  (
+    conversations: ConversationsIndexedById,
+    <span class="hljs-attr">currentConversationId</span>: string
+  ): <span class="hljs-function"><span class="hljs-params">ConversationDescriptionFragment</span> =&gt;</span> {
+    <span class="hljs-keyword">return</span> {
+      ...conversations[currentConversationId]
+    };
+  }
+);
+<span class="hljs-keyword">const</span> Header = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  <span class="hljs-keyword">const</span> conversation: ConversationDescriptionFragment = useSelector(
+    getCurrentConversationDescription
+  );
+  <span class="hljs-keyword">const</span> dispatch = useDispatch();
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Wrapper</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">Body</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">BackIconWrapper</span>
+          <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> {
+            dispatch(setLayoutLeft());
+          }}
+        &gt;
+          <span class="hljs-tag">&lt;<span class="hljs-name">BackIcon</span> /&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">BackIconWrapper</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Information</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">Name</span>&gt;</span>{conversation.name}<span class="hljs-tag">&lt;/<span class="hljs-name">Name</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">Description</span>&gt;</span>{conversation.description}<span class="hljs-tag">&lt;/<span class="hljs-name">Description</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">Information</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">ConversationOccupancy</span> /&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">Body</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">Border</span> /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">Wrapper</span>&gt;</span></span>
+  );
+};
+<span class="hljs-keyword">export</span> { Header };
+</code></pre>
+<p>We’ll explain the <code>MessageList</code> and <code>MessageInput</code> components in the next section.</p>
+<h2><a class="anchor" aria-hidden="true" id="send-messages"></a><a href="#send-messages" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Send Messages</h2>
+<p>The <code>currentConversation/MessageInput/MessageInput.tsx</code> component renders the text input field and emoji picker.</p>
+<pre><code class="hljs css language-tsx"><span class="hljs-keyword">const</span> MessageInput = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  <span class="hljs-keyword">const</span> [message, setMessage]: MessageFragment = useState(emptyMessage);
+  <span class="hljs-keyword">const</span> conversationId: string = useSelector(getCurrentConversationId);
+  <span class="hljs-keyword">const</span> textareaRef = useRef&lt;HTMLTextAreaElement&gt;(
+    <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">"textarea"</span>)
+  );
+  <span class="hljs-keyword">const</span> conversationMessageInputValue: string = useSelector(
+    getConversationMessageInputValue
+  );
+<span class="hljs-keyword">const</span> send = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    dispatch(
+      sendMessageAction({
+        <span class="hljs-attr">type</span>: <span class="hljs-string">"text"</span>,
+        <span class="hljs-attr">body</span>: cleanMessage(message)
+      })
+    );
+    dispatch(
+      updateConversationMessageInputValueAction(conversationId, emptyMessage)
+    );
+    setMessage(emptyMessage);
+  };
+  useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    setMessage(conversationMessageInputValue);
+    autoExpand(textareaRef.current);
+  }, [conversationId, conversationMessageInputValue]);
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Wrapper</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">EmojiSuggestion</span>
+        <span class="hljs-attr">value</span>=<span class="hljs-string">{message}</span>
+        <span class="hljs-attr">onSelection</span>=<span class="hljs-string">{messageWithEmoji</span> =&gt;</span> {
+          setMessage(messageWithEmoji);
+        }}
+      /&gt;
+      <span class="hljs-tag">&lt;<span class="hljs-name">Container</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">TextArea</span>
+          <span class="hljs-attr">ref</span>=<span class="hljs-string">{textareaRef}</span>
+          <span class="hljs-attr">rows</span>=<span class="hljs-string">{1}</span>
+          <span class="hljs-attr">value</span>=<span class="hljs-string">{message}</span>
+          <span class="hljs-attr">onChange</span>=<span class="hljs-string">{changed}</span>
+          <span class="hljs-attr">onKeyPress</span>=<span class="hljs-string">{handleKeyPress}</span>
+          <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Type Message"</span>
+        /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">EmojiInput</span>
+          <span class="hljs-attr">value</span>=<span class="hljs-string">{message}</span>
+          <span class="hljs-attr">onSelection</span>=<span class="hljs-string">{messageWithEmoji</span> =&gt;</span> {
+            setMessage(messageWithEmoji);
+          }}
+        /&gt;
+      <span class="hljs-tag">&lt;/<span class="hljs-name">Container</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">Wrapper</span>&gt;</span></span>
+  );
+};
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="send-message-command"></a><a href="#send-message-command" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Send Message Command</h3>
+<p>The <code>sendMessageAction()</code> method (in <code>messages/sendMessageCommand.ts</code>) sends your message to the other users in the conversation.
+It calls the <a href="https://www.pubnub.com/docs/chat/redux/messages#sendmessage">sendMessage()</a> command to publish a message to PubNub on the conversation channel.
+The message includes sender details.</p>
+<pre><code class="hljs css language-tsx">export const sendMessageAction = (message: MessageContent): ThunkAction =&gt; {
+  return (dispatch, getState) =&gt; {
+    const <span class="hljs-keyword">state</span> = getState();
+    return dispatch(
+      sendMessage({
+        channel: getCurrentConversationId(<span class="hljs-keyword">state</span>),
+        message: {
+          content: message,
+          sender: getLoggedInUserId(<span class="hljs-keyword">state</span>)
+        }
+      })
+    );
+  };
+};
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="add-emoji-to-a-message"></a><a href="#add-emoji-to-a-message" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Add Emoji To A Message</h3>
+<p>The <code>MessageInput.tsx</code> component also includes an <code>emoji/EmojiInput/EmojiInput.tsx</code> component to add emoji in a message.
+The component uses the <a href="https://missive.github.io/emoji-mart/">emoji-mart</a> library to render emoji on the screen.
+If an emoji is selected, it adds that emoji to the message input.</p>
+<pre><code class="hljs css language-tsx"><span class="hljs-keyword">import</span> <span class="hljs-string">"emoji-mart/css/emoji-mart.css"</span>;
+<span class="hljs-keyword">import</span> { Picker, EmojiData } <span class="hljs-keyword">from</span> <span class="hljs-string">"emoji-mart"</span>;
+interface EmojiInputProps {
+  <span class="hljs-attr">value</span>: string;
+  onSelection(contentWithEmoji: string): any;
+}
+<span class="hljs-keyword">const</span> EmojiInput = <span class="hljs-function">(<span class="hljs-params">{ value, onSelection }: EmojiInputProps</span>) =&gt;</span> {
+  <span class="hljs-keyword">const</span> [showPicker, setPickerState] = useState(<span class="hljs-literal">false</span>);
+  <span class="hljs-keyword">const</span> picker = useRef&lt;HTMLDivElement&gt;(<span class="hljs-literal">null</span>);
+  <span class="hljs-keyword">const</span> dismissPicker = useCallback(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    setPickerState(<span class="hljs-literal">false</span>);
+  }, [setPickerState]);
+  useClickOutside([picker], dismissPicker);
+  <span class="hljs-keyword">const</span> togglePicker = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    setPickerState(!showPicker);
+  };
+  <span class="hljs-keyword">const</span> addEmoji = <span class="hljs-function">(<span class="hljs-params">emoji: EmojiData</span>) =&gt;</span> {
+    <span class="hljs-keyword">if</span> (<span class="hljs-string">"native"</span> <span class="hljs-keyword">in</span> emoji) {
+      onSelection(<span class="hljs-string">`<span class="hljs-subst">${value}</span><span class="hljs-subst">${emoji.native}</span>`</span>);
+      dismissPicker();
+    }
+  };
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">{picker}</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">Dialog</span>&gt;</span>
+        {showPicker &amp;&amp; <span class="hljs-tag">&lt;<span class="hljs-name">Picker</span> <span class="hljs-attr">emoji</span>=<span class="hljs-string">""</span> <span class="hljs-attr">title</span>=<span class="hljs-string">""</span> <span class="hljs-attr">onSelect</span>=<span class="hljs-string">{addEmoji}</span> /&gt;</span>}
+      <span class="hljs-tag">&lt;/<span class="hljs-name">Dialog</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">EmojiButton</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{togglePicker}</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">FunnyEmoji</span> /&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">EmojiButton</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+  );
+};
+<span class="hljs-keyword">export</span> { EmojiInput };
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="receive-messages"></a><a href="#receive-messages" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Receive Messages</h2>
+<p>The <code>currentConversation/MessageList/MessageList.tsx</code> component displays the list of messages when they are received by the app.
+The component calls the <code>getCurrentConversationMessages()</code> selector to fetch messages from the <a href="https://www.pubnub.com/docs/chat/redux/messages#state-shape">local store</a> and render them on the screen.</p>
+<p>Each message that is received includes the message text as well as the id of the user who published that message.
+This component calls the <code>getUsersById()</code> selector to fetch details for the user from the <a href="https://www.pubnub.com/docs/chat/redux/messages#state-shape">local store</a> to display it alongside the message.</p>
+<p>Go to the next section for more details on how a message is displayed.</p>
+<pre><code class="hljs css language-tsx"><span class="hljs-keyword">const</span> MessageList = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  type ConversationScrollPositionsType = { [conversationId: string]: number };
+  <span class="hljs-keyword">const</span> conversationId: string = useSelector(getCurrentConversationId);
+  <span class="hljs-keyword">const</span> [
+    conversationsScrollPositions,
+    setConversationsScrollPositions
+  ] = useState&lt;ConversationScrollPositionsType&gt;({});
+  <span class="hljs-keyword">const</span> updateCurrentConversationScrollPosition = <span class="hljs-function">(<span class="hljs-params">scrollPosition: number</span>) =&gt;</span> {
+    setConversationsScrollPositions({
+      ...conversationsScrollPositions,
+      [conversationId]: scrollPosition
+    });
+  };
+  <span class="hljs-keyword">const</span> handleScroll = <span class="hljs-function">(<span class="hljs-params">e: any</span>) =&gt;</span> {
+    <span class="hljs-keyword">const</span> scrollPosition = e.target.scrollTop;
+    <span class="hljs-keyword">if</span> (scrollPosition !== <span class="hljs-number">0</span>) {
+      updateCurrentConversationScrollPosition(scrollPosition);
+    }
+  };
+  <span class="hljs-keyword">const</span> restoreConversationScrollPosition = <span class="hljs-function">(<span class="hljs-params">conversationId: string</span>) =&gt;</span> {
+    <span class="hljs-keyword">const</span> conversationScrollPosition: number =
+      conversationsScrollPositions[conversationId];
+    <span class="hljs-keyword">if</span> (conversationScrollPosition) {
+      wrapper.current.scrollTo(<span class="hljs-number">0</span>, conversationScrollPosition);
+    }
+  };
+  <span class="hljs-keyword">const</span> memoizedRestoreConversationScrollPositionCallback = useCallback(
+    restoreConversationScrollPosition,
+    [conversationId]
+  );
+  <span class="hljs-keyword">const</span> messages: MessageFragment[] = useSelector(
+    getCurrentConversationMessages
+  );
+  <span class="hljs-keyword">const</span> wrapper = useRef&lt;HTMLDivElement&gt;(<span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">"div"</span>));
+  <span class="hljs-keyword">const</span> el = wrapper.current;
+  <span class="hljs-keyword">const</span> scrollToBottom = useCallback(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    <span class="hljs-keyword">return</span> (el.scrollTop = el.scrollHeight - el.clientHeight);
+  }, [el]);
+  <span class="hljs-keyword">const</span> hasReachedBottom = el.scrollHeight - el.clientHeight === el.scrollTop;
+  useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    <span class="hljs-keyword">if</span> (hasReachedBottom) {
+      scrollToBottom();
+    }
+  }, [messages.length, hasReachedBottom, scrollToBottom]);
+  useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    memoizedRestoreConversationScrollPositionCallback(conversationId);
+  }, [memoizedRestoreConversationScrollPositionCallback, conversationId]);
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Wrapper</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">{wrapper}</span> <span class="hljs-attr">onScroll</span>=<span class="hljs-string">{handleScroll}</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">WelcomeMessage</span> /&gt;</span>
+      {messages.map(message =&gt; (
+        <span class="hljs-tag">&lt;<span class="hljs-name">Message</span> <span class="hljs-attr">message</span>=<span class="hljs-string">{message}</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{message.timetoken}</span> /&gt;</span>
+      ))}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">Wrapper</span>&gt;</span></span>
+  );
+};
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="display-a-message"></a><a href="#display-a-message" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Display A Message</h3>
+<p>The <code>Message/Message.tsx</code> component styles a message and displays it in the UI.
+Messages are displayed with a timetoken, content, sender’s name and avatar.
+The message displays the sender as “unknown” if the user ID isn’t present in the local store.</p>
+<pre><code class="hljs css language-tsx">export interface MessageFragment {
+  sender: {
+    id: string;
+    <span class="hljs-type">name</span>: string;
+  };
+  timetoken: string;
+  message: {
+    content: {
+      body: string;
+    };
+  };
+}
+interface MessageProps {
+  message: MessageFragment;
+  avatar?: ReactNode;
+}
+const Message = ({ message, avatar }: MessageProps) =&gt; {
+  // <span class="hljs-keyword">show</span> <span class="hljs-type">unknown</span> sender <span class="hljs-keyword">when</span> sender <span class="hljs-keyword">is</span> missing
+  let sender = message.sender || { id: "unknown", <span class="hljs-type">name</span>: "Unknown" };
+  <span class="hljs-keyword">return</span> (
+    &lt;<span class="hljs-keyword">Wrapper</span>&gt;
+      &lt;Avatar&gt;
+        {avatar ? (
+          avatar
+        ) : (
+          &lt;UserInitialsAvatar size={<span class="hljs-number">36</span>} <span class="hljs-type">name</span>={sender.name} <span class="hljs-type">uuid</span>={sender.id} /&gt;
+        )}
+      &lt;/Avatar&gt;
+      &lt;Body&gt;
+        &lt;<span class="hljs-keyword">Header</span>&gt;
+          &lt;SenderName&gt;{sender.name}&lt;/SenderName&gt;
+          &lt;TimeSent&gt;{convertTimestampToTime(message.timetoken)}&lt;/TimeSent&gt;
+        &lt;/<span class="hljs-keyword">Header</span>&gt;
+        &lt;Content&gt;{message.message.content.body}&lt;/Content&gt;
+      &lt;/Body&gt;
+    &lt;/<span class="hljs-keyword">Wrapper</span>&gt;
+  );
+};
+export { Message };
+</code></pre>
+<p>The <code>features/messages/messageModel.ts</code> file calls <a href="https://www.pubnub.com/docs/chat/redux/messages#createmessagereducer">createMessageReducer()</a>, which responds to actions dispatched to update the state of messages in the store.
+The message state is automatically updated and the UI change is rendered as the app receives messages in a conversation.</p>
+<pre><code class="hljs css language-tsx"><span class="hljs-comment">/**
+ * create a reducer which holds all known message envelope objects in a normalized form
+ */</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> MessageStateReducer = createMessageReducer&lt;MessageEnvelope&gt;();
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/typescript-ref-app-team-chat/docs/tutorial/joined-conversations"><span class="arrow-prev">← </span><span>Joined Conversations</span></a><a class="docs-next button" href="/typescript-ref-app-team-chat/docs/tutorial/join-conversation"><span>Join Conversation</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#show-the-current-conversation">Show the Current Conversation</a></li><li><a href="#send-messages">Send Messages</a><ul class="toc-headings"><li><a href="#send-message-command">Send Message Command</a></li><li><a href="#add-emoji-to-a-message">Add Emoji To A Message</a></li></ul></li><li><a href="#receive-messages">Receive Messages</a><ul class="toc-headings"><li><a href="#display-a-message">Display A Message</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><div><h5>Docs</h5><a href="/typescript-ref-app-team-chat/docs/quickstart">Quickstart</a><a href="/typescript-ref-app-team-chat/docs/tutorial-part-1">Tutorial</a><a href="/typescript-ref-app-team-chat/docs/theming">Themeing</a><a href="https://www.pubnub.com/docs/chat/quickstart">PubNub Chat</a></div><div><h5>Source</h5><a href="https://github.com/pubnub/typescript-ref-app-team-chat">GitHub</a><a class="github-button" href="https://github.com/pubnub/typescript-ref-app-team-chat" data-icon="octicon-star" data-count-href="/pubnub/typescript-ref-app-team-chat/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><a href="https://pubnub.com/chat" target="_blank" rel="noreferrer noopener" class="fbOpenSource"><img src="/typescript-ref-app-team-chat/img/pubnub_red.svg" alt="PubNub" width="170" height="45"/></a><section class="copyright">Copyright © 2020 PubNub</section></footer></div></body></html>
