@@ -1,7 +1,7 @@
 ---
 id: login
 title: Log in with a User
-sidebar_label: User Login
+sidebar_label: Login
 ---
 
 While the splash screen displays, the app is selecting a user for you, and retrieving the conversations to which your user is subscribed. 

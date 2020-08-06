@@ -1,7 +1,7 @@
 ---
 id: messages
 title: Send and Receive Messages
-sidebar_label: Messages
+sidebar_label: Send Messages
 ---
 
 Along the top of the conversation pane, the app displays details about the conversation: a title, description, and membership and presence information. 

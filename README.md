@@ -2,9 +2,9 @@
 
 [![Build Status](https://travis-ci.com/pubnub/typescript-ref-app-team-chat.svg?branch=master)](https://travis-ci.com/pubnub/typescript-ref-app-team-chat)
 
-This repository contains the code for the Team Chat web reference application hosted on the [PubNub Chat Docs Page](https://www.pubnub.com/docs/chat/quickstart#quickstart). You can download the project to run on your local machine, and explore the code to see how we built it.
+The team chat app demonstrates how to build a feature-rich chat and team collaboration application using [PubNub Chat](https://www.pubnub.com/docs/chat/quickstart). Learn how to manage users, join chat rooms, and send messages with PubNub. Learn how to build advanced features like profanity filtering, gifs, and link previews. You can download the project to run on your local machine, and explore the code to see how we built it.
 
-Check out the [documentation](http://pubnub.github.io/typescript-ref-app-team-chat) to learn about advanced features like profanity filtering, gifs, and link previews.
+Check out the [Team Chat Tutorial](https://pubnub.github.io/typescript-ref-app-team-chat/docs/introduction).
 
 ![alt text](team-chat-preview.png "Reference App")
 
@@ -18,27 +18,7 @@ The application demonstrates how to build a chat application using:
 ## Requirements
 
 - [Node.js](https://nodejs.org/en/)
-- [PubNub Account](#pubnub-account) (*Free*)
-
-## PubNub Account
-
-To run this application you must obtain publish and subscribe keys from your PubNub Account. If you don't already have an account, you can [create one for free](https://dashboard.pubnub.com/).
-
-1. Sign in to your [PubNub Dashboard](https://dashboard.pubnub.com/).
-
-1. Click **Create New App**.
-
-1. Give your app a name, and select **Chat App** as the app type.
-
-1. Click **Create**.
-
-1. Click your new app to open its settings, then click its keyset.
-
-1. Enable the **Objects** feature. **Presence** and **PubNub Functions** should have been enabled when the keyset was created.
-
-1. Select a region to store your user data (e.g. *US East*). **DO NOT** enable user, channel, or membership events.
-
-1. Locate the *Publish* and *Subscribe* keys. You'll need these keys to include in this project.
+- [PubNub Account](https://dashboard.pubnub.com/)
 
 ## Running the project
 
@@ -55,7 +35,7 @@ To run this application you must obtain publish and subscribe keys from your Pub
     npm install
     ```
 
-1. Run the project in your local environment. If you are running the app for the first time, enter your PubNub keys to begin populating sample data.
+1. Start the project. You'll be asked to enter your chat app keys from the [PubNub Dashboard](https://dashboard.pubnub.com/). Note that Objects should be enabled and a region should be selected on the key.
 
     ```bash
     npm start
@@ -65,6 +45,6 @@ To run this application you must obtain publish and subscribe keys from your Pub
 
 ## Further Information
 
-Checkout [PubNub Chat Docs](https://www.pubnub.com/docs/chat) page for more information about how to use the React and Redux SDKs to add in-app chat to your applications.
+For more information, head over to [Team Chat Tutorial](https://pubnub.github.io/typescript-ref-app-team-chat/docs/introduction) and get started building chat today.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). Special thanks to Martin Lagrange, Elvis Wolcott, and Mark Erikson.

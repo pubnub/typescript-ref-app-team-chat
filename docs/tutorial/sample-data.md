@@ -1,7 +1,7 @@
 ---
 id: sample-data
 title: Changing the Sample Data
-sidebar_label: Sample Data
+sidebar_label: Populate Data
 ---
 
 When you run the app for the first time, it runs the `setup/populate.js` script to populate sample data for users, spaces, and memberships into your PubNub keys. 

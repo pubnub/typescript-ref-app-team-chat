@@ -1,7 +1,7 @@
 ---
 id: typing-indicators
 title: Typing Indicators
-sidebar_label: Typing Indicators
+sidebar_label: Send Typing Indicators
 ---
 
 When someone is typing, the app displays a message showing the name of the user who is typing.

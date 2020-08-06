@@ -5,33 +5,29 @@
     "previous": "Previous",
     "tagline": "Team Chat Reference Application for PubNub Chat With React, Redux and TypeScript",
     "docs": {
-      "quickstart/frameworks": {
-        "title": "Frameworks",
-        "sidebar_label": "Frameworks"
-      },
-      "quickstart/introduction": {
-        "title": "Introduction",
+      "introduction": {
+        "title": "Team Chat",
         "sidebar_label": "Introduction"
       },
-      "quickstart/optional-features": {
-        "title": "Optional Features",
-        "sidebar_label": "Optional Features"
+      "optional-features": {
+        "title": "Advanced Features",
+        "sidebar_label": "Advanced Features"
       },
-      "quickstart/run-locally": {
+      "run-locally": {
         "title": "Running the App",
         "sidebar_label": "Run Locally"
       },
       "tutorial/conversation-members": {
         "title": "Show Members in Conversation",
-        "sidebar_label": "Conversation Members"
+        "sidebar_label": "Show Members"
       },
       "tutorial/join-conversation": {
         "title": "Join a Conversation",
         "sidebar_label": "Join Conversation"
       },
       "tutorial/joined-conversations": {
-        "title": "Show Joined Conversations",
-        "sidebar_label": "Joined Conversations"
+        "title": "Show My Conversations",
+        "sidebar_label": "Show Conversations"
       },
       "tutorial/leave-conversation": {
         "title": "Leave a Conversation",
@@ -39,11 +35,11 @@
       },
       "tutorial/login": {
         "title": "Log in with a User",
-        "sidebar_label": "User Login"
+        "sidebar_label": "Login"
       },
       "tutorial/messages": {
         "title": "Send and Receive Messages",
-        "sidebar_label": "Messages"
+        "sidebar_label": "Send Messages"
       },
       "tutorial/overview": {
         "title": "Overview",
@@ -55,23 +51,23 @@
       },
       "tutorial/pubnub": {
         "title": "Add PubNub to your App",
-        "sidebar_label": "PubNub Integration"
+        "sidebar_label": "Add PubNub Keys"
       },
       "tutorial/sample-data": {
         "title": "Changing the Sample Data",
-        "sidebar_label": "Sample Data"
+        "sidebar_label": "Populate Data"
       },
       "tutorial/theming": {
         "title": "Theming the Application",
-        "sidebar_label": "Theming"
+        "sidebar_label": "Setup Theming"
       },
       "tutorial/typing-indicators": {
         "title": "Typing Indicators",
-        "sidebar_label": "Typing Indicators"
+        "sidebar_label": "Send Typing Indicators"
       },
       "tutorial/user-details": {
         "title": "Show User Details",
-        "sidebar_label": "User Details"
+        "sidebar_label": "Show User Details"
       }
     },
     "links": {},

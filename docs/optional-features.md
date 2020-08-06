@@ -1,7 +1,7 @@
 ---
 id: optional-features
-title: Optional Features
-sidebar_label: Optional Features
+title: Advanced Features
+sidebar_label: Advanced Features
 ---
 
 Team Chat comes with additional rich features like link previews, gifs, and content moderation.

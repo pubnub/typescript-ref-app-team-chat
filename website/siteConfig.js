@@ -1,7 +1,7 @@
 const siteConfig = {
   title: 'Team Chat Powered by PubNub',
   tagline: 'Team Chat Reference Application for PubNub Chat With React, Redux and TypeScript',
-  url: 'https://pubnub.github.io/typescript-ref-app-team-chat', // local-only for now
+  url: 'https://pubnub.github.io/typescript-ref-app-team-chat/docs/introduction', // local-only for now
   baseUrl: '/typescript-ref-app-team-chat/',
   projectName: 'typescript-ref-app-team-chat',
   organizationName: 'pubnub',

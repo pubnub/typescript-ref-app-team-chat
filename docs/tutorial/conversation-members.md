@@ -1,7 +1,7 @@
 ---
 id: conversation-members
 title: Show Members in Conversation
-sidebar_label: Conversation Members
+sidebar_label: Show Members
 ---
 
 Click the membership count at the top right of a conversation, and you’ll see the conversation’s member list.

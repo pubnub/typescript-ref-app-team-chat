@@ -1,7 +1,7 @@
 ---
 id: user-details
 title: Show User Details
-sidebar_label: User Details
+sidebar_label: Show User Details
 ---
 
 In the top left section of the UI, the app shows details for the current user. 

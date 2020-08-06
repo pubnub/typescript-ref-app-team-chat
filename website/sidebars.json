@@ -1,10 +1,9 @@
 {
   "docs": {
     "Quickstart": [
-      "quickstart/introduction",
-      "quickstart/frameworks",
-      "quickstart/run-locally",
-      "quickstart/optional-features"
+      "introduction",
+      "run-locally",
+      "optional-features"
     ],
     "Tutorial": [
       "tutorial/overview",

@@ -1,7 +1,7 @@
 ---
 id: joined-conversations
-title: Show Joined Conversations
-sidebar_label: Joined Conversations
+title: Show My Conversations
+sidebar_label: Show Conversations
 ---
 
 Below your user info, you’ll find your list of conversations. 

@@ -1,7 +1,7 @@
 ---
 id: theming
 title: Theming the Application
-sidebar_label: Theming
+sidebar_label: Setup Theming
 ---
 
 Team Chat was built using the [System UI theme specification](https://system-ui.com/theme/).

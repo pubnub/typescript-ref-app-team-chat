@@ -1,7 +1,7 @@
 ---
 id: pubnub
 title: Add PubNub to your App
-sidebar_label: PubNub Integration
+sidebar_label: Add PubNub Keys
 ---
 
 When the app first loads, it runs the `main/App.tsx` component to initialize the [pubnub client](https://www.pubnub.com/docs/chat/reference/users#initialize-pubnub) with your publish and subscribe keys that are configured in the `.env` file.
