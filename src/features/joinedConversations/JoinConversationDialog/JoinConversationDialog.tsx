@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useCallback } from "react";
 import { getViewStates } from "features/layout/Selectors";
 import { useSelector, useDispatch } from "react-redux";
 import { getLoggedInUserId } from "features/authentication/authenticationModel";
@@ -10,18 +10,13 @@ import {
   getConversationsByUserId,
   MembershipHash
 } from "../joinedConversationModel";
-import { CrossIcon } from "foundations/components/icons/CrossIcon";
 import {
-  ScrollView,
-  CloseButton,
-  Title,
-  Header
-} from "./JoinConversationDialog.style";
-import {
-  Overlay,
-  Modal,
-  getAnimatedModalVariants
-} from "foundations/components/Modal";
+  Heading,
+  HeadingSizes,
+  Icon,
+  Icons
+} from "foundations/components/presentation";
+import { ScrollView, Modal, FlexRow } from "foundations/components/layout";
 import { createSelector } from "reselect";
 import {
   getAllConversations,
@@ -29,8 +24,16 @@ import {
 } from "features/conversations/conversationModel";
 import { joinConversation } from "../joinConversationCommand";
 import { joinConversationViewHidden } from "features/layout/LayoutActions";
-import { ThemeContext } from "styled-components";
-import { useMediaQuery } from "foundations/hooks/useMediaQuery";
+import {
+  usePagination,
+  GetNextPage,
+  SavePaginationState
+} from "foundations/hooks/usePagination";
+import { ChannelMetadataObject } from "pubnub";
+import { fetchAllChannelData } from "pubnub-redux";
+import { AllChannelDataRetrievedAction } from "pubnub-redux/dist/features/channel/ChannelDataActions";
+import { getChannelsPaginationState } from "features/pagination/Selectors";
+import { setChannelsPagination } from "features/pagination/PaginationActions";
 
 // Fetch all conversations and remove the ones we're already a member of
 const getJoinableConversations = createSelector(
@@ -63,40 +66,96 @@ const JoinConversationDialog = () => {
   const views = useSelector(getViewStates);
   const currentUserId = useSelector(getLoggedInUserId);
   const dispatch = useDispatch();
-  const theme = useContext(ThemeContext);
-  const isMedium = useMediaQuery(theme.mediaQueries.medium);
+
+  const storedPaginationState = useSelector(getChannelsPaginationState);
+
+  const restorePaginationState = useCallback(() => {
+    return storedPaginationState;
+  }, [storedPaginationState]);
+
+  const savePaginationState: SavePaginationState<
+    string | undefined,
+    undefined
+  > = useCallback(
+    (_, pagination, count, pagesRemain) => {
+      dispatch(setChannelsPagination({ pagination, count, pagesRemain }));
+    },
+    [dispatch]
+  );
+
+  const getNextPage: GetNextPage<
+    ChannelMetadataObject<{}>,
+    string | undefined,
+    undefined
+  > = useCallback(
+    async (next, total) => {
+      const pageSize = 20;
+      const action = ((await dispatch(
+        fetchAllChannelData({
+          limit: pageSize,
+          include: {
+            totalCount: true
+          },
+          page: {
+            next: next || undefined
+          }
+        })
+      )) as unknown) as AllChannelDataRetrievedAction<{}, unknown>;
+      const response = action.payload.response;
+      return {
+        results: response.data,
+        pagination: response.next,
+        pagesRemain:
+          response.totalCount && total
+            ? total + response.data.length < response.totalCount
+            : response.data.length === pageSize
+      };
+    },
+    [dispatch]
+  );
+
+  const { containerRef, endRef } = usePagination(
+    getNextPage,
+    undefined,
+    savePaginationState,
+    restorePaginationState
+  );
 
   return (
-    <Overlay displayed={views.JoinConversation}>
-      <Modal
-        animate={views.JoinConversation ? "open" : "closed"}
-        variants={getAnimatedModalVariants(isMedium)}
+    <Modal open={views.JoinConversation}>
+      <FlexRow
+        justifyContent="space-between"
+        px={[3, 0]}
+        paddingBottom={8}
+        paddingTop={[8, 0]}
       >
-        <Header>
-          <Title>Join a Conversation</Title>
-          <CloseButton
+        <Heading size={HeadingSizes.BIG}>Join a Conversation</Heading>
+        <Icon
+          onClick={() => {
+            dispatch(joinConversationViewHidden());
+          }}
+          color={"normalText"}
+          icon={Icons.Cross}
+          title="Close"
+          clickable
+        />
+      </FlexRow>
+
+      <ScrollView ref={containerRef}>
+        {conversations.map(conversation => (
+          <ConversationDescription
+            key={`conversationDescription-${conversation.id}`}
             onClick={() => {
+              const conversationId = conversation.id;
+              dispatch(joinConversation(currentUserId, conversationId));
               dispatch(joinConversationViewHidden());
             }}
-          >
-            <CrossIcon color={theme.colors.normalText} title="close" />
-          </CloseButton>
-        </Header>
-        <ScrollView>
-          {conversations.map(conversation => (
-            <ConversationDescription
-              key={`conversationDescription-${conversation.id}`}
-              onClick={() => {
-                const conversationId = conversation.id;
-                dispatch(joinConversation(currentUserId, conversationId));
-                dispatch(joinConversationViewHidden());
-              }}
-              conversation={conversation}
-            />
-          ))}
-        </ScrollView>
-      </Modal>
-    </Overlay>
+            conversation={conversation}
+          />
+        ))}
+        <div ref={endRef} />
+      </ScrollView>
+    </Modal>
   );
 };
 

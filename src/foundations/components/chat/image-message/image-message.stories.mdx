@@ -1,0 +1,25 @@
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs/blocks";
+import { ImageMessage } from "foundations/components/chat";
+import { image as pubnubImage } from "../__test__/attachments";
+
+<Meta title="Chat Components/Message - Image" component={ImageMessage} />
+
+# Image Message
+
+#### Component used to display image messages from provided URLs.
+
+<br />
+<br />
+<br />
+
+## Interactive props
+
+export const Template = args => <ImageMessage {...args} />;
+
+<Canvas>
+  <Story name="Default" args={{ image: pubnubImage.source }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="Default" />

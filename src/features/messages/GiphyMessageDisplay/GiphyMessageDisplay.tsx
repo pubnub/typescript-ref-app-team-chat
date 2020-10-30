@@ -1,16 +1,11 @@
 import React from "react";
-import {
-  Wrapper,
-  ByLine,
-  Source,
-  Attribution,
-} from "./GiphyMessageDisplay.style";
+import { GiphyMessage } from "foundations/components/chat";
+import { GiphyMessage as GiphyMessageModel } from "../messageModel";
 import { Gif, GifSize } from "features/gifs/Gif";
-import { GiphyMessage } from "../messageModel";
-import attribution from "./attribution.png";
+import { StyledBox } from "foundations/components/layout";
 
 type GiphyMessageProps = {
-  message: GiphyMessage;
+  message: GiphyMessageModel;
 };
 
 /**
@@ -18,18 +13,12 @@ type GiphyMessageProps = {
  */
 export const GiphyMessageDisplay = ({ message }: GiphyMessageProps) => {
   const gif = message.gif;
+  const title = message.query;
   return (
-    <Wrapper>
-      <Gif gif={gif} size={GifSize.Full} />
-      <ByLine>
-        <div>
-          <Source href={gif.url} target="_blank" rel="noopener noreferrer">
-            {message.query}
-          </Source>
-          {gif.user && ` by @${gif.user.username}`}
-        </div>
-        <Attribution alt="powered by GIPHY" src={attribution} />
-      </ByLine>
-    </Wrapper>
+    <StyledBox maxWidth={`${gif.images.original.width}px`}>
+      <GiphyMessage title={title} url={gif.url} author={gif.user?.username}>
+        <Gif gif={gif} size={GifSize.Full} />
+      </GiphyMessage>
+    </StyledBox>
   );
 };

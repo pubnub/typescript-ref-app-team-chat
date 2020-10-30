@@ -3,23 +3,15 @@ import { EmojiInput } from "features/emoji/EmojiInput/EmojiInput";
 import { GifInput } from "features/gifs/GifInput";
 import { IGif } from "@giphy/js-types";
 import { EmojiSuggestion } from "features/emoji/EmojiSuggestion/EmojiSuggestion";
-import {
-  Wrapper,
-  Container,
-  TextArea,
-  SendButton,
-  Editor,
-  EditorActions,
-} from "./TextMessageEditor.style";
 import { MessageType } from "../messageModel";
 import { DraftTextMessage, isDraftModified } from "../draft";
-import { SendIcon } from "foundations/components/icons/SendIcon";
 import { useMediaQuery } from "foundations/hooks/useMediaQuery";
 import { ThemeContext } from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { sendMessage } from "../sendMessage";
 import { getLoggedInUserId } from "features/authentication/authenticationModel";
-
+import { FlexRow, StyledBox } from "foundations/components/layout";
+import { Icon, Icons, Textarea } from "foundations/components/presentation";
 /**
  * Expand the height of the input box as multiple lines of text are entered.
  */
@@ -45,7 +37,7 @@ const newTextDraft = (
   return {
     type: MessageType.Text,
     senderId: draft.senderId,
-    text: newText,
+    text: newText
   };
 };
 
@@ -61,7 +53,7 @@ type TextMessageEditorProps = {
 export const TextMessageEditor = ({
   message,
   sendDraft,
-  updateDraft,
+  updateDraft
 }: TextMessageEditorProps) => {
   const dispatch = useDispatch();
   const userId = useSelector(getLoggedInUserId);
@@ -99,7 +91,7 @@ export const TextMessageEditor = ({
         type: MessageType.Giphy,
         senderId: userId,
         query,
-        gif,
+        gif
       })
     );
   };
@@ -109,31 +101,40 @@ export const TextMessageEditor = ({
   }, [textareaRef]);
 
   return (
-    <Wrapper>
-      <EmojiSuggestion value={text} onSelection={emojiInserted} />
-      <Container>
-        <Editor>
-          <TextArea
-            ref={textareaRef}
-            rows={1}
-            value={text}
-            onChange={textChanged}
-            onKeyPress={handleKeyPress}
-            placeholder="Type Message"
-          />
-        </Editor>
-        <EditorActions>
-          {process.env.REACT_APP_GIPHY_API_KEY && (
-            <GifInput onSelection={sendGif} />
-          )}
-          <EmojiInput value={text} onSelection={emojiInserted} />
-          <SendButton
-            onClick={() => isDraftModified(message) && sendDraft(message)}
-          >
-            <SendIcon title="Send Message" />
-          </SendButton>
-        </EditorActions>
-      </Container>
-    </Wrapper>
+    <FlexRow padding="2">
+      <FlexRow flexGrow={1}>
+        <Textarea
+          ref={textareaRef}
+          rows={1}
+          value={text}
+          onChange={textChanged}
+          onKeyPress={handleKeyPress}
+          placeholder="Type Message"
+        />
+      </FlexRow>
+
+      {process.env.REACT_APP_GIPHY_API_KEY && (
+        <GifInput onSelection={sendGif} />
+      )}
+
+      <StyledBox marginLeft="1">
+        <EmojiInput value={text} onSelection={emojiInserted} />
+        <EmojiSuggestion value={text} onSelection={emojiInserted} />
+      </StyledBox>
+
+      {touch && (
+        <StyledBox
+          bg="active"
+          color="onPrimary"
+          padding="1"
+          margin={-1}
+          marginLeft="1"
+          borderRadius="light"
+          onClick={() => isDraftModified(message) && sendDraft(message)}
+        >
+          <Icon icon={Icons.Send} title="Send Message" />
+        </StyledBox>
+      )}
+    </FlexRow>
   );
 };

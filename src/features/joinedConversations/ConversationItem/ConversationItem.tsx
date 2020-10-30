@@ -1,18 +1,17 @@
 import React, { useContext } from "react";
-import {
-  Wrapper,
-  Body,
-  ConversationIcon,
-  Name,
-  MessageCount,
-  IconWrapper
-} from "./ConversationItem.style";
-import { LeaveIcon } from "foundations/components/icons/LeaveIcon";
 import useHover from "foundations/hooks/useHover";
 import { DEFAULT_CONVERSATION } from "features/currentConversation/currentConversationModel";
 import { ThemeContext } from "styled-components";
-import getUniqueColor from "foundations/utilities/getUniqueColor";
 import { useMediaQuery } from "foundations/hooks/useMediaQuery";
+import {
+  LabelVariants,
+  Icon,
+  Icons,
+  Title
+} from "foundations/components/presentation";
+import { Avatar } from "foundations/components/chat";
+import { ListItem } from "foundations/components/layout";
+import { getUniqueColor } from "foundations/utilities";
 
 interface ConversationItemProps {
   selected: boolean;
@@ -44,32 +43,40 @@ const ConversationItem = ({
     name,
     (theme.colors.avatars as unknown) as string[]
   );
+
   return (
-    <Wrapper
-      {...hoverProps}
-      selected={selected}
-      emphasized={unreadMessageCount > 0}
+    <ListItem
       onClick={onClick}
+      bg={
+        selected
+          ? theme.backgrounds.primaryActive
+          : isHovering
+          ? theme.backgrounds.primaryHover
+          : "transparent"
+      }
+      {...hoverProps}
+      clickable
     >
-      <Body>
-        <ConversationIcon color={color}>#</ConversationIcon>
-        <Name>{name}</Name>
-      </Body>
-      {(isHovering || isTouch) && canLeave ? (
-        <IconWrapper
+      <Avatar bg={color} color={theme.colors.selectedText}>
+        #
+      </Avatar>
+      <Title
+        label={name}
+        labelProps={{ variant: LabelVariants.INVERSE }}
+      ></Title>
+
+      {(isHovering || isTouch) && canLeave && (
+        <Icon
+          icon={Icons.Leave}
+          color="onPrimary"
+          title="Leave Conversation"
           onClick={e => {
             e.stopPropagation();
             onLeave();
           }}
-        >
-          <LeaveIcon title="Leave Conversation" selected={selected} />
-        </IconWrapper>
-      ) : (
-        unreadMessageCount > 0 && (
-          <MessageCount>{unreadMessageCount}</MessageCount>
-        )
+        />
       )}
-    </Wrapper>
+    </ListItem>
   );
 };
 

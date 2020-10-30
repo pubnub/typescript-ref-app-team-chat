@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Textarea default matches the snapshot 1`] = `
+.c0 {
+  background: #F8F6FD;
+  border: none;
+  color: #585858;
+  max-height: 260px;
+  overflow: auto;
+  padding: 0;
+  resize: none;
+  width: 100%;
+}
+
+.c0::-webkit-input-placeholder {
+  color: #9B9B9B;
+}
+
+.c0::-moz-placeholder {
+  color: #9B9B9B;
+}
+
+.c0:-ms-input-placeholder {
+  color: #9B9B9B;
+}
+
+.c0::placeholder {
+  color: #9B9B9B;
+}
+
+.c0:focus {
+  outline: none;
+}
+
+<textarea
+  class="c0"
+/>
+`;

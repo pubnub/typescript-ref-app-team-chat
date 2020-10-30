@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GiphyMessage example gif matches the snapshot 1`] = `
+.c0 {
+  background: #FFFFFF;
+  border-radius: 10px;
+  box-shadow: 0px 6px 10px rgba(103,19,176,0.2);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.c1 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 15px;
+  font-weight: 300;
+  height: 36px;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  padding: 0px 16px;
+}
+
+.c2 {
+  color: #8E2DE2;
+  font-weight: 500;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c3 {
+  height: 16px;
+}
+
+<div
+  class="c0"
+>
+  <div
+    class="c1"
+  >
+    <div>
+      <a
+        class="c2"
+        href="https://giphy.com/gifs/thisisgiphy-3o6gbbuLW76jkt8vIc"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        Giphy Logo
+      </a>
+       by @originals
+    </div>
+    <img
+      alt="powered by GIPHY"
+      class="c3"
+      src="attribution.png"
+    />
+  </div>
+</div>
+`;

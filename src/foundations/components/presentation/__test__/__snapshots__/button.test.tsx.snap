@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button default matches the snapshot 1`] = `
+.c0 {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  text-align: left;
+  width: 100%;
+}
+
+<button
+  class="c0"
+>
+  Button
+</button>
+`;
+
+exports[`Button hover background the snapshot 1`] = `
+.c0 {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  text-align: left;
+  width: 100%;
+}
+
+.c0:hover {
+  background: red;
+}
+
+<button
+  class="c0"
+>
+  Button
+</button>
+`;

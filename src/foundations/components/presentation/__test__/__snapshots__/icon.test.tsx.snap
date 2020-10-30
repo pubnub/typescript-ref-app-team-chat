@@ -1,0 +1,195 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Icon add icon matches the snapshot 1`] = `
+.c0 svg {
+  display: block;
+}
+
+<object
+  class="c0"
+>
+  <svg
+    title="Title"
+  >
+    add.svg
+  </svg>
+</object>
+`;
+
+exports[`Icon back icon matches the snapshot 1`] = `
+.c0 svg {
+  display: block;
+}
+
+<object
+  class="c0"
+>
+  <svg
+    title="Title"
+  >
+    back.svg
+  </svg>
+</object>
+`;
+
+exports[`Icon clickable variant matches the snapshot 1`] = `
+.c0 {
+  cursor: pointer;
+}
+
+.c0 svg {
+  display: block;
+}
+
+<object
+  class="c0"
+>
+  <svg>
+    add.svg
+  </svg>
+</object>
+`;
+
+exports[`Icon cross icon matches the snapshot 1`] = `
+.c0 svg {
+  display: block;
+}
+
+<object
+  class="c0"
+>
+  <svg
+    title="Title"
+  >
+    cross.svg
+  </svg>
+</object>
+`;
+
+exports[`Icon emoji icon matches the snapshot 1`] = `
+.c0 svg {
+  display: block;
+}
+
+<object
+  class="c0"
+>
+  <svg
+    title="Title"
+  >
+    emoji.svg
+  </svg>
+</object>
+`;
+
+exports[`Icon giphy icon matches the snapshot 1`] = `
+.c0 svg {
+  display: block;
+}
+
+<object
+  class="c0"
+>
+  <svg
+    title="Title"
+  >
+    giphy.svg
+  </svg>
+</object>
+`;
+
+exports[`Icon leave icon matches the snapshot 1`] = `
+.c0 svg {
+  display: block;
+}
+
+<object
+  class="c0"
+>
+  <svg
+    title="Title"
+  >
+    leave.svg
+  </svg>
+</object>
+`;
+
+exports[`Icon logo icon matches the snapshot 1`] = `
+.c0 svg {
+  display: block;
+}
+
+<object
+  class="c0"
+>
+  <svg
+    title="Title"
+  >
+    logo.svg
+  </svg>
+</object>
+`;
+
+exports[`Icon people icon matches the snapshot 1`] = `
+.c0 svg {
+  display: block;
+}
+
+<object
+  class="c0"
+>
+  <svg
+    title="Title"
+  >
+    people.svg
+  </svg>
+</object>
+`;
+
+exports[`Icon presence icon matches the snapshot 1`] = `
+.c0 svg {
+  display: block;
+}
+
+<object
+  class="c0"
+>
+  <svg
+    title="Title"
+  >
+    presence.svg
+  </svg>
+</object>
+`;
+
+exports[`Icon search icon matches the snapshot 1`] = `
+.c0 svg {
+  display: block;
+}
+
+<object
+  class="c0"
+>
+  <svg
+    title="Title"
+  >
+    search.svg
+  </svg>
+</object>
+`;
+
+exports[`Icon send icon matches the snapshot 1`] = `
+.c0 svg {
+  display: block;
+}
+
+<object
+  class="c0"
+>
+  <svg
+    title="Title"
+  >
+    send.svg
+  </svg>
+</object>
+`;

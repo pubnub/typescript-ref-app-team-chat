@@ -1,0 +1,69 @@
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs/blocks";
+import { ScrollView, StyledBox } from "foundations/components/layout";
+
+<Meta title="Basic Layout/Scroll View" component={ScrollView} />
+
+# Scroll View
+
+#### CSS utility to easily create scrollable containers.
+
+This component combines [Styled System](https://styled-system.com/) with [ThemeProvider](https://styled-components.com/docs/advanced#theming) to deliver multiple convinient style properties.
+The table below is not exhaustive, it only contains several examples of what's really available.
+
+Please refer to the [reference table](https://styled-system.com/table) for full documentation.
+Categories of props impemented in the `ScrollView` are as follows: `layout`
+
+Values used for the properties should be referencing the `main/Theme.ts` file to generate sensible output while not defining it directly.
+
+<br />
+<br />
+
+## Interactive props
+
+export const Template = args => (
+  <ScrollView {...args}>
+    <p style={{ fontSize: "18px" }}>
+      This text will be scrollable within limited wrapping bounds thanks to
+      ScrollView.
+      <br />
+      <br />
+      Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
+      doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore
+      veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim
+      ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
+      consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque
+      porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci
+      velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore
+      magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem
+      ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?
+      Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil
+      molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla
+      pariatur?
+    </p>
+  </ScrollView>
+);
+
+<Canvas>
+  <Story
+    name="Default"
+    args={{
+      height: 4,
+      width: 5
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="Default" />
+
+## Usage examples
+
+```jsx
+<ScrollView height="4" width="4">
+  <p>
+    This text will be scrollable within limited wrapping bounds thanks to
+    ScrollView. [...]
+  </p>
+</ScrollView>
+```

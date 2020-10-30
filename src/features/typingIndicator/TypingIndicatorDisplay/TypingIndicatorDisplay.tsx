@@ -1,16 +1,21 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import {
   getTypingIndicatorsById,
   TypingIndicator,
   TypingIndicatorEnvelope,
-  TYPING_INDICATOR_DURATION_SECONDS,
+  TYPING_INDICATOR_DURATION_SECONDS
 } from "../typingIndicatorModel";
 import { getCurrentConversationId } from "features/currentConversation/currentConversationModel";
 import { getUsersById } from "features/users/userModel";
 import { getLoggedInUserId } from "features/authentication/authenticationModel";
 import { useSelector } from "react-redux";
 import { createSelector } from "reselect";
-import { Wrapper } from "./TypingIndicatorDisplay.style";
+import {
+  Label,
+  LabelSizes,
+  LabelVariants
+} from "foundations/components/presentation";
+import { StyledBox } from "foundations/components/layout";
 
 export interface TypingIndicatorFragment {
   sender: {
@@ -28,7 +33,7 @@ export const getCurrentConversationTypingIndicators = createSelector(
       ? Object.values(
           Object.values(typingIndicators[conversationId] || [])
             .filter(
-              (typingIndicator) => typingIndicator.channel === conversationId
+              typingIndicator => typingIndicator.channel === conversationId
             )
             .reduce(
               (
@@ -42,11 +47,11 @@ export const getCurrentConversationTypingIndicators = createSelector(
             )
         )
           .filter(
-            (typingIndicator) =>
+            typingIndicator =>
               Date.now() - typingIndicator.timetoken / 10000 <
               TYPING_INDICATOR_DURATION_SECONDS * 1000
           )
-          .map((typingIndicator) => {
+          .map(typingIndicator => {
             return {
               ...typingIndicator,
               timetoken: String(typingIndicator.timetoken),
@@ -55,17 +60,27 @@ export const getCurrentConversationTypingIndicators = createSelector(
                 (typingIndicator.publisher
                   ? {
                       id: typingIndicator.publisher,
-                      name: typingIndicator.publisher,
+                      name: typingIndicator.publisher
                     }
                   : {
                       id: "unknown",
-                      name: "unknown",
-                    }),
+                      name: "unknown"
+                    })
             };
           })
       : [];
   }
 );
+
+const TypingLabel: FunctionComponent = ({ children }) => {
+  return (
+    <StyledBox px="6" paddingBottom="1">
+      <Label size={LabelSizes.SMALL} variant={LabelVariants.DARK}>
+        {children}
+      </Label>
+    </StyledBox>
+  );
+};
 
 /**
  * Display a Message based on its type
@@ -77,17 +92,17 @@ export const TypingIndicatorDisplay = () => {
   const loggedInUser = useSelector(getLoggedInUserId);
 
   if (typingIndicators.length === 0) {
-    return <Wrapper>&nbsp;</Wrapper>;
+    return <TypingLabel>&nbsp;</TypingLabel>;
   } else if (typingIndicators.length === 1) {
     const {
-      sender: { name, id },
+      sender: { name, id }
     } = typingIndicators[0];
     return (
-      <Wrapper>
+      <TypingLabel>
         {id === loggedInUser ? `You are` : `${name} is`} typing ...
-      </Wrapper>
+      </TypingLabel>
     );
   } else {
-    return <Wrapper>Multiple users typing ...</Wrapper>;
+    return <TypingLabel>Multiple users typing ...</TypingLabel>;
   }
 };

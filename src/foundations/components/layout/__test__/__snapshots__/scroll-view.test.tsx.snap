@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Scroll View default variant matches the snapshot 1`] = `
+.c0 {
+  height: 100%;
+  overflow-y: auto;
+}
+
+<div
+  class="c0"
+>
+  Scroll View
+</div>
+`;

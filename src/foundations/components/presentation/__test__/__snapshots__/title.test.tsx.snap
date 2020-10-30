@@ -1,0 +1,150 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Title default matches the snapshot 1`] = `
+.c2 {
+  color: inherit;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.c3 {
+  color: #9B9B9B;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.c0 .c1 {
+  margin-bottom: 5px;
+}
+
+<div
+  class="c0"
+>
+  <h3
+    class="c1 c2"
+  >
+    Heading
+  </h3>
+  <span
+    class="c3"
+  >
+    Label
+  </span>
+</div>
+`;
+
+exports[`Title with capitalization matches the snapshot 1`] = `
+.c2 {
+  color: inherit;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.c3 {
+  color: #9B9B9B;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.c0 * {
+  text-transform: capitalize;
+}
+
+.c0 .c1 {
+  margin-bottom: 5px;
+}
+
+<div
+  class="c0"
+>
+  <h3
+    class="c1 c2"
+  >
+    Heading
+  </h3>
+  <span
+    class="c3"
+  >
+    Label
+  </span>
+</div>
+`;
+
+exports[`Title with heading props matches the snapshot 1`] = `
+.c2 {
+  color: inherit;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  color: #FFFFFF;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.c3 {
+  color: #9B9B9B;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.c0 .c1 {
+  margin-bottom: 5px;
+}
+
+<div
+  class="c0"
+>
+  <h3
+    class="c1 c2"
+  >
+    Heading
+  </h3>
+  <span
+    class="c3"
+  >
+    Label
+  </span>
+</div>
+`;
+
+exports[`Title with label props matches the snapshot 1`] = `
+.c2 {
+  color: inherit;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.c3 {
+  color: #9B9B9B;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  color: #FFFFFF;
+  font-size: 11px;
+}
+
+.c0 .c1 {
+  margin-bottom: 5px;
+}
+
+<div
+  class="c0"
+>
+  <h3
+    class="c1 c2"
+  >
+    Heading
+  </h3>
+  <span
+    class="c3"
+  >
+    Label
+  </span>
+</div>
+`;

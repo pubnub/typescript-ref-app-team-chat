@@ -1,0 +1,44 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="About/Component Types" />
+
+# Component types
+
+Easy re-useability and long term maintainability of the code is crucial part of developing any UI Components library.
+That's why Chat UI components were divided into several different categories. Please see the list below to understand
+the rules that were used to differentiate the components, and how do they affect eachother.
+
+<br />
+
+## Style utilities
+
+- Inline CSS helpers
+- Used to apply various style properties on-demand
+- Components here should not define any concrete styles on their own
+
+<br />
+
+## Layout components
+
+- Solely responsible for layout of children elements
+- No presentational styles (eg. colors, borders, fonts)
+- Media queries allowed in top level components
+- No application logic allowed
+
+<br />
+
+## Presentational components
+
+- Apply visual design
+- Follow layout set by the parent
+- Size agnostic, if possible
+- No use of margin
+- No media queries
+- No application logic
+
+<br />
+
+## Chat components
+
+- Elements specific to chat applications
+- May contain some basic business logic (like placeholders while loading data)

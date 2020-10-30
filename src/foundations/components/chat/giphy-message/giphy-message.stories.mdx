@@ -1,0 +1,37 @@
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs/blocks";
+import { StyledBox } from "foundations/components/layout";
+import { GiphyMessage } from "foundations/components/chat";
+import { gif as giphy } from "../__test__/attachments";
+
+<Meta title="Chat Components/Message - Giphy" component={GiphyMessage} />
+
+# Giphy Message
+
+#### Display an attribution footer for children Giphy elements
+
+<br />
+<br />
+<br />
+
+## Interactive props
+
+export const Template = args => (
+  <GiphyMessage {...args}>
+    <StyledBox padding="4">Insert Gif elements as children here</StyledBox>
+  </GiphyMessage>
+);
+
+<Canvas>
+  <Story
+    name="Default"
+    args={{
+      title: giphy.title,
+      url: giphy.gif.url,
+      author: giphy.gif.username
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="Default" />

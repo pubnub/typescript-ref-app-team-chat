@@ -55,7 +55,7 @@ const getKeys = async () => {
     }
     return {
       publishKey: env.parsed.REACT_APP_PUBLISH_KEY,
-      subscribeKey: env.parsed.REACT_APP_SUBSCRIBE_KEY,
+      subscribeKey: env.parsed.REACT_APP_SUBSCRIBE_KEY
     };
   }
   // prompt
@@ -65,16 +65,14 @@ const getKeys = async () => {
       type: "text",
       name: "publishKey",
       message: "Enter your publish key",
-      validate: (key) =>
-        key.startsWith("pub-") ? true : "Invalid publish key",
+      validate: key => (key.startsWith("pub-") ? true : "Invalid publish key")
     },
     {
       type: "text",
       name: "subscribeKey",
       message: "Enter your subscribe key",
-      validate: (key) =>
-        key.startsWith("sub-") ? true : "Invalid subscribe key",
-    },
+      validate: key => (key.startsWith("sub-") ? true : "Invalid subscribe key")
+    }
   ]);
   // append to .env
   fs.writeFileSync(
@@ -86,16 +84,17 @@ const getKeys = async () => {
   return {
     publishKey: result.publishKey,
     subscribeKey: result.subscribeKey
-  }
+  };
 };
 
-const formatError = (e) => `${e.name}(${e.status.operation}): ${e.status.category}.${e.status.errorData.code}`;
+const formatError = e =>
+  `${e.name}(${e.status.operation}): ${e.status.category}.${e.status.errorData.code}`;
 
 const initializeUUID = (pubnub, status) => async ({ id: uuid, ...data }) => {
   try {
     const response = await pubnub.objects.setUUIDMetadata({
       uuid,
-      data,
+      data
     });
     if (response.status === 403) {
       console.error(
@@ -121,7 +120,7 @@ const initializeChannel = (pubnub, status) => async ({
   try {
     const response = await pubnub.objects.setChannelMetadata({
       channel,
-      data,
+      data
     });
     if (response.status === 200) {
       status.increment();
@@ -137,12 +136,12 @@ const initializeChannel = (pubnub, status) => async ({
 
 const initializeMembership = (pubnub, status) => async ({
   space: channel,
-  members: uuids,
+  members: uuids
 }) => {
   try {
     const response = await pubnub.objects.setChannelMembers({
       channel,
-      uuids,
+      uuids
     });
     if (response.status === 200) {
       status.increment(uuids.length);
@@ -157,23 +156,23 @@ const initializeMembership = (pubnub, status) => async ({
 };
 
 // the bars need a second to update
-const sleep = async (ms) => {
+const sleep = async ms => {
   return new Promise(resolve => {
     setTimeout(resolve, ms);
-  })
-}
+  });
+};
 
 const main = async () => {
   // get pubsub keys
   const keys = await getKeys();
   const pubnub = new PubNub({
-    ...keys,
+    ...keys
   });
   // setup progress bars
   const totalUUIDs = initializationData.users.length;
   const totalChannels = initializationData.spaces.length;
   const totalMemberships = initializationData.members
-    .map((channel) => channel.members.length)
+    .map(channel => channel.members.length)
     .reduce((a, b) => a + b);
   const uuidCreationStatus = new SingleBar({}, Presets.shades_classic);
   const channelCreationStatus = new SingleBar({}, Presets.shades_classic);
@@ -202,7 +201,7 @@ const main = async () => {
   // batch members into groups of 20
   const memberships = initializationData.members
     .map(({ space, members }) =>
-      batch(members, 20).map((batched) => ({ space, members: batched }))
+      batch(members, 10).map(batched => ({ space, members: batched }))
     )
     .flat();
   membershipCreationStatus.start(totalMemberships, 0);
@@ -218,7 +217,11 @@ const main = async () => {
   if (errorCount === 0) {
     process.exit(0);
   } else {
-    console.warn(`${errorCount} error${errorCount === 1 ? '': 's'} initializing data. \n Please "npm run setup" again.`);
+    console.warn(
+      `${errorCount} error${
+        errorCount === 1 ? "" : "s"
+      } initializing data. \n Please "npm run setup" again.`
+    );
     process.exit(1);
   }
 };

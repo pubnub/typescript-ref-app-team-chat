@@ -1,0 +1,66 @@
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs/blocks";
+import { TextMessage, TextMessageSizes } from "foundations/components/chat";
+
+<Meta
+  title="Chat Components/Message - Text"
+  component={TextMessage}
+  argTypes={{
+    size: { control: { type: "select", options: TextMessageSizes } }
+  }}
+/>
+
+# Text Message
+
+#### Component used to display simple text & emoji only messages.
+
+This component contains some basic display logic, that will detect if message contains
+only emojis and will automatically apply the "BIG" sizing when there is 3
+or less of them.
+
+<br />
+<br />
+<br />
+
+## Interactive props
+
+export const Template = args => <TextMessage {...args} />;
+
+<Canvas>
+  <Story name="Default" args={{ text: "Interactive text message 😃" }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="Default" />
+
+## Usage examples
+
+<br />
+<br />
+
+### Manual Sizing
+
+<Canvas>
+  <Story
+    name="Manual Sizing"
+    args={{ text: "Big text message", size: TextMessageSizes.BIG }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+```jsx
+<TextMessage text="Big text message" size={TextMessageSizes.BIG} />
+```
+
+### Auto Sizing
+
+<Canvas>
+  <Story name="Auto Sizing" args={{ text: "😃😃😃" }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+```jsx
+<TextMessage text="😃😃😃" />
+```

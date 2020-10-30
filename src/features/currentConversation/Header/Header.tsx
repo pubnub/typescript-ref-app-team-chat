@@ -7,17 +7,9 @@ import {
   getConversationsById
 } from "features/conversations/conversationModel";
 import { getCurrentConversationId } from "../currentConversationModel";
-import {
-  Wrapper,
-  Body,
-  Information,
-  Name,
-  Description,
-  Border,
-  BackIconWrapper
-} from "./Header.style";
-import { BackIcon } from "foundations/components/icons/BackIcon";
 import { menuViewDisplayed } from "features/layout/LayoutActions";
+import { Icon, Icons, Title } from "foundations/components/presentation";
+import { FlexRow, StyledBox } from "foundations/components/layout";
 
 export interface ConversationDescriptionFragment {
   id: string;
@@ -45,23 +37,29 @@ const Header = () => {
   const dispatch = useDispatch();
 
   return (
-    <Wrapper>
-      <Body>
-        <BackIconWrapper
-          onClick={() => {
-            dispatch(menuViewDisplayed());
-          }}
-        >
-          <BackIcon title="back" />
-        </BackIconWrapper>
-        <Information>
-          <Name>{conversation.name}</Name>
-          <Description>{conversation.description}</Description>
-        </Information>
+    <StyledBox px="6" paddingTop="7" bg={["backgrounds.panel", "transparent"]}>
+      <FlexRow justifyContent="space-between">
+        <StyledBox display={["block", "none"]} color="active" marginRight="7">
+          <Icon
+            icon={Icons.Back}
+            onClick={() => {
+              dispatch(menuViewDisplayed());
+            }}
+            title="Back"
+            clickable
+          />
+        </StyledBox>
+
+        <Title
+          heading={conversation.name}
+          label={conversation.description}
+        ></Title>
+
         <ConversationOccupancy />
-      </Body>
-      <Border />
-    </Wrapper>
+      </FlexRow>
+
+      <StyledBox paddingTop="5" borderBottom="light"></StyledBox>
+    </StyledBox>
   );
 };
 

@@ -1,0 +1,70 @@
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs/blocks";
+import {
+  Label,
+  LabelVariants,
+  LabelSizes
+} from "foundations/components/presentation";
+
+<Meta
+  title="Basic Presentation/Label"
+  component={Label}
+  argTypes={{
+    variant: { control: { type: "select", options: LabelVariants } },
+    size: { control: { type: "select", options: LabelSizes } }
+  }}
+/>
+
+# Label
+
+#### A typography element representing captions for items of the interface.
+
+<br />
+<br />
+<br />
+
+## Interactive props
+
+export const Template = args => <Label {...args} />;
+
+<Canvas>
+  <Story name="Default" args={{ children: "Interactive Label" }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="Default" />
+
+## Usage examples
+
+<br />
+<br />
+
+### Sizes
+
+<Canvas>
+  <Story
+    name="Sizes"
+    args={{ children: "Small Label", size: LabelSizes.SMALL }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+```jsx
+<Label size={LabelSizes.SMALL}>Small Label</Label>
+```
+
+### Variants
+
+<Canvas>
+  <Story
+    name="Variants"
+    args={{ children: "Active Label", variant: LabelVariants.ACTIVE }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+```jsx
+<Label variant={LabelVariants.ACTIVE}>Active Label</Label>
+```

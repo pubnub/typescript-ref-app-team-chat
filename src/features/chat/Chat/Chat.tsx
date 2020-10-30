@@ -1,18 +1,17 @@
 import React from "react";
-import { Wrapper } from "./ChatUI.style";
 import { Menu } from "features/chat/Menu/Menu";
 import { CurrentConversation } from "features/currentConversation/CurrentConversation/CurrentConversation";
 import { ConversationMembers } from "features/conversationMembers/ConversationMembers/ConversationMembers";
 import { JoinConversationDialog } from "features/joinedConversations/JoinConversationDialog/JoinConversationDialog";
-
+import { FlexRow } from "foundations/components/layout";
 const ChatUI = () => {
   return (
-    <Wrapper>
+    <FlexRow height="100%">
       <Menu />
       <CurrentConversation />
       <ConversationMembers />
       <JoinConversationDialog />
-    </Wrapper>
+    </FlexRow>
   );
 };
 

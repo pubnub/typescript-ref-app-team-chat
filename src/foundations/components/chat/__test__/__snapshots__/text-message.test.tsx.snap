@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Text Message emoji only message matches the snapshot 1`] = `
+.c0 {
+  background: #FFFFFF;
+  border-radius: 10px;
+  border-top-left-radius: 0;
+  box-shadow: 0 6px 10px rgba(103,19,176,0.06);
+  color: #585858;
+  line-height: 1.5;
+  padding: 16px;
+  text-align: left;
+  white-space: pre-wrap;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  word-break: break-word;
+  font-size: 20px;
+}
+
+<div
+  class="c0"
+>
+  😃😃😃
+</div>
+`;
+
+exports[`Text Message regular text message matches the snapshot 1`] = `
+.c0 {
+  background: #FFFFFF;
+  border-radius: 10px;
+  border-top-left-radius: 0;
+  box-shadow: 0 6px 10px rgba(103,19,176,0.06);
+  color: #585858;
+  line-height: 1.5;
+  padding: 16px;
+  text-align: left;
+  white-space: pre-wrap;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  word-break: break-word;
+}
+
+<div
+  class="c0"
+>
+  This is a plain old text message.
+</div>
+`;

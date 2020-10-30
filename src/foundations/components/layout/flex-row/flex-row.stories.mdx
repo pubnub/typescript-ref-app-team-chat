@@ -1,0 +1,96 @@
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs/blocks";
+import { StyledBox, FlexRow } from "foundations/components/layout";
+import { Title } from "foundations/components/presentation";
+import { Avatar } from "foundations/components/chat";
+
+<Meta title="Basic Layout/Flex Row" component={FlexRow} />
+
+# Flex row
+
+#### StyledBox-like wrapper component that displays children in a flex-row layout.
+
+This components wraps the utility StyledBox component and adds some flex related styles and properties on top of it.
+Please refer to [StyledBox documentation](?path=/docs/layout-box--default-story) for exhaustive list of its properties and usage examples.
+
+Additional category of [Styled System props](https://styled-system.com/table#flexbox) implemented in the `FlexRow` is `flex`.
+
+<br />
+<br />
+
+## Interactive props
+
+export const Template = args => (
+  <FlexRow {...args}>
+    <Avatar>ROW</Avatar>
+    <StyledBox marginLeft="3">
+      <Label>A Label</Label>
+    </StyledBox>
+  </FlexRow>
+);
+
+<Canvas>
+  <Story
+    name="Default"
+    args={{ alignItems: "center", justifyContent: "flex-start" }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="Default" />
+
+## Usage examples
+
+<br />
+<br />
+
+### Align
+
+<Canvas>
+  <Story name="Align" args={{ alignItems: "flex-start" }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+```jsx
+<FlexRow align-items="flex-start">
+  <Avatar>ROW</Avatar>
+  <StyledBox marginLeft="3">
+    <Label>A Label</Label>
+  </StyledBox>
+</FlexRow>
+```
+
+### Justify
+
+<Canvas>
+  <Story name="Justify" args={{ justifyContent: "space-around" }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+```jsx
+<FlexRow justifyContent="space-around">
+  <Avatar>ROW</Avatar>
+  <StyledBox marginLeft="3">
+    <Label>A Label</Label>
+  </StyledBox>
+</FlexRow>
+```
+
+### StyledBox props
+
+<Canvas>
+  <Story name="StyledBox props" args={{ border: "dark", p: 3 }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+```jsx
+<FlexRow border="dark" padding="3">
+  <Avatar>ROW</Avatar>
+  <StyledBox marginLeft="3">
+    <Label>A Label</Label>
+  </StyledBox>
+</FlexRow>
+```

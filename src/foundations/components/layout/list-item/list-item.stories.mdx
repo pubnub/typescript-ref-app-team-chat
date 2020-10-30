@@ -1,0 +1,43 @@
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs/blocks";
+import { StyledBox, ListItem } from "foundations/components/layout";
+import { Title } from "foundations/components/presentation";
+import { Avatar } from "foundations/components/chat";
+
+<Meta
+  title="Basic Layout/List Item"
+  component={ListItem}
+  argTypes={{ bg: { control: { type: "color" } } }}
+/>
+
+# List Item
+
+#### Provides some common styling and allows to add interactivity to lists items.
+
+<br />
+<br />
+
+## Interactive props
+
+export const Template = args => (
+  <ListItem {...args}>
+    <Avatar>ROW</Avatar>
+    <Title heading="Item Title" label="List Item Description" />
+  </ListItem>
+);
+
+<Canvas>
+  <Story name="Default" args={{ clickable: true, bg: "#eee" }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="Default" />
+
+## Usage examples
+
+```jsx
+<ListItem bg="#eee" clickable>
+  <Avatar>ROW</Avatar>
+  <Title heading="Item Title" label="List Item Description" />
+</ListItem>
+```

@@ -3,8 +3,8 @@ import invariant from "invariant";
 import { DraftMessage } from "../draft";
 import { MessageType } from "../messageModel";
 import { TextMessageEditor } from "../TextMessageEditor";
-import { Wrapper } from "./MessageEditor.style";
 import { BaseMessage } from "sharedTypes/messageModel";
+import { StyledBox } from "foundations/components/layout";
 
 type MessageEditorProps = {
   message: DraftMessage;
@@ -18,18 +18,22 @@ type MessageEditorProps = {
 export const MessageEditor = ({
   message,
   sendDraft,
-  updateDraft,
+  updateDraft
 }: MessageEditorProps) => {
   switch (message.type) {
     case MessageType.Text:
       return (
-        <Wrapper>
+        <StyledBox
+          border="dark"
+          borderRadius="messageEditor"
+          position="relative"
+        >
           <TextMessageEditor
             message={message}
             sendDraft={sendDraft}
             updateDraft={updateDraft}
           ></TextMessageEditor>
-        </Wrapper>
+        </StyledBox>
       );
 
     // <== Add additional message types here.

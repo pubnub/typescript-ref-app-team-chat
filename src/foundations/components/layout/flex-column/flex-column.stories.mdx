@@ -1,0 +1,127 @@
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs/blocks";
+import { StyledBox, FlexColumn } from "foundations/components/layout";
+
+<Meta title="Basic Layout/Flex Column" component={FlexColumn} />
+
+# Flex column
+
+#### StyledBox-like wrapper component that displays children in a flex-column layout.
+
+This components wraps the utility StyledBox component and adds some flex related styles and properties on top of it.
+Please refer to [StyledBox documentation](?path=/docs/layout-box--default-story) for exhaustive list of its properties and usage examples.
+
+Additional category of [Styled System props](https://styled-system.com/table#flexbox) implemented in the `FlexColumn` is `flex`.
+
+<br />
+<br />
+
+## Interactive props
+
+export const Row = () => (
+  <StyledBox padding="3" margin="2px" bg="#eee">
+    Column item
+  </StyledBox>
+);
+
+export const Template = args => (
+  <FlexColumn {...args}>
+    <Row />
+    <Row />
+    <Row />
+  </FlexColumn>
+);
+
+<Canvas>
+  <Story
+    name="Default"
+    args={{
+      alignItems: "flex-start",
+      justifyContent: "flex-start",
+      minHeight: "4"
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="Default" />
+
+## Usage examples
+
+<br />
+<br />
+
+### Align
+
+<Canvas>
+  <Story name="Align" args={{ alignItems: "center" }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+```jsx
+<FlexColumn alignItems="center">
+  <StyledBox padding="3" margin="2px" bg="#eee">
+    Column item
+  </StyledBox>
+  <StyledBox padding="3" margin="2px" bg="#eee">
+    Column item
+  </StyledBox>
+  <StyledBox padding="3" margin="2px" bg="#eee">
+    Column item
+  </StyledBox>
+</FlexColumn>
+```
+
+### Justify
+
+<Canvas>
+  <Story
+    name="Justify"
+    args={{ justifyContent: "space-around", minHeight: "4" }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+```jsx
+<FlexColumn justifyContent="space-around" minHeight="4">
+  <StyledBox padding="3" margin="2px" bg="#eee">
+    Column item
+  </StyledBox>
+  <StyledBox padding="3" margin="2px" bg="#eee">
+    Column item
+  </StyledBox>
+  <StyledBox padding="3" margin="2px" bg="#eee">
+    Column item
+  </StyledBox>
+</FlexColumn>
+```
+
+### StyledBox props
+
+<Canvas>
+  <Story
+    name="StyledBox props"
+    args={{
+      border: "dark",
+      p: 3
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+```jsx
+<FlexColumn border="light" padding="3">
+  <StyledBox padding="3" margin="2px" bg="#eee">
+    Column item
+  </StyledBox>
+  <StyledBox padding="3" margin="2px" bg="#eee">
+    Column item
+  </StyledBox>
+  <StyledBox padding="3" margin="2px" bg="#eee">
+    Column item
+  </StyledBox>
+</FlexColumn>
+```

@@ -1,7 +1,7 @@
 import React from "react";
-import { Message } from "./PlaceholderMessage.style";
 import { ImageAllTypes } from "@giphy/js-types";
 import { GifDisplay } from "../Gif/Gif";
+import { FlexColumn, StyledBox } from "foundations/components/layout";
 
 interface PlaceholderMessageObject {
   text: string;
@@ -25,8 +25,8 @@ export const placeholderMessages: {
       webp:
         "https://media3.giphy.com/media/9J7tdYltWyXIY/200w.webp?cid=d375303d93d6fe4ede336d9eb0a9a8fc2738c9a516275300&rid=200w.webp",
       webp_size: "109816",
-      width: 200,
-    },
+      width: 200
+    }
   },
   empty: {
     text: "Search for Gifs",
@@ -41,20 +41,27 @@ export const placeholderMessages: {
       webp:
         "https://media2.giphy.com/media/xGdvlOVSWaDvi/200w.webp?cid=d375303dfd9714d816164906efde8a2b5d928c7cf3f1cecc&rid=200w.webp",
       webp_size: "55966",
-      width: 200,
-    },
-  },
+      width: 200
+    }
+  }
 };
 
 export const PlaceholderMessage = ({
-  message: { text, image },
+  message: { text, image }
 }: {
   message: PlaceholderMessageObject;
 }) => {
   return (
-    <Message>
-      <GifDisplay source={image} title={text + " gif"} />
+    <FlexColumn alignItems="center" justifyContent="center" height="100%">
+      <StyledBox
+        display="flex"
+        borderRadius="light"
+        overflow="hidden"
+        marginBottom="1"
+      >
+        <GifDisplay source={image} title={text + " gif"} />
+      </StyledBox>
       {text}
-    </Message>
+    </FlexColumn>
   );
 };

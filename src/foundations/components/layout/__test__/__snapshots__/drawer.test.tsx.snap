@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Drawer closed matches the snapshot 1`] = `
+.c0 {
+  background: #FFFFFF;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  z-index: 100;
+}
+
+@media screen and (min-width:600px) {
+  .c0 {
+    position: relative;
+    width: 260px;
+  }
+}
+
+<section
+  class="c0"
+  style="display: none; transform: translateX(-100%) translateZ(0);"
+>
+  Drawer content
+</section>
+`;
+
+exports[`Drawer on right edge wide matches the snapshot 1`] = `
+.c0 {
+  background: #FFFFFF;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  z-index: 100;
+}
+
+@media screen and (min-width:600px) {
+  .c0 {
+    position: relative;
+    width: 290px;
+  }
+}
+
+<section
+  class="c0"
+  style="display: flex; transform: translateX(0%) translateZ(0);"
+>
+  Drawer content
+</section>
+`;
+
+exports[`Drawer opened matches the snapshot 1`] = `
+.c0 {
+  background: #FFFFFF;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  z-index: 100;
+}
+
+@media screen and (min-width:600px) {
+  .c0 {
+    position: relative;
+    width: 260px;
+  }
+}
+
+<section
+  class="c0"
+  style="display: flex; transform: translateX(0%) translateZ(0);"
+>
+  Drawer content
+</section>
+`;

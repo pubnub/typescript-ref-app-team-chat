@@ -1,0 +1,38 @@
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs/blocks";
+import { LinkMessage } from "foundations/components/chat";
+
+<Meta title="Chat Components/Message - Link" component={LinkMessage} />
+
+# Link Message
+
+#### Present various information about provided link in form of a message.
+
+<br />
+<br />
+<br />
+
+## Interactive props
+
+export const Template = args => <LinkMessage {...args} />;
+
+<Canvas>
+  <Story
+    name="Default"
+    args={{
+      url: "https://pubnub.com",
+      title:
+        "Realtime Communication APIs for Chat, Notifications, Geolocation, and Collaboration | PubNub",
+      description:
+        "Leverage the power of hosted realtime APIs to build and augment connected experiences including in-app chat, mapping, device control and more on a massive scale.",
+      icon: "https://www.pubnub.com/images/favicon.png",
+      image:
+        "https://images.ctfassets.net/3prze68gbwl1/3roUbsKJAysxW6gUUxczrY/89eeaa8940ccf2ed10b348adaca99b64/pubnub-powered-apps.png",
+      provider: { name: "PubNub", url: "https://pubnub.com" },
+      author: { name: "PubNub", url: "https://pubnub.com/company" }
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="Default" />

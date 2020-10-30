@@ -1,0 +1,176 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Link Message example link matches the snapshot 1`] = `
+.c6 {
+  color: inherit;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column-reverse;
+  -ms-flex-direction: column-reverse;
+  flex-direction: column-reverse;
+  background: #FFFFFF;
+  border-radius: 10px;
+  border-top-left-radius: 0;
+  box-shadow: 0 6px 10px rgba(103,19,176,0.06);
+  padding: 21px 24px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.c1 {
+  height: 120px;
+  margin-top: 10px;
+  width: 210px;
+}
+
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  max-width: 600px;
+  padding: 0px;
+}
+
+.c2 {
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  width: 100%;
+}
+
+.c4 {
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 2px;
+}
+
+.c4 > * {
+  margin-right: 10px;
+}
+
+.c5 {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  max-height: 16px;
+  max-width: 21px;
+}
+
+.c7 {
+  color: #9B9B9B;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  color: #8E2DE2;
+  font-weight: 500;
+}
+
+.c8 {
+  color: #9B9B9B;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  margin-top: 2px;
+  line-height: 1.5;
+}
+
+@media screen and (min-width:1200px) {
+  .c0 {
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    padding: 0px;
+  }
+}
+
+@media screen and (min-width:1200px) {
+  .c1 {
+    margin-top: 0px;
+  }
+}
+
+@media screen and (min-width:1200px) {
+  .c3 {
+    padding: 21px 24px;
+  }
+}
+
+@media screen and (min-width:1200px) {
+  .c2 {
+    border-bottom-left-radius: 10px;
+  }
+}
+
+<div
+  class="c0"
+>
+  <div
+    class="c1"
+  >
+    <img
+      alt="https://pubnub.com preview"
+      class="c2"
+      src="https://images.ctfassets.net/3prze68gbwl1/3roUbsKJAysxW6gUUxczrY/89eeaa8940ccf2ed10b348adaca99b64/pubnub-powered-apps.png"
+    />
+  </div>
+  <div
+    class="c3"
+  >
+    <div
+      class="c4"
+    >
+      <img
+        alt="favicon"
+        class="c5"
+        src="https://www.pubnub.com/images/favicon.png"
+      />
+      <a
+        href="https://pubnub.com"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <h3
+          class="c6"
+        >
+          PubNub
+        </h3>
+      </a>
+    </div>
+    <span
+      class="label__Label-vjbnrl-0 c7"
+    >
+      <a
+        href="https://pubnub.com"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        Realtime Communication APIs for Chat, Notifications, Geolocation, and Collaboration | PubNub
+      </a>
+    </span>
+    <span
+      class="label__Label-vjbnrl-0 c8"
+    >
+      Leverage the power of hosted realtime APIs to build and augment connected experiences including in-app chat, mapping, device control and more on a massive scale.
+    </span>
+  </div>
+</div>
+`;

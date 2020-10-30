@@ -2,7 +2,7 @@ import { ThunkAction } from "main/storeTypes";
 import { removeMemberships } from "pubnub-redux";
 import {
   focusOnConversation,
-  DEFAULT_CONVERSATION,
+  DEFAULT_CONVERSATION
 } from "features/currentConversation/currentConversationModel";
 
 /**
@@ -21,11 +21,11 @@ export const leaveConversation = (
     return dispatch(
       removeMemberships({
         uuid: userId,
-        channels: [conversationId],
+        channels: [conversationId]
       })
     ).then(() => {
       context.pubnub.api.unsubscribe({
-        channels: [conversationId],
+        channels: [conversationId]
       });
       dispatch(focusOnConversation(DEFAULT_CONVERSATION));
     });

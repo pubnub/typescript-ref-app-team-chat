@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Label active variant matches the snapshot 1`] = `
+.c0 {
+  color: #9B9B9B;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  color: #8E2DE2;
+}
+
+<span
+  class="c0"
+>
+  Label
+</span>
+`;
+
+exports[`Label default variant matches the snapshot 1`] = `
+.c0 {
+  color: #9B9B9B;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+<span
+  class="c0"
+>
+  Label
+</span>
+`;
+
+exports[`Label inverse variant matches the snapshot 1`] = `
+.c0 {
+  color: #9B9B9B;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  color: #FFFFFF;
+}
+
+<span
+  class="c0"
+>
+  Label
+</span>
+`;
+
+exports[`Label small size matches the snapshot 1`] = `
+.c0 {
+  color: #9B9B9B;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  font-size: 11px;
+}
+
+<span
+  class="c0"
+>
+  Label
+</span>
+`;

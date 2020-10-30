@@ -16,12 +16,12 @@ export const joinConversation = (
     return dispatch(
       setMemberships({
         uuid: userId,
-        channels: [{ id: conversationId }],
+        channels: [{ id: conversationId }]
       })
     ).then(() => {
       context.pubnub.api.subscribe({
         channels: [conversationId],
-        withPresence: true,
+        withPresence: true
       });
       dispatch(focusOnConversation(conversationId));
     });

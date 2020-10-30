@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Images Message example matches the snapshot 1`] = `
+.c0 {
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+<img
+  alt="media from [object Object]"
+  class="c0"
+  src="[object Object]"
+/>
+`;

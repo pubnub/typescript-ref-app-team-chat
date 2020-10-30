@@ -1,16 +1,17 @@
-import React, { useState, useEffect, useRef, useMemo } from "react";
+import React, { useState, useEffect, useRef, useMemo, useContext } from "react";
 import { IGif, ImageAllTypes } from "@giphy/js-types";
-import { Placeholder, Wrapper } from "./Gif.style";
 import { useVisibility } from "foundations/hooks/useVisibility";
+import { StyledBox } from "foundations/components/layout";
+import { ThemeContext } from "styled-components";
 
 enum GifSize {
   Preview,
-  Full,
+  Full
 }
 
 enum GifFormat {
   Image,
-  Video,
+  Video
 }
 
 interface LoadedGif {
@@ -22,12 +23,12 @@ interface LoadedGif {
 const load = async (source: ImageAllTypes): Promise<LoadedGif> => {
   let image = {
     src: source.mp4,
-    format: GifFormat.Video,
+    format: GifFormat.Video
   };
   if (source.webp_size < source.mp4_size && (await supportsWebp())) {
     image = {
       src: source.webp,
-      format: GifFormat.Image,
+      format: GifFormat.Image
     };
   }
   // fetch in the background
@@ -37,7 +38,7 @@ const load = async (source: ImageAllTypes): Promise<LoadedGif> => {
   // return a url for the blob, which will load immediately
   return {
     ...image,
-    src: URL.createObjectURL(blob),
+    src: URL.createObjectURL(blob)
   };
 };
 
@@ -70,7 +71,7 @@ const useBackgroundLoad = (source: ImageAllTypes): null | LoadedGif => {
 
 // check for webp browser support (needed to support safari)
 const supportsWebp = (): Promise<boolean> => {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     const image = new Image();
     // check that the image is loaded successfully
     image.onload = () => {
@@ -90,15 +91,31 @@ interface GifDisplayProps {
 // load the gif in the background, swapping in for a placeholder when fully loaded
 const GifDisplay = React.memo(
   ({ source, title }: GifDisplayProps) => {
+    const theme = useContext(ThemeContext);
     const image = useBackgroundLoad(source);
+    const ratio = source.height / source.width;
     if (image !== null) {
       if (image.format === GifFormat.Image) {
-        return <img src={image.src} alt={title} />;
+        return <img src={image.src} alt={title} style={{ width: "100%" }} />;
       } else {
-        return <video autoPlay loop muted playsInline src={image.src} />;
+        return (
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            src={image.src}
+            style={{ width: "100%" }}
+          />
+        );
       }
     }
-    return <Placeholder width={source.width} height={source.height} />;
+    return (
+      <StyledBox
+        paddingTop={`${ratio * 100}%`}
+        background={theme.backgrounds.primary}
+      />
+    );
   },
   (prev, next) => {
     return prev.source.url === next.source.url;
@@ -117,11 +134,12 @@ const Gif = ({ gif, size, container = null, onClick }: GifProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const isVisible = useVisibility(ref, container, 0, "50px 0px", true);
   const username = gif.user ? gif.user.username : gif.username;
+  const theme = useContext(ThemeContext);
   const source =
     size === GifSize.Full ? gif.images.original : gif.images.fixed_width;
-
+  const ratio = source.height / source.width;
   return (
-    <Wrapper
+    <StyledBox
       title={`${gif.title}${username && ` | @${username}`}`}
       ref={ref}
       onClick={() => onClick && onClick(gif)}
@@ -129,9 +147,12 @@ const Gif = ({ gif, size, container = null, onClick }: GifProps) => {
       {isVisible ? (
         <GifDisplay source={source} title={gif.title} />
       ) : (
-        <Placeholder width={source.width} height={source.height} />
+        <StyledBox
+          paddingTop={`${ratio * 100}%`}
+          background={theme.backgrounds.primary}
+        />
       )}
-    </Wrapper>
+    </StyledBox>
   );
 };
 

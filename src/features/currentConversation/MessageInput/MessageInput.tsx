@@ -11,11 +11,11 @@ import { MessageType } from "features/messages/messageModel";
 import { DraftMessage } from "features/messages/draft";
 import { MessageEditor } from "features/messages/MessageEditor";
 import { getCurrentConversationId } from "../currentConversationModel";
-import { Wrapper } from "./MessageInput.style";
 import {
   TYPING_INDICATOR_DURATION_SECONDS,
-  TypingIndicatorType,
+  TypingIndicatorType
 } from "features/typingIndicator/typingIndicatorModel";
+import { StyledBox } from "foundations/components/layout";
 
 const typingIndicators: {
   [conversationId: string]: boolean;
@@ -40,7 +40,7 @@ export const MessageInput = () => {
   const defaultDraft: DraftMessage = {
     type: MessageType.Text,
     senderId: userId,
-    text: "",
+    text: ""
   };
   const message: DraftMessage = storedDraft ? storedDraft : defaultDraft;
   const dispatch = useDispatch();
@@ -83,12 +83,12 @@ export const MessageInput = () => {
   };
 
   return (
-    <Wrapper>
+    <StyledBox mx="6" marginBottom="3">
       <MessageEditor
         message={message}
         sendDraft={send}
         updateDraft={update}
       ></MessageEditor>
-    </Wrapper>
+    </StyledBox>
   );
 };

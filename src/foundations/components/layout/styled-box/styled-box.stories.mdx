@@ -1,0 +1,156 @@
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs/blocks";
+import { StyledBox } from "foundations/components/layout";
+import { appTheme } from "main/Theme";
+
+<Meta
+  title="Style Utilities/Styled Box"
+  component={StyledBox}
+  argTypes={{
+    border: {
+      control: { type: "select", options: Object.keys(appTheme.borders) }
+    },
+    padding: {
+      control: {
+        type: "select",
+        options: Array.from({ length: appTheme.space.length }, (x, i) => i)
+      }
+    },
+    margin: {
+      control: {
+        type: "select",
+        options: Array.from({ length: appTheme.space.length }, (x, i) => i)
+      }
+    },
+    backgroundColor: {
+      control: {
+        type: "select",
+        options: Object.keys(appTheme.backgrounds).map(v => `backgrounds.${v}`)
+      }
+    },
+    borderRadius: {
+      control: { type: "select", options: Object.keys(appTheme.radii) }
+    }
+  }}
+/>
+
+# StyledBox
+
+#### Wrapper component providing inline style properties.
+
+This component combines [Styled System](https://styled-system.com/) with [ThemeProvider](https://styled-components.com/docs/advanced#theming) to deliver multiple convinient style properties.
+The table below is not exhaustive, it only contains several examples of what's really available.
+
+Please refer to the [reference table](https://styled-system.com/table) for full documentation.
+Categories of props impemented in the `StyledBox` are as follows: `space | layout | position | color | background | border`
+
+Values used for the properties should be referencing the `main/Theme.ts` file to generate sensible output while not defining it directly.
+
+<br />
+<br />
+
+## Interactive props
+
+export const Template = args => (
+  <StyledBox children="Text in a box" border="dark" padding="3" {...args} />
+);
+
+export const PositionTemplate = args => (
+  <StyledBox position="relative" minHeight="2">
+    <StyledBox children="Text in a box" border="dark" padding="3" {...args} />
+  </StyledBox>
+);
+
+<Canvas>
+  <Story
+    name="Default"
+    args={{
+      children: "Text in a box",
+      backgroundColor: "backgrounds.content",
+      padding: 3,
+      margin: 2,
+      border: "dark",
+      borderRadius: "light"
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="Default" />
+
+## Usage examples
+
+<br />
+<br />
+
+### Space
+
+<Canvas>
+  <Story name="Space" args={{ mx: 8, marginTop: 6, paddingLeft: 8 }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+```jsx
+<StyledBox mx="8" marginTop="6" paddingLeft="8" border="dark" padding="3">
+  Text in a box
+</StyledBox>
+```
+
+### Layout
+
+<Canvas>
+  <Story name="Layout" args={{ display: "inline-block", minWidth: 5 }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+```jsx
+<StyledBox display="inline-block" minWidth="5" border="dark" padding="3">
+  Text in a box
+</StyledBox>
+```
+
+### Position
+
+<Canvas>
+  <Story name="Position" args={{ position: "absolute", right: 0 }}>
+    {PositionTemplate.bind({})}
+  </Story>
+</Canvas>
+
+```jsx
+<StyledBox position="relative" minHeight="2">
+  <StyledBox
+    position="absolute"
+    right="0"
+    minWidth="5"
+    border="dark"
+    padding="3"
+  >
+    Text in a box
+  </StyledBox>
+</StyledBox>
+```
+
+### Color
+
+<Canvas>
+  <Story
+    name="Color"
+    args={{ color: "activeText", backgroundColor: "messageText" }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+```jsx
+<StyledBox
+  color="activeText"
+  backgroundColor="messageText"
+  border="dark"
+  padding="3"
+>
+  Text in a box
+</StyledBox>
+```

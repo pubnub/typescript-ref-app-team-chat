@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { createSelector } from "reselect";
 import { getCurrentConversationId } from "features/currentConversation/currentConversationModel";
@@ -6,27 +6,34 @@ import { getConversationsByUserId } from "../joinedConversationModel";
 import { MembershipHash } from "../joinedConversationModel";
 import {
   ConversationsIndexedById,
-  getConversationsById,
+  getConversationsById
 } from "features/conversations/conversationModel";
 import { focusOnConversation } from "features/currentConversation/currentConversationModel";
 import { getLoggedInUserId } from "features/authentication/authenticationModel";
-import { AddIcon } from "foundations/components/icons/AddIcon";
 import { ConversationItem } from "../ConversationItem";
 import {
-  Wrapper,
-  Title,
-  AddButton,
-  ConversationList,
-} from "./MyConversations.style";
-import { fetchAllChannelData, fetchChannelMembers } from "pubnub-redux";
-import { getCurrentConversationMembers } from "features/conversationMembers/ConversationMembers/ConversationMembers";
-import { UserFragment } from "features/conversationMembers/MemberDescription/MemberDescription";
+  Heading,
+  HeadingVariants,
+  Icon,
+  Icons
+} from "foundations/components/presentation";
+import { ScrollView, FlexRow } from "foundations/components/layout";
 import { leaveConversation } from "../leaveConversationCommand";
 import {
   currentConversationViewDisplayed,
   joinConversationViewDisplayed,
-  menuViewHidden,
+  menuViewHidden
 } from "features/layout/LayoutActions";
+import {
+  usePagination,
+  GetNextPage,
+  SavePaginationState
+} from "foundations/hooks/usePagination";
+import { fetchMemberships } from "pubnub-redux";
+import { MembershipsRetrievedAction } from "pubnub-redux/dist/features/membership/MembershipActions";
+import { ChannelMembershipObject } from "pubnub";
+import { getMembershipsPaginationStateById } from "features/pagination/Selectors";
+import { setMembershipsPagination } from "features/pagination/PaginationActions";
 
 export interface ConversationFragment {
   id: string;
@@ -41,10 +48,10 @@ export const getJoinedConversations = createSelector(
     userConversations: MembershipHash
   ): ConversationFragment[] => {
     return userConversations[userId]
-      ? userConversations[userId].map((conversation) => {
+      ? userConversations[userId].map(conversation => {
           return {
             id: conversation.id,
-            name: conversations[conversation.id].name,
+            name: conversations[conversation.id].name
           };
         })
       : [];
@@ -58,27 +65,92 @@ const MyConversations = () => {
     getJoinedConversations
   );
   const currentConversationId: string = useSelector(getCurrentConversationId);
-  const members: UserFragment[] = useSelector(getCurrentConversationMembers);
   const dispatch = useDispatch();
   const openOverlay = () => {
-    dispatch(fetchAllChannelData());
     dispatch(joinConversationViewDisplayed());
   };
+
+  const storedPaginationState = useSelector(getMembershipsPaginationStateById)[
+    currentUserId
+  ];
+
+  const restorePaginationState = useCallback(() => {
+    return storedPaginationState;
+  }, [storedPaginationState]);
+
+  const savePaginationState: SavePaginationState<
+    string | undefined,
+    string
+  > = useCallback(
+    (channel, pagination, count, pagesRemain) => {
+      dispatch(
+        setMembershipsPagination(channel, { pagination, count, pagesRemain })
+      );
+    },
+    [dispatch]
+  );
+
+  const getNextPage: GetNextPage<
+    ChannelMembershipObject<{}, {}>,
+    string | undefined,
+    string
+  > = useCallback(
+    async (next, total, uuid) => {
+      const pageSize = 20;
+      const action = ((await dispatch(
+        fetchMemberships({
+          uuid,
+          limit: pageSize,
+          include: {
+            channelFields: true,
+            customChannelFields: false,
+            customFields: false,
+            totalCount: true
+          },
+          page: {
+            next: next || undefined
+          }
+        })
+      )) as unknown) as MembershipsRetrievedAction<{}, {}, unknown>;
+      const response = action.payload.response;
+      return {
+        results: response.data,
+        pagination: response.next,
+        pagesRemain:
+          response.data.length > 0 && response.totalCount && total
+            ? total + response.data.length < response.totalCount
+            : response.data.length === pageSize
+      };
+    },
+    [dispatch]
+  );
+
+  const { containerRef, endRef } = usePagination(
+    getNextPage,
+    currentUserId,
+    savePaginationState,
+    restorePaginationState
+  );
 
   if (conversationsById === undefined) {
     return <div>Loading...</div>;
   }
 
   return (
-    <Wrapper>
-      <Title>
-        Conversations
-        <AddButton onClick={openOverlay}>
-          <AddIcon title="Join conversation" />
-        </AddButton>
-      </Title>
-      <ConversationList>
-        {conversations.map((conversation) => (
+    <>
+      <FlexRow justifyContent="space-between" mx={6} marginBottom={1}>
+        <Heading variant={HeadingVariants.INVERSE}>Conversations</Heading>
+        <Icon
+          icon={Icons.Add}
+          color={"onPrimary"}
+          onClick={openOverlay}
+          title="Join conversation"
+          clickable
+        />
+      </FlexRow>
+
+      <ScrollView ref={containerRef}>
+        {conversations.map(conversation => (
           <ConversationItem
             id={conversation.id}
             name={conversation.name}
@@ -92,24 +164,12 @@ const MyConversations = () => {
               dispatch(focusOnConversation(conversation.id));
               dispatch(currentConversationViewDisplayed());
               dispatch(menuViewHidden());
-
-              if (members.length === 0) {
-                dispatch(
-                  fetchChannelMembers({
-                    channel: conversation.id,
-                    include: {
-                      UUIDFields: true,
-                      customUUIDFields: true,
-                      totalCount: false,
-                    },
-                  })
-                );
-              }
             }}
           ></ConversationItem>
         ))}
-      </ConversationList>
-    </Wrapper>
+        <div ref={endRef} />
+      </ScrollView>
+    </>
   );
 };
 

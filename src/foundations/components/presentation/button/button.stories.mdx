@@ -1,0 +1,38 @@
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs/blocks";
+import { Button, ButtonVariants } from "foundations/components/presentation";
+import { StyledBox } from "foundations/components/layout";
+
+<Meta
+  title="Basic Presentation/Button"
+  component={Button}
+  argTypes={{
+    hoverBg: { control: { type: "color" } },
+    variant: { control: { type: "select", options: ButtonVariants } }
+  }}
+/>
+
+# Button
+
+#### Interactive element that allows users to take actions with a click.
+
+<br />
+<br />
+<br />
+
+## Interactive props
+
+export const Template = args => (
+  <StyledBox>
+    <Button {...args}>
+      <StyledBox padding="3">Interactive Button</StyledBox>
+    </Button>
+  </StyledBox>
+);
+
+<Canvas>
+  <Story name="Default" args={{ hoverBg: "#ddd" }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="Default" />

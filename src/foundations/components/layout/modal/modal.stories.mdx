@@ -1,0 +1,71 @@
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs/blocks";
+import { useArgs, updateArgs } from "@storybook/client-api";
+import { Modal } from "foundations/components/layout";
+import { Icon, Icons } from "foundations/components/presentation";
+
+<Meta title="Basic Layout/Modal" component={Modal} />
+
+# Modal
+
+#### Component to create dialog windows which can point user attention on spiecific tasks.
+
+<br />
+<br />
+
+## Interactive props
+
+export const Template = args => {
+  const [{ open }, updateArgs] = useArgs();
+  const toggleOpen = () => updateArgs({ open: !open });
+  return (
+    <>
+      <button onClick={toggleOpen}>Open Modal</button>
+      <Modal {...args}>
+        <p>
+          {args.children}
+          <Icon
+            icon={Icons.Cross}
+            onClick={toggleOpen}
+            style={{ float: "right", cursor: "pointer" }}
+          />
+        </p>
+      </Modal>
+    </>
+  );
+};
+
+<Canvas>
+  <Story
+    name="Default"
+    args={{ open: false, children: "Those are modal contents" }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="Default" />
+
+## Usage examples
+
+```jsx
+let isOpen = false;
+const toggleOpen = () => {
+  isOpen = !isOpen;
+};
+
+return (
+  <>
+    <button onClick={toggleOpen}>Open Modal</button>
+    <Modal open={isOpen}>
+      <p>
+        Those are modal contents.
+        <Icon
+          icon={Icons.Cross}
+          onClick={toggleOpen}
+          style={{ float: "right", cursor: "pointer" }}
+        />
+      </p>
+    </Modal>
+  </>
+);
+```

@@ -1,22 +1,22 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { UserInitialsAvatar } from "foundations/components/UserInitialsAvatar";
 import { MessageListItem, MessageFragment } from "../MessageListItem";
 import { MessageType } from "features/messages/messageModel";
 import { getLoggedInUserId } from "features/authentication/authenticationModel";
 import { getUsersById } from "features/users/userModel";
+import { Avatar, AvatarVariants } from "foundations/components/chat";
 
 const capitalize = (string: string): string => {
   return string
     .split(" ")
-    .map((token) => token.charAt(0).toUpperCase() + token.slice(1))
+    .map(token => token.charAt(0).toUpperCase() + token.slice(1))
     .join(" ");
 };
 
 const welcome = (name: string): MessageFragment => ({
   sender: {
     id: "PUBNUB-BOT",
-    name: "PubNub Bot",
+    name: "PubNub Bot"
   },
   timetoken: "15735897955841496",
   message: {
@@ -24,8 +24,8 @@ const welcome = (name: string): MessageFragment => ({
     senderId: "PUBNUB-BOT",
     text: `Welcome to Team Chat. 👋👋 \nWe logged you in as ${capitalize(
       name
-    )}. \nSend a message now to start interacting with other users in the app. ⬇️`,
-  },
+    )}. \nSend a message now to start interacting with other users in the app. ⬇️`
+  }
 });
 
 const WelcomeMessage = () => {
@@ -38,12 +38,9 @@ const WelcomeMessage = () => {
       messageFragment={welcomeMessage}
       key={welcomeMessage.timetoken}
       avatar={
-        <UserInitialsAvatar
-          size={36}
-          name="P N"
-          userId={welcomeMessage.sender.id}
-          color="#DE2440"
-        />
+        <Avatar variant={AvatarVariants.ROUND} bg="#DE2440">
+          PN
+        </Avatar>
       }
     />
   );

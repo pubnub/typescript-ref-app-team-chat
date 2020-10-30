@@ -3,24 +3,26 @@ import { useSelector, useDispatch } from "react-redux";
 import { createSelector } from "reselect";
 import { getCurrentConversationId } from "../currentConversationModel";
 import {
-  getUsersByConversationId,
-  MembershipHash
-} from "features/conversationMembers/conversationMemberModel";
-import {
   getPresenceByConversationId,
   ConversationPresence
 } from "features/memberPresence/memberPresenceModel";
 import { getViewStates } from "features/layout/Selectors";
-import { PeopleGroupIcon } from "foundations/components/icons/PeopleGroupIcon";
 import {
-  Wrapper,
-  OccupancyNumber,
-  IconWrapper
-} from "./ConversationOccupancy.style";
+  Label,
+  LabelVariants,
+  Icon,
+  Icons,
+  Button
+} from "foundations/components/presentation";
+import { FlexRow, StyledBox } from "foundations/components/layout";
 import {
   conversationMembersViewDisplayed,
   conversationMembersViewHidden
 } from "features/layout/LayoutActions";
+import {
+  getMembersCountByConversationId,
+  ConversationMembersCount
+} from "features/conversationMembers/conversationMemberCountModel";
 
 export interface ConversationOccupancyFragment {
   joinedCount: number;
@@ -30,18 +32,18 @@ export interface ConversationOccupancyFragment {
 export const getCurrentConversationOccupancy = createSelector(
   [
     getCurrentConversationId,
-    getUsersByConversationId,
-    getPresenceByConversationId
+    getPresenceByConversationId,
+    getMembersCountByConversationId
   ],
   (
     currentConversationId: string,
-    conversationMemberships: MembershipHash,
-    conversationPresence: ConversationPresence
+    conversationPresence: ConversationPresence,
+    conversationMembersCount: ConversationMembersCount
   ): ConversationOccupancyFragment => {
-    const members = conversationMemberships[currentConversationId];
+    const count = conversationMembersCount[currentConversationId];
     const presence = conversationPresence[currentConversationId];
     return {
-      joinedCount: members ? members.length : 0,
+      joinedCount: count || 0,
       presentCount: presence ? presence.occupancy : 0
     };
   }
@@ -59,28 +61,36 @@ const ConversationOccupancy = () => {
   const dispatch = useDispatch();
 
   return (
-    <Wrapper
-      highlighted={isConversationMembersLayoutVisible}
+    <FlexRow
+      alignSelf="flex-start"
+      flexDirection={["column-reverse", "row"]}
       onClick={() => {
         isConversationMembersLayoutVisible
           ? dispatch(conversationMembersViewHidden())
           : dispatch(conversationMembersViewDisplayed());
       }}
     >
-      <OccupancyNumber>
-        <em>{presentCount}</em> | {joinedCount}
-      </OccupancyNumber>
-      <IconWrapper>
-        <PeopleGroupIcon
-          title={
-            isConversationMembersLayoutVisible
-              ? "Hide members list"
-              : "Show convsersation members"
-          }
-          active={isConversationMembersLayoutVisible}
-        />
-      </IconWrapper>
-    </Wrapper>
+      <StyledBox px={[0, 3]}>
+        <Button>
+          <Label
+            variant={isConversationMembersLayoutVisible && LabelVariants.ACTIVE}
+          >
+            <b>{presentCount}</b> | {joinedCount}
+          </Label>
+        </Button>
+      </StyledBox>
+
+      <Icon
+        icon={Icons.People}
+        title={
+          isConversationMembersLayoutVisible
+            ? "Hide members list"
+            : "Show convsersation members"
+        }
+        color={isConversationMembersLayoutVisible ? "active" : "normalText"}
+        clickable
+      />
+    </FlexRow>
   );
 };
 

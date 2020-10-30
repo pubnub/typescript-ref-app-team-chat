@@ -10,8 +10,10 @@ import { conversationStateReducer } from "features/conversations/conversationMod
 import { JoinedConversationsStateReducer } from "features/joinedConversations/joinedConversationModel";
 import { ConversationDraftStateReducer } from "features/joinedConversations/DraftsModel";
 import { ConversationMembersStateReducer } from "features/conversationMembers/conversationMemberModel";
+import { ConversationMembersCountStateReducer } from "features/conversationMembers/conversationMemberCountModel";
 import { NetworkStatusReducer } from "features/currentUser/networkStatusModel";
 import { MemberPresenceReducer } from "features/memberPresence/memberPresenceModel";
+import { PaginationStateReducer } from "features/pagination/PaginationReducer";
 
 /**
  * Combine all of the reducers in this application
@@ -24,11 +26,13 @@ const rootReducer = combineReducers({
   joinedConversations: JoinedConversationsStateReducer,
   drafts: ConversationDraftStateReducer,
   conversationMembers: ConversationMembersStateReducer,
+  conversationMembersCount: ConversationMembersCountStateReducer,
   memberPresence: MemberPresenceReducer,
   messages: MessageStateReducer,
   typingIndicators: TypingIndicatorStateReducer,
   authentication: AuthenticationStateReducer,
-  currentConversation: currentConversationStateReducer
+  currentConversation: currentConversationStateReducer,
+  pagination: PaginationStateReducer
 });
 
 export default rootReducer;

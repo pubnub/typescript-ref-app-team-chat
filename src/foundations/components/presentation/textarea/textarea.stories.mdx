@@ -1,0 +1,78 @@
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs/blocks";
+import { Textarea } from "foundations/components/presentation";
+import { StyledBox } from "foundations/components/layout";
+
+<Meta title="Basic Presentation/Textarea" component={Textarea} />
+
+# Textarea
+
+#### Multi-line form element.
+
+<br />
+<br />
+<br />
+
+## Interactive props
+
+export const Template = args => <Textarea {...args} />;
+export const BoxTemplate = args => (
+  <StyledBox
+    padding="3"
+    bg="backgrounds.content"
+    border="light"
+    borderRadius="light"
+  >
+    <Textarea {...args} />
+  </StyledBox>
+);
+
+<Canvas>
+  <Story
+    name="Default"
+    args={{
+      placeholder: "Interactive Textarea",
+      disabled: false,
+      rows: 3
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="Default" />
+
+## Usage examples
+
+<br />
+<br />
+
+### Initial Value
+
+<Canvas>
+  <Story name="Initial Value" args={{ value: "Initial value", disabled: true }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+```jsx
+<Textarea value="Initial value" disabled />
+```
+
+### Inside StyledBox
+
+<Canvas>
+  <Story name="Inside StyledBox" args={{ placeholder: "Insert Text" }}>
+    {BoxTemplate.bind({})}
+  </Story>
+</Canvas>
+
+```jsx
+<StyledBox
+  padding="3"
+  bg="backgrounds.content"
+  border="light"
+  borderRadius="light"
+>
+  <Textarea placeholder="Insert Text" />
+</StyledBox>
+```

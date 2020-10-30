@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Picker matches the snapshot 1`] = `
+.c1 {
+  position: absolute;
+  z-index: 200;
+}
+
+.c0 {
+  cursor: pointer;
+}
+
+.c0 svg {
+  display: block;
+}
+
+<div>
+  <object
+    class="c0"
+  >
+    <svg
+      title="show picker"
+    >
+      add.svg
+    </svg>
+  </object>
+  <div
+    class="c1"
+  />
+</div>
+`;

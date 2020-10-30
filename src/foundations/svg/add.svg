@@ -1,0 +1,12 @@
+<svg viewBox="0 0 20 20" width="20" height="20">
+  <title>Add</title>
+  <g transform="translate(1 1)" fill="none" fillRule="evenodd">
+    <circle stroke="currentColor" cx="9" cy="9" r="9" />
+    <path
+      d="M5 9h8M9 5v8"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </g>
+</svg>

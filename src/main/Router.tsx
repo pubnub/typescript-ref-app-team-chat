@@ -7,14 +7,19 @@ import { isUserLoggedIn } from "features/authentication/authenticationModel";
 import { useSelector } from "react-redux";
 import keyConfiguration from "config/pubnub-keys";
 import isPubNubConfigured from "foundations/utilities/isPubNubConfigured";
-import { ErrorBanner } from "main/styles/ErrorBanner.style";
+import { FlexColumn } from "foundations/components/layout";
 
 const ErrorBannerComponent = (
-  <ErrorBanner>
-    <div>
-      Please run <pre>npm setup</pre>
-    </div>
-  </ErrorBanner>
+  <FlexColumn
+    bg="error"
+    color="onPrimary"
+    padding="3"
+    justifyContent="center"
+    alignItems="center"
+  >
+    <p>Please run</p>
+    <pre>npm setup</pre>
+  </FlexColumn>
 );
 
 export const ApplicationRouter = () => {

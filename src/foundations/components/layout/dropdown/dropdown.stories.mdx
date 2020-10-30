@@ -1,0 +1,59 @@
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs/blocks";
+import { Dropdown, FlexColumn, StyledBox } from "foundations/components/layout";
+import { Icon, Icons } from "foundations/components/presentation";
+
+<Meta
+  title="Basic Layout/Dropdown"
+  component={Dropdown}
+  argTypes={{
+    icon: { control: { type: "select", options: Icons } },
+    right: { control: { type: "text" } },
+    bottom: { control: { type: "text" } },
+    top: { control: { type: "text" } },
+    left: { control: { type: "text" } }
+  }}
+/>
+
+# Dropdown
+
+#### Universal wrapper for pop-up menus, select boxes, tooltips etc.
+
+<br />
+<br />
+
+## Interactive props
+
+export const Template = args => (
+  <StyledBox position="relative" height="200px">
+    <Dropdown
+      {...args}
+      render={dismiss => (
+        <FlexColumn
+          padding="1"
+          border="dark"
+          borderRadius="light"
+          height="200px"
+          width="200px"
+          alignItems="flex-end"
+        >
+          <Icon icon={Icons.Cross} onClick={dismiss} clickable />
+        </FlexColumn>
+      )}
+    />
+  </StyledBox>
+);
+
+<Canvas>
+  <Story
+    name="Default"
+    args={{
+      icon: Icons.Add,
+      title: "Open Dropdown",
+      top: "22px"
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="Default" />

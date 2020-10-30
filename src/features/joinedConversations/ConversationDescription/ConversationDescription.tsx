@@ -1,14 +1,13 @@
 import React, { useContext } from "react";
-import {
-  Wrapper,
-  Body,
-  ConversationIcon,
-  Name,
-  Description,
-  Content
-} from "./ConversationDescription.style";
 import { ThemeContext } from "styled-components";
-import getUniqueColor from "foundations/utilities/getUniqueColor";
+import { getUniqueColor } from "foundations/utilities";
+import {
+  Label,
+  LabelVariants,
+  Button
+} from "foundations/components/presentation";
+import { Avatar } from "foundations/components/chat";
+import { FlexRow, FlexColumn } from "foundations/components/layout";
 
 /**
  * This describes the data that this component needs to display a
@@ -45,15 +44,15 @@ const ConversationDescription = ({
     (theme.colors.avatars as unknown) as string[]
   );
   return (
-    <Wrapper onClick={onClick}>
-      <Body>
-        <ConversationIcon color={color}>#</ConversationIcon>
-        <Content>
-          <Name>{conversation.name}</Name>
-          <Description>{conversation.description}</Description>
-        </Content>
-      </Body>
-    </Wrapper>
+    <Button hoverBg={theme.backgrounds.contentHover}>
+      <FlexRow onClick={onClick} px="1" py="6" borderY="medium">
+        <Avatar bg={color}>#</Avatar>
+        <FlexColumn marginLeft="5" minHeight="1">
+          <Label variant={LabelVariants.DARK}>{conversation.name}</Label>
+          <Label>{conversation.description}</Label>
+        </FlexColumn>
+      </FlexRow>
+    </Button>
   );
 };
 

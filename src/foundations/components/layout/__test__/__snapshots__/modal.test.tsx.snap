@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Modal closed variant matches the snapshot 1`] = `
+<body>
+  <div />
+</body>
+`;
+
+exports[`Modal opened variant matches the snapshot 1`] = `
+<body>
+  @media screen and (min-width:600px) {
+
+}
+
+@media screen and (min-width:1200px) {
+
+}
+
+@media screen and (min-width:600px) {
+
+}
+
+<div />
+  .c0 {
+  background: #FFFFFF;
+  bottom: 0;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 100%;
+  z-index: 200;
+}
+
+.c1 {
+  background: #FFFFFF;
+  border-radius: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  max-height: 100%;
+  padding: 0;
+  width: 100%;
+  z-index: 300;
+}
+
+@media screen and (min-width:600px) {
+  .c0 {
+    padding: 10vh 15%;
+    background-color: rgba(0,0,0,0.5);
+  }
+}
+
+@media screen and (min-width:1200px) {
+  .c0 {
+    padding: 10vh 25%;
+  }
+}
+
+@media screen and (min-width:600px) {
+  .c1 {
+    border-radius: 10px;
+    box-shadow: 0 4px 30px rgba(0,0,0,0.4);
+    padding: 40px;
+  }
+}
+
+<div
+    class="c0"
+  >
+    <section
+      class="c1"
+      style="transform: none;"
+    >
+      Modal content
+    </section>
+  </div>
+</body>
+`;

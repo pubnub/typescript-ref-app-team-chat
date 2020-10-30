@@ -4,7 +4,7 @@ import { combineReducers } from "redux";
 import {
   createChannelDataReducer,
   createChannelsListReducer,
-  Channel,
+  Channel
 } from "pubnub-redux";
 import { RequireFields } from "foundations/utilities/requireFields";
 
@@ -29,7 +29,7 @@ export type ConversationsIndexedById = { [id: string]: Conversation };
  */
 const conversationStateReducer = combineReducers({
   conversations: createChannelDataReducer<Conversation>(),
-  allConversations: createChannelsListReducer<{}>(),
+  allConversations: createChannelsListReducer<{}>()
 });
 export { conversationStateReducer };
 
@@ -57,6 +57,6 @@ export const getConversationsById = createSelector(
 export const getAllConversations = createSelector(
   [getChannelsSlice, getAllChannelsSlice],
   (channels, allChannels) => {
-    return allChannels.channelIds.map((id) => channels.byId[id]);
+    return allChannels.channelIds.map(id => channels.byId[id]);
   }
 );

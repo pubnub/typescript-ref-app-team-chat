@@ -20,7 +20,7 @@ export const login = (uuid: string): ThunkAction<Promise<void>> => {
         // Subscribe to the user's channel to receive events involving this user
         context.pubnub.api.subscribe({
           channels: [uuid],
-          withPresence: true,
+          withPresence: true
         });
       })
       .then(() => {
@@ -32,8 +32,8 @@ export const login = (uuid: string): ThunkAction<Promise<void>> => {
               channelFields: true,
               customChannelFields: false,
               customFields: false,
-              totalCount: false,
-            },
+              totalCount: false
+            }
           })
         );
       })
@@ -41,11 +41,11 @@ export const login = (uuid: string): ThunkAction<Promise<void>> => {
         // Subscribe to messages on the user's joined conversations
         const conversationChannels = getConversationsByUserId(getState())[
           uuid
-        ].map((membership) => membership.id);
+        ].map(membership => membership.id);
 
         context.pubnub.api.subscribe({
           channels: conversationChannels,
-          withPresence: true,
+          withPresence: true
         });
       });
 

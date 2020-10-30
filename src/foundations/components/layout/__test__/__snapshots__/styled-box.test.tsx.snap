@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StyledBox default variant matches the snapshot 1`] = `
+<div
+  class=""
+>
+  Scroll View
+</div>
+`;
+
+exports[`StyledBox with some props matches the snapshot 1`] = `
+.c0 {
+  margin: 10px;
+  padding: 10px;
+  height: 200px;
+  width: 200px;
+}
+
+<div
+  class="c0"
+  height="200"
+  width="200"
+>
+  Scroll View
+</div>
+`;

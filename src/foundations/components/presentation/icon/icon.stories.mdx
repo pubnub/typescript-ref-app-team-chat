@@ -1,0 +1,88 @@
+import {
+  Meta,
+  Story,
+  Canvas,
+  ArgsTable,
+  IconGallery,
+  IconItem
+} from "@storybook/addon-docs/blocks";
+import { Icon, Icons } from "foundations/components/presentation";
+
+<Meta
+  title="Basic Presentation/Icon"
+  component={Icon}
+  argTypes={{
+    icon: { control: { type: "select", options: Icons } },
+    color: { control: { type: "color" } },
+    height: { control: { type: "range", min: 20, max: 220 } },
+    width: { control: { type: "range", min: 20, max: 220 } }
+  }}
+/>
+
+# Icon
+
+#### Used to display SVG files from a pre-prepared set.
+
+<br />
+<br />
+<br />
+
+## Interactive props
+
+export const Template = args => <Icon {...args} />;
+
+<Canvas>
+  <Story
+    name="Default"
+    args={{
+      icon: Icons.Add,
+      width: 32,
+      height: 32,
+      title: "Add Icon"
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="Default" />
+
+## Gallery
+
+Icons available in the current setup are as follows:
+
+<IconGallery>
+  <IconItem name="Add">
+    <Icon icon={Icons.Add} />
+  </IconItem>
+  <IconItem name="Back">
+    <Icon icon={Icons.Back} />
+  </IconItem>
+  <IconItem name="Cross">
+    <Icon icon={Icons.Cross} />
+  </IconItem>
+  <IconItem name="Emoji">
+    <Icon icon={Icons.Emoji} />
+  </IconItem>
+  <IconItem name="Giphy">
+    <Icon icon={Icons.Giphy} />
+  </IconItem>
+  <IconItem name="Leave">
+    <Icon icon={Icons.Leave} />
+  </IconItem>
+  <IconItem name="Logo">
+    <Icon icon={Icons.Logo} />
+  </IconItem>
+  <IconItem name="People">
+    <Icon icon={Icons.People} />
+  </IconItem>
+  <IconItem name="Presence">
+    <Icon icon={Icons.Presence} />
+  </IconItem>
+  <IconItem name="Search">
+    <Icon icon={Icons.Search} />
+  </IconItem>
+  <IconItem name="Send">
+    <Icon icon={Icons.Send} />
+  </IconItem>
+</IconGallery>

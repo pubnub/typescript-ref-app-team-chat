@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Heading big size matches the snapshot 1`] = `
+.c0 {
+  color: inherit;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+<h3
+  class="c0"
+>
+  Heading
+</h3>
+`;
+
+exports[`Heading default variant matches the snapshot 1`] = `
+.c0 {
+  color: inherit;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+<h3
+  class="c0"
+>
+  Heading
+</h3>
+`;
+
+exports[`Heading inverse variant matches the snapshot 1`] = `
+.c0 {
+  color: inherit;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  color: #FFFFFF;
+}
+
+<h3
+  class="c0"
+>
+  Heading
+</h3>
+`;

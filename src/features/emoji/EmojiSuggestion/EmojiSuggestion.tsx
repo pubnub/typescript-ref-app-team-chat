@@ -2,18 +2,20 @@ import "emoji-mart/css/emoji-mart.css";
 import React, { useRef, useContext } from "react";
 import useClickOutside from "foundations/hooks/useClickOutside";
 import { emojiIndex, EmojiData } from "emoji-mart";
-import {
-  Popup,
-  Suggestions,
-  Heading,
-  EmojiSearchTerm,
-  Results,
-  Result,
-  Emoji,
-  Colons
-} from "./EmojiSuggestion.style";
 import { ThemeContext } from "styled-components";
 import { useMediaQuery } from "foundations/hooks/useMediaQuery";
+import useHover from "foundations/hooks/useHover";
+import {
+  Label,
+  LabelSizes,
+  LabelVariants,
+  Button
+} from "foundations/components/presentation";
+import {
+  FlexColumn,
+  StyledBox,
+  ScrollView
+} from "foundations/components/layout";
 
 type EmojiInputProps = {
   value: string;
@@ -77,27 +79,60 @@ const EmojiSuggestion = ({ value, onSelection }: EmojiInputProps) => {
     displayed = false;
   });
 
+  const EmojiResult = ({ emoji }: { emoji: EmojiData }) => {
+    const [isHovering, hoverProps] = useHover({ mouseEnterDelayMS: 0 });
+
+    return (
+      <StyledBox {...hoverProps}>
+        <Button hoverBg={theme.colors.active} borderRadius="light">
+          <StyledBox
+            key={emoji.id}
+            onClick={() => replaceEmoji(emojiSearchTerm, emoji)}
+            px="2"
+            py={[1, 2]}
+          >
+            {"native" in emoji && emoji.native}
+            <Label
+              size={LabelSizes.SMALL}
+              variant={isHovering ? LabelVariants.INVERSE : LabelVariants.DARK}
+            >
+              {emoji.colons}
+            </Label>
+          </StyledBox>
+        </Button>
+      </StyledBox>
+    );
+  };
+
   return (
-    <Popup>
+    <StyledBox position="relative">
       {displayed && (
-        <Suggestions ref={suggestions}>
-          <Heading>
-            Suggestions for <EmojiSearchTerm>{emojiSearchTerm}</EmojiSearchTerm>
-          </Heading>
-          <Results>
-            {emojis.slice(0, isMedium ? 35 : 7).map(emoji => (
-              <Result
-                key={emoji.id}
-                onClick={() => replaceEmoji(emojiSearchTerm, emoji)}
-              >
-                <Emoji>{"native" in emoji && emoji.native}</Emoji>
-                <Colons>{emoji.colons}</Colons>
-              </Result>
-            ))}
-          </Results>
-        </Suggestions>
+        <StyledBox
+          ref={suggestions}
+          bg="backgrounds.panel"
+          position="absolute"
+          bottom="0"
+          border="light"
+          borderRadius="light"
+        >
+          <ScrollView maxHeight="4">
+            <StyledBox padding="1" borderBottom="light">
+              Suggestions for <b>{emojiSearchTerm}</b>
+            </StyledBox>
+            <FlexColumn
+              padding="1"
+              justifyContent="flex-start"
+              flexDirection={["row", "column"]}
+              flexWrap={["wrap", "nowrap"]}
+            >
+              {emojis.slice(0, isMedium ? 35 : 7).map(emoji => (
+                <EmojiResult emoji={emoji}></EmojiResult>
+              ))}
+            </FlexColumn>
+          </ScrollView>
+        </StyledBox>
       )}
-    </Popup>
+    </StyledBox>
   );
 };
 

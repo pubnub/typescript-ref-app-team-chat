@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Input default matches the snapshot 1`] = `
+.c0 {
+  border: 1px solid #9B9B9B;
+  border-radius: 5px;
+  color: #585858;
+  height: 42px;
+  padding: 14px;
+  width: 100%;
+}
+
+.c0[type="password"] {
+  font-size: 24px;
+  -webkit-letter-spacing: 8px;
+  -moz-letter-spacing: 8px;
+  -ms-letter-spacing: 8px;
+  letter-spacing: 8px;
+}
+
+.c0:focus {
+  outline: none;
+}
+
+<input
+  class="c0"
+/>
+`;

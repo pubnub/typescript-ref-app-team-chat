@@ -1,7 +1,6 @@
 import React from "react";
 import invariant from "invariant";
-import { LinkAttachmentDisplay } from "features/messages/LinkAttachmentDisplay";
-import { ImageAttachmentDisplay } from "features/messages/ImageAttachmentDisplay";
+import { LinkMessage, ImageMessage } from "foundations/components/chat";
 import { AttachmentType, Attachment } from "sharedTypes/messageModel";
 
 type AttachmentProps = {
@@ -14,15 +13,18 @@ type AttachmentProps = {
 export const AttachmentDisplay = ({ attachment }: AttachmentProps) => {
   switch (attachment.type) {
     case AttachmentType.Link:
-      return (
-        <LinkAttachmentDisplay attachment={attachment}></LinkAttachmentDisplay>
-      );
+      const props = {
+        provider: attachment.provider,
+        url: attachment.url,
+        title: attachment.title,
+        description: attachment.description,
+        image: attachment.image?.source,
+        icon: attachment.icon?.source,
+        author: attachment.author
+      };
+      return <LinkMessage {...props}></LinkMessage>;
     case AttachmentType.Image:
-      return (
-        <ImageAttachmentDisplay
-          attachment={attachment}
-        ></ImageAttachmentDisplay>
-      );
+      return <ImageMessage image={attachment.image.source}></ImageMessage>;
 
     // <== Add additional attachment types here.
 
