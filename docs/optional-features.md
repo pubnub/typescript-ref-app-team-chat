@@ -65,7 +65,7 @@ Link previews, message moderation, and the `/giphy` command are powered by PubNu
 
 > Note: To manage functions from the CLI, you have to sign in to your PubNub account. This is currently not possible if you created your account with SSO.
 
-1. Use the CLI to build and deploy the functions from source (in `server/src`).
+1. Use the CLI to build and deploy the functions from source (in `functions/src`).
 
     ```bash
     npm run deploy:functions
@@ -81,12 +81,12 @@ Link previews, message moderation, and the `/giphy` command are powered by PubNu
 
 1. Click **Create Function**, give it a name, set the event type to *Before Publish or Fire* and enter `*` for the channel pattern and click **Create**.
 
-1. Use the CLI to build the functions from source (in `server/src`).
+1. Use the CLI to build the functions from source (in `functions/src`).
 
     ```bash
     npm run build:functions
     ```
 
-1. After running the build command, a minified and compiled version of the function is available is `server/build/transformPublishedMessages.js`. Copy the contents of the file into the functions editor and click **Save**.
+1. After running the build command, a minified and compiled version of the function is available is `functions/build/transformPublishedMessages.js`. Copy the contents of the file into the functions editor and click **Save**.
 
 1. Click **Start Module** from the top right to deploy your function.
