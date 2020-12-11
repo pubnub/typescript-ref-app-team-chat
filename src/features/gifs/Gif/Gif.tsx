@@ -21,11 +21,12 @@ interface LoadedGif {
 
 // preload the image/video and choose the optimal format
 const load = async (source: ImageAllTypes): Promise<LoadedGif> => {
+  const defaultSource = source.mp4 ? source.mp4 : source.webp;
   let image = {
-    src: source.mp4,
+    src: defaultSource,
     format: GifFormat.Video
   };
-  if (source.webp_size < source.mp4_size && (await supportsWebp())) {
+  if (source.mp4 && source.webp_size < source.mp4_size && (await supportsWebp())) {
     image = {
       src: source.webp,
       format: GifFormat.Image
