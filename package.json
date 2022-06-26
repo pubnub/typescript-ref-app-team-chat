@@ -132,7 +132,7 @@
     "lint-staged": "^10.0.8",
     "log-symbols": "^4.0.0",
     "minimist": "^1.2.5",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.7",
     "prettier": "^2.0.5",
     "prompts": "^2.3.2",
     "react-scripts": "^3.4.1",
